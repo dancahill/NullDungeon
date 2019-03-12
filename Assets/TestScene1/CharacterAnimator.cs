@@ -3,32 +3,44 @@ using UnityEngine.AI;
 
 public class CharacterAnimator : MonoBehaviour
 {
+	Test1Manager m_Manager;
+	NavMeshAgent m_Agent;
+	Animator m_Animator;
 	const float locomotionAnimationSmoothTime = .1f;
-	NavMeshAgent agent;
-	Animator animator;
 
 	void Start()
 	{
-		agent = GetComponent<NavMeshAgent>();
-		animator = GetComponentInChildren<Animator>();
-		Test1Manager tm = Resources.FindObjectsOfTypeAll<Test1Manager>()[0];
-		agent.SetDestination(tm.end.transform.position);
+		m_Manager = Resources.FindObjectsOfTypeAll<Test1Manager>()[0];
+		m_Agent = GetComponent<NavMeshAgent>();
+		m_Animator = GetComponentInChildren<Animator>();
+		//agent.SetDestination(tm.end.transform.position);
 	}
 
 	void Update()
 	{
-		float speedPercent = agent.velocity.magnitude / agent.speed;
-		animator.SetFloat("SpeedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
+		float speedPercent = m_Agent.velocity.magnitude / m_Agent.speed;
+		m_Animator.SetFloat("SpeedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
+		GetInput();
+	}
+
+	void GetInput()
+	{
 		if (Input.GetMouseButtonDown(0))
 		{
 			Camera cam = Camera.main;
 			Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
-			LayerMask movementMask = LayerMask.GetMask("Environment");
+			LayerMask movementMask = LayerMask.GetMask("Ground");
 			if (Physics.Raycast(ray, out hit, movementMask))
 			{
-				agent.SetDestination(hit.point);
+				m_Agent.SetDestination(hit.point);
 			}
+		}
+		if (Input.GetKeyDown(KeyCode.Z))
+		{
+			//m_Manager.CameraZoom = m_Manager.CameraZoom == 0 ? 2 : 0;
+			//m_Manager.CameraZoom++;
+			if (++m_Manager.CameraZoom > 2) m_Manager.CameraZoom = 0;
 		}
 	}
 }
