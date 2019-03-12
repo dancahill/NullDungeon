@@ -4,9 +4,11 @@ using UnityEngine.AI;
 public class Test1Manager : MonoBehaviour
 {
 	public GameObject player;
+	public GameObject SelectedTarget = null;
 	public GameObject end;
 	public float CameraZoom = 0;
 	AudioSource m_Audio;
+	public PlayerAnimator PlayerAnimator;
 
 	void Awake()
 	{
@@ -16,6 +18,7 @@ public class Test1Manager : MonoBehaviour
 	void Start()
 	{
 		StartGameMusic();
+		PlayerAnimator = player.GetComponent<PlayerAnimator>();
 	}
 
 	void Update()
@@ -34,9 +37,13 @@ public class Test1Manager : MonoBehaviour
 	void StartGameMusic()
 	{
 		//https://downloads.khinsider.com/game-soundtracks/album/diablo-the-music-of-1996-2011-diablo-15-year-anniversary
-		AudioClip clip = (AudioClip)Resources.Load("Diablo/03 - Dungeon");
 		if (!m_Audio) m_Audio = gameObject.AddComponent<AudioSource>();
-		if (m_Audio) m_Audio.PlayOneShot(clip);
+		if (m_Audio)
+		{
+			AudioClip clip = (AudioClip)Resources.Load("Diablo/03 - Dungeon");
+			m_Audio.loop = true;
+			m_Audio.PlayOneShot(clip);
+		}
 	}
 
 	void RepositionCamera()

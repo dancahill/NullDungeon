@@ -61,9 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\TestModels\Knight\scripts\rotator.cs" />
-    <Compile Include="Assets\TestScene1\CharacterAnimator.cs" />
+    <Compile Include="Assets\TestScene1\Enemy.cs" />
     <Compile Include="Assets\TestScene1\EnemyAnimator.cs" />
     <Compile Include="Assets\TestScene1\Movement.cs" />
+    <Compile Include="Assets\TestScene1\PlayerAnimator.cs" />
     <Compile Include="Assets\TestScene1\SizeCheck.cs" />
     <Compile Include="Assets\TestScene1\Test1Manager.cs" />
     <None Include="Assets\TestModels\Knight\shaders\doublesidedshader.shader" />
