@@ -63,6 +63,7 @@
     <Compile Include="Assets\TestModels\Knight\scripts\rotator.cs" />
     <Compile Include="Assets\TestScene1\CharacterAnimator.cs" />
     <Compile Include="Assets\TestScene1\Movement.cs" />
+    <Compile Include="Assets\TestScene1\SizeCheck.cs" />
     <Compile Include="Assets\TestScene1\Test1Manager.cs" />
     <None Include="Assets\TestModels\Knight\shaders\doublesidedshader.shader" />
     <None Include="Assets\TestModels\Raw Mocap Data\Animations\_CompleteAnimationList.txt" />
