@@ -46,6 +46,11 @@ public class GameManager : MonoBehaviour
 	{
 		StartGameMusic();
 		PlayerAnimator = player.GetComponent<PlayerAnimator>();
+		if (SceneManager.GetActiveScene().name == "Town")
+		{
+			Light l = player.GetComponentInChildren<Light>();
+			l.enabled = false;
+		}
 	}
 
 	void LateUpdate()
