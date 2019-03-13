@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 		PlayerAnimator = player.GetComponent<PlayerAnimator>();
 	}
 
-	void Update()
+	void LateUpdate()
 	{
 		RepositionCamera();
 	}
