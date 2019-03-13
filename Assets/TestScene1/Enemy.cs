@@ -2,13 +2,14 @@
 
 public class Enemy : MonoBehaviour
 {
-	Test1Manager m_Manager;
+	GameManager m_Manager;
 	const float starthealth = 100;
 	float health;
 
 	void Start()
 	{
-		m_Manager = Resources.FindObjectsOfTypeAll<Test1Manager>()[0];
+		//m_Manager = Resources.FindObjectsOfTypeAll<Test1Manager>()[0];
+		m_Manager = GameManager.instance;
 		health = 100;
 	}
 

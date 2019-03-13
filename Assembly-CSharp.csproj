@@ -60,12 +60,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\StartPoint.cs" />
     <Compile Include="Assets\TestModels\Knight\scripts\rotator.cs" />
     <Compile Include="Assets\TestScene1\Enemy.cs" />
     <Compile Include="Assets\TestScene1\EnemyAnimator.cs" />
+    <Compile Include="Assets\TestScene1\GameManager.cs" />
     <Compile Include="Assets\TestScene1\PlayerAnimator.cs" />
     <Compile Include="Assets\TestScene1\SizeCheck.cs" />
-    <Compile Include="Assets\TestScene1\Test1Manager.cs" />
     <None Include="Assets\TestModels\Knight\shaders\doublesidedshader.shader" />
     <None Include="Assets\TestModels\Raw Mocap Data\Animations\_CompleteAnimationList.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">

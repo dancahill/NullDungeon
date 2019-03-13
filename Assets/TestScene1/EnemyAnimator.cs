@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class EnemyAnimator : MonoBehaviour
 {
-	Test1Manager m_Manager;
+	GameManager m_Manager;
 	NavMeshAgent m_Agent;
 	Animator m_Animator;
 
@@ -13,7 +13,8 @@ public class EnemyAnimator : MonoBehaviour
 
 	void Start()
 	{
-		m_Manager = Resources.FindObjectsOfTypeAll<Test1Manager>()[0];
+		//m_Manager = Resources.FindObjectsOfTypeAll<Test1Manager>()[0];
+		m_Manager = GameManager.instance;
 		m_Agent = GetComponent<NavMeshAgent>();
 		m_Animator = GetComponentInChildren<Animator>();
 

@@ -3,13 +3,14 @@ using UnityEngine.AI;
 
 public class PlayerAnimator : MonoBehaviour
 {
-	Test1Manager m_Manager;
+	GameManager m_Manager;
 	NavMeshAgent m_Agent;
 	Animator m_Animator;
 
 	void Start()
 	{
-		m_Manager = Resources.FindObjectsOfTypeAll<Test1Manager>()[0];
+		//m_Manager = Resources.FindObjectsOfTypeAll<Test1Manager>()[0];
+		m_Manager = GameManager.instance;
 		m_Agent = GetComponent<NavMeshAgent>();
 	}
 
@@ -79,7 +80,7 @@ public class PlayerAnimator : MonoBehaviour
 		}
 		if (Input.GetKeyDown(KeyCode.Z))
 		{
-			if (++m_Manager.CameraZoom > 2) m_Manager.CameraZoom = 0;
+			if (++m_Manager.Settings.CameraZoom > 2) m_Manager.Settings.CameraZoom = 0;
 		}
 	}
 

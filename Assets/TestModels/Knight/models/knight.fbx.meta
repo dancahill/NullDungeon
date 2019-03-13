@@ -813,7 +813,7 @@ ModelImporter:
     - name: L_arm
       parentName: L_shoulder
       position: {x: -3.7747585e-18, y: -2.4158454e-16, z: -0.12426201}
-      rotation: {x: 0.07270035, y: 0.012741235, z: -0.085949905, w: 0.99356174}
+      rotation: {x: 0.07270035, y: 0.012741236, z: -0.085949905, w: 0.9935618}
       scale: {x: 1, y: 1, z: 1}
     - name: L_elbow
       parentName: L_arm
@@ -853,12 +853,12 @@ ModelImporter:
     - name: L_pink2
       parentName: L_pink1
       position: {x: -1.6608937e-16, y: 2.4158454e-16, z: -0.035312124}
-      rotation: {x: -0.024074137, y: 0.014779963, z: 0.07669771, w: 0.9966542}
+      rotation: {x: -0.024074133, y: 0.014779963, z: 0.0766977, w: 0.9966542}
       scale: {x: 1, y: 1, z: 1}
     - name: L_pink3
       parentName: L_pink2
       position: {x: -2.4158454e-16, y: -1.2079227e-16, z: -0.026743066}
-      rotation: {x: -0.037454206, y: 0.0022897427, z: 0.00090823596, w: 0.9992954}
+      rotation: {x: -0.037454203, y: 0.0022897427, z: 0.00090823584, w: 0.9992954}
       scale: {x: 1, y: 1, z: 1}
     - name: Joint_3_2
       parentName: L_pink3
@@ -898,7 +898,7 @@ ModelImporter:
     - name: L_ring3
       parentName: L_ring2
       position: {x: -4.2277294e-16, y: -1.8118841e-16, z: -0.032088}
-      rotation: {x: -0.031822283, y: 0.012586529, z: 0.010220457, w: 0.999362}
+      rotation: {x: -0.031822287, y: 0.01258653, z: 0.010220458, w: 0.99936205}
       scale: {x: 1, y: 1, z: 1}
     - name: Joint_3_3
       parentName: L_ring3
@@ -1008,12 +1008,12 @@ ModelImporter:
     - name: R_point1
       parentName: R_wrist
       position: {x: -0.017754987, y: 0.058554836, z: -0.09968064}
-      rotation: {x: 0.19173639, y: 0.24803728, z: -0.08523358, w: 0.9457536}
+      rotation: {x: 0.1917364, y: 0.2480373, z: -0.085233584, w: 0.94575363}
       scale: {x: 1, y: 1, z: 1}
     - name: R_point2
       parentName: R_point1
       position: {x: -3.0198068e-17, y: 1.8118841e-16, z: -0.044922747}
-      rotation: {x: -0.030934073, y: -0.0013287513, z: -0.0027744838, w: 0.9995168}
+      rotation: {x: -0.03093407, y: -0.0013287513, z: -0.0027744835, w: 0.9995168}
       scale: {x: 1, y: 1, z: 1}
     - name: R_point3
       parentName: R_point2
@@ -1033,7 +1033,7 @@ ModelImporter:
     - name: R_ring2
       parentName: R_ring1
       position: {x: 6.0396136e-17, y: 3.0198068e-17, z: -0.04179247}
-      rotation: {x: -0.026771529, y: -0.010794008, z: 0.01244292, w: 0.99950594}
+      rotation: {x: -0.026771525, y: -0.010794008, z: 0.0124429185, w: 0.99950594}
       scale: {x: 1, y: 1, z: 1}
     - name: R_ring3
       parentName: R_ring2
@@ -1048,7 +1048,7 @@ ModelImporter:
     - name: R_thumb1
       parentName: R_wrist
       position: {x: -6.039614e-16, y: 1.8118841e-16, z: -0.04234837}
-      rotation: {x: 0.29316258, y: -0.18058115, z: 0.028988002, w: 0.938406}
+      rotation: {x: 0.29316258, y: -0.18058117, z: 0.028988002, w: 0.93840605}
       scale: {x: 1, y: 1, z: 1}
     - name: R_thumb2
       parentName: R_thumb1
