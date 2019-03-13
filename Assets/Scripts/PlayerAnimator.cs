@@ -48,6 +48,14 @@ public class PlayerAnimator : MonoBehaviour
 				MoveTo(m_Manager.SelectedTarget.transform.position);
 			}
 		}
+		// adding a rigidbody to player caused some really weird and broken
+		// movement, but we need it to trigger waypoints. this seems to fix it.
+		Rigidbody rb = GetComponent<Rigidbody>();
+		if (rb != null)
+		{
+			rb.velocity = Vector3.zero;
+			rb.angularVelocity = Vector3.zero;
+		}
 	}
 
 	void GetInput()
