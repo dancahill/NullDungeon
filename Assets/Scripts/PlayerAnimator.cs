@@ -41,7 +41,7 @@ public class PlayerAnimator : MonoBehaviour
 			}
 			else
 			{
-				Debug.Log("trying to follow " + m_Manager.SelectedTarget.name);
+				//Debug.Log("trying to follow " + m_Manager.SelectedTarget.name);
 				MoveTo(m_Manager.SelectedTarget.transform.position);
 			}
 		}
@@ -65,7 +65,7 @@ public class PlayerAnimator : MonoBehaviour
 			RaycastHit hit;
 			if (Physics.Raycast(ray, out hit, movementMask))
 			{
-				if (hit.transform.name == "Enemy")
+				if (hit.transform.name == "Skeleton" || hit.transform.name == "Zombie")
 				{
 					// this should already be handled by the enemy's event
 					// maybe this mouse code should be smarter about this

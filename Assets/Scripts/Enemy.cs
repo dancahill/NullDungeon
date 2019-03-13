@@ -23,12 +23,12 @@ public class Enemy : MonoBehaviour
 		health -= damage;
 		if (health <= 0)
 		{
-			Debug.Log("skelly died");
+			Debug.Log(name + " died");
 			gameObject.SetActive(false);
 		}
 		else
 		{
-			Debug.Log("skelly takes " + damage + " damage");
+			Debug.Log(name + " takes " + damage + " damage");
 		}
 	}
 }
