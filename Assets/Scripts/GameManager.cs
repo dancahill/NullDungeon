@@ -13,7 +13,9 @@ public class GameManager : MonoBehaviour
 	#region Singleton
 	public static GameSettings settingsinstance = new GameSettings();
 	public static GameManager instance;
+	static string m_StartScene = "";
 	#endregion
+
 	public GameSettings Settings;
 	public GameObject player;
 	AudioSource m_Audio;
@@ -24,6 +26,16 @@ public class GameManager : MonoBehaviour
 
 	void Awake()
 	{
+		if (m_StartScene == "")
+		{
+			if (SceneManager.GetActiveScene().name != "Town")
+			{
+				Debug.Log("you should start in town");
+				SceneManager.LoadScene("Town");
+				return;
+			}
+			m_StartScene = "Town";
+		}
 		instance = this;
 		Settings = settingsinstance;
 		player = GameObject.Find("Player");

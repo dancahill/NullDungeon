@@ -1,16 +1,21 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
 	GameManager m_Manager;
+	public NavMeshAgent m_Agent;
 	const float starthealth = 100;
 	float health;
 
 	void Start()
 	{
-		//m_Manager = Resources.FindObjectsOfTypeAll<Test1Manager>()[0];
+		m_Agent = gameObject.AddComponent<NavMeshAgent>();
+		m_Agent.speed = 2.0f;
+		if (name == "Zombie") m_Agent.speed = 1.5f;
+		m_Agent.angularSpeed = 500;
 		m_Manager = GameManager.instance;
-		health = 100;
+		health = starthealth;
 	}
 
 	private void OnMouseDown()
@@ -21,14 +26,10 @@ public class Enemy : MonoBehaviour
 	public void TakeDamage(float damage)
 	{
 		health -= damage;
+		Debug.Log(name + " takes " + damage + " damage");
 		if (health <= 0)
 		{
-			EnemyAnimator ea = GetComponent<EnemyAnimator>();
-			ea.Death();
-		}
-		else
-		{
-			Debug.Log(name + " takes " + damage + " damage");
+			GetComponent<EnemyAnimator>().Death();
 		}
 	}
 }

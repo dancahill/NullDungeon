@@ -37,16 +37,8 @@ public class EnemyAnimator : MonoBehaviour
 		}
 		if (m_Agent.remainingDistance < 0.5f)
 		{
-			if (movingtoend)
-			{
-				movingtoend = false;
-				m_Agent.SetDestination(start.transform.position);
-			}
-			else
-			{
-				movingtoend = true;
-				m_Agent.SetDestination(end.transform.position);
-			}
+			movingtoend = !movingtoend;
+			m_Agent.SetDestination(movingtoend ? end.transform.position : start.transform.position);
 		}
 	}
 
