@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\SizeCheck.cs" />
     <Compile Include="Assets\Scripts\WayPoint.cs" />
     <None Include="Assets\Imports\TestModels\Knight\shaders\doublesidedshader.shader" />
+    <None Include="Assets\Imports\Mega Fantasy Props Pack\README.txt" />
     <None Include="Assets\Imports\TestModels\Raw Mocap Data\Animations\_CompleteAnimationList.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/temp/Unity/NullMaze/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
