@@ -37,8 +37,8 @@ public class EnemyAnimator : MonoBehaviour
 		{
 			if (movingtoend)
 			{
-				///movingtoend = false;
-				//m_Agent.SetDestination(start.transform.position);
+				movingtoend = false;
+				m_Agent.SetDestination(start.transform.position);
 			}
 			else
 			{

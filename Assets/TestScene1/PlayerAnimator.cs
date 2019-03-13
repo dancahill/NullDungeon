@@ -11,8 +11,6 @@ public class PlayerAnimator : MonoBehaviour
 	{
 		m_Manager = Resources.FindObjectsOfTypeAll<Test1Manager>()[0];
 		m_Agent = GetComponent<NavMeshAgent>();
-		//m_Animator = GetComponentInChildren<Animator>();
-		//agent.SetDestination(tm.end.transform.position);
 	}
 
 	void Update()
@@ -34,10 +32,6 @@ public class PlayerAnimator : MonoBehaviour
 			if (distanceToEnemy < 1)
 			{
 				Debug.Log("close! attack?!?");
-				//m_Agent.isStopped = true;
-				//m_Animator.SetFloat("Attack Index", 1);
-				//m_Animator.SetFloat("Weapon Index", 1);
-				//m_Agent.ResetPath();
 				//m_Animator.SetTrigger("Attack");
 				m_Animator.Play("Attack");
 				Enemy e = m_Manager.SelectedTarget.gameObject.GetComponent<Enemy>();
@@ -91,7 +85,6 @@ public class PlayerAnimator : MonoBehaviour
 
 	void MoveTo(Vector3 point)
 	{
-		//m_Agent.isStopped = false;
 		m_Agent.SetDestination(point);
 	}
 
