@@ -23,8 +23,8 @@ public class Enemy : MonoBehaviour
 		health -= damage;
 		if (health <= 0)
 		{
-			Debug.Log(name + " died");
-			gameObject.SetActive(false);
+			EnemyAnimator ea = GetComponent<EnemyAnimator>();
+			ea.Death();
 		}
 		else
 		{

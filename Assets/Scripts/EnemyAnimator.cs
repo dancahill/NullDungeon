@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAnimator : MonoBehaviour
@@ -47,5 +48,19 @@ public class EnemyAnimator : MonoBehaviour
 				m_Agent.SetDestination(end.transform.position);
 			}
 		}
+	}
+
+	public void Death()
+	{
+		StartCoroutine(DoDeath());
+	}
+
+	IEnumerator DoDeath()
+	{
+		Debug.Log(name + " died");
+		m_Agent.speed = 0;
+		m_Animator.Play("Death");
+		yield return new WaitForSeconds(2);
+		Destroy(gameObject);
 	}
 }
