@@ -34,6 +34,12 @@ public class PlayerAnimator : MonoBehaviour
 			if (distanceToEnemy < 1)
 			{
 				Debug.Log("close! attack?!?");
+				//m_Agent.isStopped = true;
+				//m_Animator.SetFloat("Attack Index", 1);
+				//m_Animator.SetFloat("Weapon Index", 1);
+				m_Animator.SetTrigger("Attack");
+				Enemy e = m_Manager.SelectedTarget.gameObject.GetComponent<Enemy>();
+				e.TakeDamage(25);
 				m_Manager.SelectedTarget = null;
 			}
 			else
@@ -74,6 +80,7 @@ public class PlayerAnimator : MonoBehaviour
 
 	void MoveTo(Vector3 point)
 	{
+		//m_Agent.isStopped = false;
 		m_Agent.SetDestination(point);
 	}
 

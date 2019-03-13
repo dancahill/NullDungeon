@@ -35,11 +35,10 @@ public class EnemyAnimator : MonoBehaviour
 		}
 		if (m_Agent.remainingDistance < 0.5f)
 		{
-			//m_Animator.SetTrigger("Attack");
 			if (movingtoend)
 			{
-				movingtoend = false;
-				m_Agent.SetDestination(start.transform.position);
+				///movingtoend = false;
+				//m_Agent.SetDestination(start.transform.position);
 			}
 			else
 			{
