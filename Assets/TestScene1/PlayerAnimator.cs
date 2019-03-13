@@ -37,7 +37,9 @@ public class PlayerAnimator : MonoBehaviour
 				//m_Agent.isStopped = true;
 				//m_Animator.SetFloat("Attack Index", 1);
 				//m_Animator.SetFloat("Weapon Index", 1);
-				m_Animator.SetTrigger("Attack");
+				//m_Agent.ResetPath();
+				//m_Animator.SetTrigger("Attack");
+				m_Animator.Play("Attack");
 				Enemy e = m_Manager.SelectedTarget.gameObject.GetComponent<Enemy>();
 				e.TakeDamage(25);
 				m_Manager.SelectedTarget = null;
@@ -54,6 +56,15 @@ public class PlayerAnimator : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
+			if (Input.GetKey(KeyCode.LeftShift))
+			{
+				Debug.Log("m_Animator.SetTrigger(\"Attack\");");
+				//m_Animator.SetFloat("Attack Index", 1);
+				//m_Animator.SetFloat("Weapon Index", 1);
+				//m_Animator.SetTrigger("Attack");
+				m_Animator.Play("Attack");
+				return;
+			}
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			LayerMask movementMask = LayerMask.GetMask("Ground");
 			RaycastHit hit;
