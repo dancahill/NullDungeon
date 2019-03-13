@@ -60,15 +60,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\StartPoint.cs" />
-    <Compile Include="Assets\TestModels\Knight\scripts\rotator.cs" />
-    <Compile Include="Assets\TestScene1\Enemy.cs" />
-    <Compile Include="Assets\TestScene1\EnemyAnimator.cs" />
-    <Compile Include="Assets\TestScene1\GameManager.cs" />
-    <Compile Include="Assets\TestScene1\PlayerAnimator.cs" />
-    <Compile Include="Assets\TestScene1\SizeCheck.cs" />
-    <None Include="Assets\TestModels\Knight\shaders\doublesidedshader.shader" />
-    <None Include="Assets\TestModels\Raw Mocap Data\Animations\_CompleteAnimationList.txt" />
+    <Compile Include="Assets\Imports\TestModels\Knight\scripts\rotator.cs" />
+    <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\EnemyAnimator.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerAnimator.cs" />
+    <Compile Include="Assets\Scripts\SizeCheck.cs" />
+    <Compile Include="Assets\Scripts\WayPoint.cs" />
+    <None Include="Assets\Imports\TestModels\Knight\shaders\doublesidedshader.shader" />
+    <None Include="Assets\Imports\TestModels\Raw Mocap Data\Animations\_CompleteAnimationList.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/temp/Unity/NullMaze/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

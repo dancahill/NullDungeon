@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
 	#endregion
 	public GameSettings Settings;
 	public GameObject player;
-	//GameObject end;
 	AudioSource m_Audio;
 	[HideInInspector]
 	public GameObject SelectedTarget = null;
@@ -57,7 +56,9 @@ public class GameManager : MonoBehaviour
 		if (m_Audio)
 		{
 			string currentscene = SceneManager.GetActiveScene().name;
-			AudioClip clip = (AudioClip)Resources.Load(currentscene == "Town" ? "Diablo/02 - Tristram" : "Diablo/03 - Dungeon");
+			string songname = "Music/Diablo/" + (currentscene == "Town" ? "02 - Tristram" : "03 - Dungeon");
+			AudioClip clip = (AudioClip)Resources.Load(songname);
+			if (clip == null) Debug.Log("couldn't find music " + songname);
 			m_Audio.loop = true;
 			m_Audio.PlayOneShot(clip);
 		}

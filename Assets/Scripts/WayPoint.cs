@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StartPoint : MonoBehaviour
+public class WayPoint : MonoBehaviour
 {
 	private void OnCollisionEnter(Collision collision)
 	{
@@ -11,7 +11,7 @@ public class StartPoint : MonoBehaviour
 		{
 			if (currentscene == "Town")
 			{
-				//SceneManager.LoadScene("TestScene1");
+				//SceneManager.LoadScene("Dungeon1");
 			}
 			else
 			{
@@ -24,7 +24,7 @@ public class StartPoint : MonoBehaviour
 			if (currentscene == "Town")
 			{
 				Debug.Log("descending into madness");
-				SceneManager.LoadScene("TestScene1");
+				SceneManager.LoadScene("Dungeon1");
 			}
 			else
 			{
