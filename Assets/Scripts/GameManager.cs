@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameSettings
 {
 	public float CameraZoom;
+	public float CameraSkew;
 }
 
 public class GameManager : MonoBehaviour
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
 
 	public GameSettings Settings;
 	public GameObject player;
+	public GameCanvas Canvas;
 	[HideInInspector]
 	public GameObject SelectedTarget = null;
 	[HideInInspector]
@@ -77,7 +79,7 @@ public class GameManager : MonoBehaviour
 	void RepositionCamera()
 	{
 		Camera.main.transform.position = player.transform.position + new Vector3(4 - Settings.CameraZoom, 5 - Settings.CameraZoom, 4 - Settings.CameraZoom);
-		//Camera.main.transform.LookAt(player.transform.position + new Vector3(0, 0.5f, 0));
 		Camera.main.transform.LookAt(player.transform.position + new Vector3(0, 0.1f, 0));
+		if (Settings.CameraSkew != 0) Camera.main.transform.Translate(Vector3.right * Settings.CameraSkew * 3, Space.Self);
 	}
 }

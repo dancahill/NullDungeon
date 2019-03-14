@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class PlayerAnimator : MonoBehaviour
 {
@@ -62,29 +63,48 @@ public class PlayerAnimator : MonoBehaviour
 
 	void GetInput()
 	{
-		if (Input.GetKey(KeyCode.LeftShift))
+		if (EventSystem.current.IsPointerOverGameObject())
 		{
-			if (Input.GetMouseButtonDown(0))
-			{
-				SetDirection();
-				DoAttack();
-			}
+			//Debug.Log("Clicked on the UI");
 		}
 		else
 		{
-			if (Input.GetMouseButton(0))
+			if (Input.GetKey(KeyCode.LeftShift))
 			{
-				SetDestination();
+				if (Input.GetMouseButtonDown(0))
+				{
+					SetDirection();
+					DoAttack();
+				}
 			}
+			else
+			{
+				if (Input.GetMouseButton(0))
+				{
+					SetDestination();
+				}
+			}
+			float scroll = Input.GetAxis("Mouse ScrollWheel");
+			// fucking idiots. sign of zero should return zero, not one
+			if (scroll != 0) m_Manager.Settings.CameraZoom += Mathf.Sign(scroll);
+			m_Manager.Settings.CameraZoom = Mathf.Clamp(m_Manager.Settings.CameraZoom, 0, 2);
+		}
+		if (Input.GetKeyDown(KeyCode.C))
+		{
+			//GameCanvas gc = Resources.FindObjectsOfTypeAll<GameCanvas>()[0];
+			//gc.OpenCharacterPanel();
+			m_Manager.Canvas.OpenCharacterPanel();
+		}
+		if (Input.GetKeyDown(KeyCode.I))
+		{
+			//GameCanvas gc = Resources.FindObjectsOfTypeAll<GameCanvas>()[0];
+			//gc.OpenInventoryPanel();
+			m_Manager.Canvas.OpenInventoryPanel();
 		}
 		if (Input.GetKeyDown(KeyCode.Z))
 		{
 			if (++m_Manager.Settings.CameraZoom > 2) m_Manager.Settings.CameraZoom = 0;
 		}
-		float scroll = Input.GetAxis("Mouse ScrollWheel");
-		// fucking idiots. sign of zero should return zero, not one
-		if (scroll != 0) m_Manager.Settings.CameraZoom += Mathf.Sign(scroll);
-		m_Manager.Settings.CameraZoom = Mathf.Clamp(m_Manager.Settings.CameraZoom, 0, 2);
 	}
 
 	void MoveTo(Vector3 point)
