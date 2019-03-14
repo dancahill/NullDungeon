@@ -37,7 +37,7 @@ public class PlayerAnimator : MonoBehaviour
 				Debug.Log("close! attack?!?");
 				//transform.LookAt(m_Manager.SelectedTarget.transform);
 				//m_Animator.SetTrigger("Attack");
-				m_Animator.Play("Attack");
+				DoAttack();
 				Enemy e = m_Manager.SelectedTarget.gameObject.GetComponent<Enemy>();
 				e.TakeDamage(50);
 				m_Manager.SelectedTarget = null;
@@ -60,27 +60,20 @@ public class PlayerAnimator : MonoBehaviour
 
 	void GetInput()
 	{
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetKey(KeyCode.LeftShift))
 		{
-			if (Input.GetKey(KeyCode.LeftShift))
+			if (Input.GetMouseButtonDown(0))
 			{
-				Debug.Log("shift attack");
-				//m_Animator.SetTrigger("Attack");
-				m_Animator.Play("Attack");
-				return;
+				SetDirection();
+				DoAttack();
 			}
-			SetDestination();
 		}
-		else if (Input.GetMouseButton(0))
+		else
 		{
-			if (Input.GetKey(KeyCode.LeftShift))
+			if (Input.GetMouseButton(0))
 			{
-				Debug.Log("shift attack went to wrong check?");
-				//m_Animator.SetTrigger("Attack");
-				//m_Animator.Play("Attack");
-				return;
+				SetDestination();
 			}
-			SetDestination();
 		}
 		if (Input.GetKeyDown(KeyCode.Z))
 		{
@@ -88,19 +81,7 @@ public class PlayerAnimator : MonoBehaviour
 		}
 		float scroll = Input.GetAxis("Mouse ScrollWheel");
 		// fucking idiots. sign of zero should return zero, not one
-		//Debug.Log(string.Format("{0} {1}", scroll, Mathf.Sign(scroll)));
-		//float sign = Mathf.Sign(Input.GetAxis("Mouse ScrollWheel"));
-		//m_Manager.Settings.CameraZoom = Mathf.Clamp(m_Manager.Settings.CameraZoom + Mathf.Sign(Input.GetAxis("Mouse ScrollWheel")), 0, 2);
-		if (scroll > 0)
-		{
-			//if (++m_Manager.Settings.CameraZoom > 2) m_Manager.Settings.CameraZoom = 2;
-			m_Manager.Settings.CameraZoom++;
-		}
-		else if (scroll < 0)
-		{
-			//if (--m_Manager.Settings.CameraZoom < 0) m_Manager.Settings.CameraZoom = 0;
-			m_Manager.Settings.CameraZoom--;
-		}
+		if (scroll != 0) m_Manager.Settings.CameraZoom += Mathf.Sign(scroll);
 		m_Manager.Settings.CameraZoom = Mathf.Clamp(m_Manager.Settings.CameraZoom, 0, 2);
 	}
 
@@ -117,6 +98,24 @@ public class PlayerAnimator : MonoBehaviour
 		MoveTo(m_Manager.SelectedTarget.transform.position);
 	}
 
+	/// <summary>
+	/// doesn't move - just turns the player to face that direction
+	/// </summary>
+	void SetDirection()
+	{
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		LayerMask movementMask = LayerMask.GetMask("Ground");
+		RaycastHit hit;
+		if (Physics.Raycast(ray, out hit, movementMask))
+		{
+			// looks ugly turning this suddenly, but good enough for now
+			transform.LookAt(hit.point);
+		}
+	}
+
+	/// <summary>
+	/// try to move the player to this location
+	/// </summary>
 	void SetDestination()
 	{
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -135,5 +134,15 @@ public class PlayerAnimator : MonoBehaviour
 				MoveTo(hit.point);
 			}
 		}
+	}
+
+	/// <summary>
+	/// play the attack animation and sound
+	/// </summary>
+	void DoAttack()
+	{
+		// this should probably time these things. maybe use an animator
+		m_Animator.Play("Attack");
+		m_Manager.m_SoundManager.PlaySound("File00000063");//64 is an alternate
 	}
 }

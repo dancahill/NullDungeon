@@ -14,15 +14,17 @@ public class GameManager : MonoBehaviour
 	public static GameSettings settingsinstance = new GameSettings();
 	public static GameManager instance;
 	static string m_StartScene = "";
+	static bool m_NewInTown = true;
 	#endregion
 
 	public GameSettings Settings;
 	public GameObject player;
-	AudioSource m_Audio;
 	[HideInInspector]
 	public GameObject SelectedTarget = null;
 	[HideInInspector]
 	public PlayerAnimator PlayerAnimator;
+
+	public SoundManager m_SoundManager;
 
 	void Awake()
 	{
@@ -44,13 +46,19 @@ public class GameManager : MonoBehaviour
 
 	void Start()
 	{
-		StartGameMusic();
-		PlayerAnimator = player.GetComponent<PlayerAnimator>();
+		if (m_NewInTown)
+		{
+			m_NewInTown = false;
+			player.transform.position = new Vector3(37, 0, 12);
+		}
 		if (SceneManager.GetActiveScene().name == "Town")
 		{
 			Light l = player.GetComponentInChildren<Light>();
 			l.enabled = false;
 		}
+		PlayerAnimator = player.GetComponent<PlayerAnimator>();
+		m_SoundManager = gameObject.AddComponent<SoundManager>();
+		m_SoundManager.PlayMusic();
 	}
 
 	void LateUpdate()
@@ -64,21 +72,6 @@ public class GameManager : MonoBehaviour
 		NavMeshSurface nms = env.AddComponent<NavMeshSurface>();
 		nms.layerMask = 1 << LayerMask.NameToLayer("Ground");
 		nms.BuildNavMesh();
-	}
-
-	void StartGameMusic()
-	{
-		//https://downloads.khinsider.com/game-soundtracks/album/diablo-the-music-of-1996-2011-diablo-15-year-anniversary
-		if (!m_Audio) m_Audio = gameObject.AddComponent<AudioSource>();
-		if (m_Audio)
-		{
-			string currentscene = SceneManager.GetActiveScene().name;
-			string songname = "Music/Diablo/" + (currentscene == "Town" ? "02 - Tristram" : "03 - Dungeon");
-			AudioClip clip = (AudioClip)Resources.Load(songname);
-			if (clip == null) Debug.Log("couldn't find music " + songname);
-			m_Audio.loop = true;
-			m_Audio.PlayOneShot(clip);
-		}
 	}
 
 	void RepositionCamera()

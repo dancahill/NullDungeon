@@ -49,6 +49,14 @@ public class EnemyAnimator : MonoBehaviour
 
 	IEnumerator DoDeath()
 	{
+		if (name == "Skeleton")
+		{
+			m_Manager.m_SoundManager.PlaySound("File00001348");
+		}
+		else
+		{
+			m_Manager.m_SoundManager.PlaySound("File00001430");
+		}
 		Debug.Log(name + " died");
 		m_Agent.speed = 0;
 		m_Animator.Play("Death");
