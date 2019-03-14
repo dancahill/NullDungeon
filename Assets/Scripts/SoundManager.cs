@@ -3,6 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
+	public enum Sounds
+	{
+		PlayerAttack1,
+		PlayerAttack2,
+		SkeletonHit1,
+		SkeletonDie1,
+		ZombieHit1,
+		ZombieDie1,
+	};
 	AudioSource m_Audio;
 
 	private void Awake()
@@ -21,7 +30,23 @@ public class SoundManager : MonoBehaviour
 		m_Audio.PlayOneShot(clip);
 	}
 
-	public void PlaySound(string soundname)
+	public void PlaySound(Sounds sound)
+	{
+		string soundname = "";
+		switch (sound)
+		{
+			case Sounds.PlayerAttack1: soundname = "File00000063"; break;
+			case Sounds.PlayerAttack2: soundname = "File00000064"; break;
+			case Sounds.SkeletonHit1: soundname = "File00001346"; break;
+			case Sounds.SkeletonDie1: soundname = "File00001348"; break;
+			case Sounds.ZombieHit1: soundname = "File00001427"; break;
+			case Sounds.ZombieDie1: soundname = "File00001430"; break;
+			default: Debug.Log("missing sound " + sound); break;
+		}
+		PlaySound(soundname);
+	}
+
+	void PlaySound(string soundname)
 	{
 		AudioClip clip = (AudioClip)Resources.Load("Sounds/" + soundname);
 		if (clip != null) m_Audio.PlayOneShot(clip);

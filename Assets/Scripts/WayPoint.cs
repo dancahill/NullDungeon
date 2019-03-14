@@ -3,6 +3,16 @@ using UnityEngine.SceneManagement;
 
 public class WayPoint : MonoBehaviour
 {
+	private void OnMouseOver()
+	{
+		FindObjectOfType<GameCanvas>().SetInfo(name + " Waypoint");
+	}
+
+	private void OnMouseExit()
+	{
+		FindObjectOfType<GameCanvas>().SetInfo("");
+	}
+
 	private void OnCollisionEnter(Collision collision)
 	{
 		string currentscene = SceneManager.GetActiveScene().name;

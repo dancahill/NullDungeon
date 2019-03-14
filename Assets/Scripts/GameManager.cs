@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
 	void RepositionCamera()
 	{
 		Camera.main.transform.position = player.transform.position + new Vector3(4 - Settings.CameraZoom, 5 - Settings.CameraZoom, 4 - Settings.CameraZoom);
-		Camera.main.transform.LookAt(player.transform);
+		//Camera.main.transform.LookAt(player.transform.position + new Vector3(0, 0.5f, 0));
+		Camera.main.transform.LookAt(player.transform.position + new Vector3(0, 0.1f, 0));
 	}
 }

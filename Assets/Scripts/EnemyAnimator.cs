@@ -28,6 +28,7 @@ public class EnemyAnimator : MonoBehaviour
 
 	private void Update()
 	{
+		if (m_Agent == null || !m_Agent.enabled) return;
 		const float locomotionAnimationSmoothTime = .1f;
 		float speedPercent = m_Agent.velocity.magnitude / m_Agent.speed;
 
@@ -50,17 +51,17 @@ public class EnemyAnimator : MonoBehaviour
 	IEnumerator DoDeath()
 	{
 		if (name == "Skeleton")
-		{
-			m_Manager.m_SoundManager.PlaySound("File00001348");
-		}
+			m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.SkeletonDie1);
 		else
-		{
-			m_Manager.m_SoundManager.PlaySound("File00001430");
-		}
+			m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ZombieDie1);
 		Debug.Log(name + " died");
 		m_Agent.speed = 0;
 		m_Animator.Play("Death");
 		yield return new WaitForSeconds(2);
-		Destroy(gameObject);
+		//Destroy(gameObject);
+		// maybe we can leave it there for decoration
+		m_Agent.enabled = false;
+		CapsuleCollider cc = GetComponent<CapsuleCollider>();
+		cc.enabled = false;
 	}
 }

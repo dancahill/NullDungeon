@@ -34,12 +34,14 @@ public class PlayerAnimator : MonoBehaviour
 			float distanceToEnemy = Vector3.Distance(transform.position, m_Manager.SelectedTarget.transform.position);
 			if (distanceToEnemy < 1.1)
 			{
-				Debug.Log("close! attack?!?");
 				//transform.LookAt(m_Manager.SelectedTarget.transform);
-				//m_Animator.SetTrigger("Attack");
-				DoAttack();
 				Enemy e = m_Manager.SelectedTarget.gameObject.GetComponent<Enemy>();
-				e.TakeDamage(50);
+				if (e.IsAlive())
+				{
+					Debug.Log("close! attack?!?");
+					DoAttack();
+					e.TakeDamage(50);
+				}
 				m_Manager.SelectedTarget = null;
 			}
 			else
@@ -143,6 +145,6 @@ public class PlayerAnimator : MonoBehaviour
 	{
 		// this should probably time these things. maybe use an animator
 		m_Animator.Play("Attack");
-		m_Manager.m_SoundManager.PlaySound("File00000063");//64 is an alternate
+		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerAttack1);
 	}
 }
