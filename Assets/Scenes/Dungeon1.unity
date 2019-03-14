@@ -3118,6 +3118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Settings:
     CameraZoom: 0
+    CameraSkew: 0
   player: {fileID: 67729542}
   Canvas: {fileID: 7338860057744629525}
   SelectedTarget: {fileID: 0}

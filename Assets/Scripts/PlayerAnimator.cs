@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.EventSystems;
 
 public class PlayerAnimator : MonoBehaviour
 {
 	GameManager m_Manager;
+	Player player;
 	NavMeshAgent m_Agent;
 	Animator m_Animator;
 
 	void Start()
 	{
-		//m_Manager = Resources.FindObjectsOfTypeAll<Test1Manager>()[0];
 		m_Manager = GameManager.instance;
-		//m_Agent = GetComponent<NavMeshAgent>();
+		player = gameObject.GetComponentInParent<Player>();
+
 		m_Agent = gameObject.AddComponent<NavMeshAgent>();
 		m_Agent.speed = 3.0f;
 		m_Agent.angularSpeed = 500;
@@ -22,14 +22,8 @@ public class PlayerAnimator : MonoBehaviour
 	{
 		const float locomotionAnimationSmoothTime = .1f;
 		float speedPercent = m_Agent.velocity.magnitude / m_Agent.speed;
-
-		// bad code - lets us change avatars at runtime
 		m_Animator = GetComponentInChildren<Animator>();
-		if (m_Animator)
-		{
-			m_Animator.SetFloat("SpeedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
-		}
-		GetInput();
+		if (m_Animator) m_Animator.SetFloat("SpeedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
 		if (m_Manager.SelectedTarget != null)
 		{
 			float distanceToEnemy = Vector3.Distance(transform.position, m_Manager.SelectedTarget.transform.position);
@@ -47,7 +41,6 @@ public class PlayerAnimator : MonoBehaviour
 			}
 			else
 			{
-				//Debug.Log("trying to follow " + m_Manager.SelectedTarget.name);
 				MoveTo(m_Manager.SelectedTarget.transform.position);
 			}
 		}
@@ -58,52 +51,6 @@ public class PlayerAnimator : MonoBehaviour
 		{
 			rb.velocity = Vector3.zero;
 			rb.angularVelocity = Vector3.zero;
-		}
-	}
-
-	void GetInput()
-	{
-		if (EventSystem.current.IsPointerOverGameObject())
-		{
-			//Debug.Log("Clicked on the UI");
-		}
-		else
-		{
-			if (Input.GetKey(KeyCode.LeftShift))
-			{
-				if (Input.GetMouseButtonDown(0))
-				{
-					SetDirection();
-					DoAttack();
-				}
-			}
-			else
-			{
-				if (Input.GetMouseButton(0))
-				{
-					SetDestination();
-				}
-			}
-			float scroll = Input.GetAxis("Mouse ScrollWheel");
-			// fucking idiots. sign of zero should return zero, not one
-			if (scroll != 0) m_Manager.Settings.CameraZoom += Mathf.Sign(scroll);
-			m_Manager.Settings.CameraZoom = Mathf.Clamp(m_Manager.Settings.CameraZoom, 0, 2);
-		}
-		if (Input.GetKeyDown(KeyCode.C))
-		{
-			//GameCanvas gc = Resources.FindObjectsOfTypeAll<GameCanvas>()[0];
-			//gc.OpenCharacterPanel();
-			m_Manager.Canvas.OpenCharacterPanel();
-		}
-		if (Input.GetKeyDown(KeyCode.I))
-		{
-			//GameCanvas gc = Resources.FindObjectsOfTypeAll<GameCanvas>()[0];
-			//gc.OpenInventoryPanel();
-			m_Manager.Canvas.OpenInventoryPanel();
-		}
-		if (Input.GetKeyDown(KeyCode.Z))
-		{
-			if (++m_Manager.Settings.CameraZoom > 2) m_Manager.Settings.CameraZoom = 0;
 		}
 	}
 
@@ -123,7 +70,7 @@ public class PlayerAnimator : MonoBehaviour
 	/// <summary>
 	/// doesn't move - just turns the player to face that direction
 	/// </summary>
-	void SetDirection()
+	public void SetDirection()
 	{
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		LayerMask movementMask = LayerMask.GetMask("Ground");
@@ -138,7 +85,7 @@ public class PlayerAnimator : MonoBehaviour
 	/// <summary>
 	/// try to move the player to this location
 	/// </summary>
-	void SetDestination()
+	public void SetDestination()
 	{
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		LayerMask movementMask = LayerMask.GetMask("Ground");
@@ -158,10 +105,15 @@ public class PlayerAnimator : MonoBehaviour
 		}
 	}
 
+	public void Stop()
+	{
+		MoveTo(transform.position);
+	}
+
 	/// <summary>
 	/// play the attack animation and sound
 	/// </summary>
-	void DoAttack()
+	public void DoAttack()
 	{
 		// this should probably time these things. maybe use an animator
 		m_Animator.Play("Attack");

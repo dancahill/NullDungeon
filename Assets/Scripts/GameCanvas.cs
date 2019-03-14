@@ -21,16 +21,15 @@ public class GameCanvas : MonoBehaviour
 		t.text = message;
 	}
 
+	public void OpenMenu()
+	{
+		SetInfo("Quitting");
+		Application.Quit();
+	}
+
 	public void OpenCharacterPanel()
 	{
 		CharacterPanel.SetActive(!CharacterPanel.activeSelf);
-		//RectTransform rta = gameObject.GetComponent<RectTransform>();
-		//RectTransform rtc = CharacterPanel.GetComponent<RectTransform>();
-		//RectTransform rtb = BottomPanel.GetComponent<RectTransform>();
-		//Debug.Log(string.Format("game {0},{1} {2},{3}", Screen.width, Screen.height, rta.rect.width, rta.rect.height));
-		//Debug.Log(string.Format("char {0},{1} {2},{3}", Screen.width, Screen.height, rtc.rect.width, rtc.rect.height));
-		//Debug.Log(string.Format("bott {0},{1} {2},{3}", Screen.width, Screen.height, rtb.rect.width, rtb.rect.height));
-		//rtc.sizeDelta = new Vector2(rtc.rect.height, rta.rect.height - rtb.rect.height);
 		AdjustCameraSkew();
 	}
 
