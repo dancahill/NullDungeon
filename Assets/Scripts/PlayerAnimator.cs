@@ -128,7 +128,8 @@ public class PlayerAnimator : MonoBehaviour
 			//if (hit.transform.name.StartsWith("Floor"))
 			//if (hit.transform.gameObject.layer == movementMask)
 			//if ((movementMask & 1 << hit.transform.gameObject.layer) == 1 << hit.transform.gameObject.layer)
-			if (hitname.StartsWith("Floor") || hitname.StartsWith("Stairs") || hitname == "Plane" || hitname == "Start" || hitname == "End")
+			// this is ugly - find a better solution
+			if (hitname.StartsWith("Floor") || hitname.StartsWith("Stairs") || hitname == "Plane" || hitname == "Terrain" || hitname == "Start" || hitname == "End")
 			{
 				m_Manager.SelectedTarget = null;
 				MoveTo(hit.point);
