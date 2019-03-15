@@ -29,13 +29,35 @@ public class GameCanvas : MonoBehaviour
 		Application.Quit();
 	}
 
-	public void OpenCharacterPanel()
+	public bool IsCharacterPanelOpen()
+	{
+		return CharacterPanel.activeSelf;
+	}
+
+	public void OpenCharacterPanel(bool state)
+	{
+		CharacterPanel.SetActive(state);
+		AdjustCameraSkew();
+	}
+
+	public void ToggleCharacterPanel()
 	{
 		CharacterPanel.SetActive(!CharacterPanel.activeSelf);
 		AdjustCameraSkew();
 	}
 
-	public void OpenInventoryPanel()
+	public bool IsInventoryPanelOpen()
+	{
+		return InventoryPanel.activeSelf;
+	}
+
+	public void OpenInventoryPanel(bool state)
+	{
+		InventoryPanel.SetActive(state);
+		AdjustCameraSkew();
+	}
+
+	public void ToggleInventoryPanel()
 	{
 		InventoryPanel.SetActive(!InventoryPanel.activeSelf);
 		AdjustCameraSkew();

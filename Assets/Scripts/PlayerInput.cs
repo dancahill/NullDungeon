@@ -53,11 +53,16 @@ public class PlayerInput : MonoBehaviour
 		}
 		if (Input.GetKeyDown(KeyCode.C))
 		{
-			m_Manager.Canvas.OpenCharacterPanel();
+			m_Manager.Canvas.OpenCharacterPanel(!m_Manager.Canvas.IsCharacterPanelOpen());
 		}
 		if (Input.GetKeyDown(KeyCode.I))
 		{
-			m_Manager.Canvas.OpenInventoryPanel();
+			m_Manager.Canvas.OpenInventoryPanel(!m_Manager.Canvas.IsInventoryPanelOpen());
+		}
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			m_Manager.Canvas.OpenCharacterPanel(false);
+			m_Manager.Canvas.OpenInventoryPanel(false);
 		}
 		if (Input.GetKeyDown(KeyCode.Z))
 		{
