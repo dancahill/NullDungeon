@@ -16,8 +16,8 @@ public class EnemyAnimator : MonoBehaviour
 		m_Manager = GameManager.instance;
 		m_Animator = GetComponentInChildren<Animator>();
 
-		start = transform.position;
-		end = GameObject.Find("End").transform.position;
+		start = transform.Find("Waypoints/Start").position;
+		end = transform.Find("Waypoints/End").position;
 		movingtoend = true;
 
 		m_Agent = gameObject.AddComponent<NavMeshAgent>();
