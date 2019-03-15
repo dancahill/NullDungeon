@@ -35,7 +35,13 @@ public class PlayerAnimator : MonoBehaviour
 				{
 					Debug.Log("close! attack?!?");
 					DoAttack();
-					e.TakeDamage(50);
+					int damage;
+					if (player.Stats.CalculateDamage(e.Stats, out damage))
+					{
+						e.TakeDamage(damage);
+					} else {
+						Debug.Log("missed");
+					}
 				}
 				m_Manager.SelectedTarget = null;
 			}

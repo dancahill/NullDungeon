@@ -1,30 +1,27 @@
 ﻿using UnityEngine;
-using UnityEngine.AI;
 
 [RequireComponent(typeof(EnemyAnimator))]
 public class Enemy : MonoBehaviour
 {
+	public CharacterStats Stats;
 	GameManager m_Manager;
-	//public NavMeshAgent m_Agent;
-	const float starthealth = 100;
-	float health;
 
 	void Start()
 	{
+		Stats = new CharacterStats(CharacterStats.CharacterClass.NPC);
 		m_Manager = GameManager.instance;
-		health = starthealth;
 	}
 
 	private void OnMouseOver()
 	{
 		string s;
-		if (health <= 0)
+		if (Stats.Life <= 0)
 		{
 			s = string.Format("Dead {0}", name);
 		}
 		else
 		{
-			s = string.Format("{0}\nHealth={1}/{2}", name, health, starthealth);
+			s = string.Format("{0}\nHealth={1}/{2}", name, Stats.Life, Stats.MaxLife);
 		}
 		FindObjectOfType<GameCanvas>().SetInfo(s);
 	}
@@ -41,21 +38,23 @@ public class Enemy : MonoBehaviour
 
 	public bool IsAlive()
 	{
-		return (health > 0);
+		return (Stats.Life > 0);
 	}
 
-	public void TakeDamage(float damage)
+	public void TakeDamage(int damage)
 	{
-		if (health <= 0)
+		if (Stats.Life <= 0)
 		{
 			Debug.Log(name + " is dead, jim");
 			return;
 		}
-		health -= damage;
+		Stats.Life -= damage;
 		Debug.Log(name + " takes " + damage + " damage");
-		if (health <= 0)
+		if (Stats.Life <= 0)
 		{
+			Stats.Life = 0;
 			GetComponent<EnemyAnimator>().Death();
+			m_Manager.player.GetComponent<Player>().Stats.Experience += Stats.GivesExperience;
 		}
 		else
 		{
