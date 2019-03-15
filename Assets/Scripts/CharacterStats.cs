@@ -20,7 +20,8 @@ public class CharacterStats
 	public int Experience;
 
 	[Header("Calculated Stats")]
-	public int MaxLife;
+	public int BaseLife;
+	public int BaseMana;
 	public int ArmorClass;
 	public int ToHitPercent;
 	public int Damage;
@@ -50,8 +51,9 @@ public class CharacterStats
 		Vitality = 10;
 		Level = 1;
 		Experience = 0;
-		MaxLife = 100;
-		Life = MaxLife;
+		BaseLife = 100;
+		BaseMana = 1;
+		Life = BaseLife;
 		Recalculate();
 		Debug.Log("creating " + _class + " character");
 		switch (_class)
@@ -81,6 +83,11 @@ public class CharacterStats
 	{
 		if (Time.time < AttackCooldown) return false;
 		return true;
+	}
+
+	public int NextLevel()
+	{
+		return 2000;
 	}
 
 	/// <summary>

@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
 		}
 		else
 		{
-			s = string.Format("{0}\nHealth={1}/{2}", name, Stats.Life, Stats.MaxLife);
+			s = string.Format("{0}\nHealth={1}/{2}", name, Stats.Life, Stats.BaseLife);
 		}
 		FindObjectOfType<GameCanvas>().SetInfo(s);
 	}
