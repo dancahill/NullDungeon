@@ -31,19 +31,28 @@ public class PlayerAnimator : MonoBehaviour
 			{
 				//transform.LookAt(m_Manager.SelectedTarget.transform);
 				Enemy e = m_Manager.SelectedTarget.gameObject.GetComponent<Enemy>();
+				m_Manager.SelectedTarget = null;
 				if (e.IsAlive())
 				{
-					Debug.Log("close! attack?!?");
-					DoAttack();
-					int damage;
-					if (player.Stats.CalculateDamage(e.Stats, out damage))
+					//Debug.Log("close! attack?!?");
+					if (player.Stats.CanAttack())
 					{
-						e.TakeDamage(damage);
-					} else {
-						Debug.Log("missed");
+						DoAttack();
+						int damage;
+						if (player.Stats.CalculateDamage(e.Stats, 0.5f, out damage))
+						{
+							e.TakeDamage(damage);
+						}
+						else
+						{
+							Debug.Log("missed");
+						}
+					}
+					else
+					{
+						Debug.Log("cooling down");
 					}
 				}
-				m_Manager.SelectedTarget = null;
 			}
 			else
 			{
@@ -69,7 +78,7 @@ public class PlayerAnimator : MonoBehaviour
 	{
 		m_Manager.SelectedTarget = target;
 		float distanceToEnemy = Vector3.Distance(m_Manager.SelectedTarget.transform.position, m_Manager.player.transform.position);
-		Debug.Log("clicked on '" + target.name + "' distance = " + distanceToEnemy.ToString("0.0"));
+		//Debug.Log("clicked on '" + target.name + "' distance = " + distanceToEnemy.ToString("0.0"));
 		MoveTo(m_Manager.SelectedTarget.transform.position);
 	}
 

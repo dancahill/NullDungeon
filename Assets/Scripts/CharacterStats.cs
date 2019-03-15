@@ -28,6 +28,8 @@ public class CharacterStats
 	public int Life;
 	[Header("NPC Values")]
 	public int GivesExperience;
+	[Header("...")]
+	public float AttackCooldown;
 
 	public CharacterStats(string _class)
 	{
@@ -75,16 +77,36 @@ public class CharacterStats
 		Damage = Strength;
 	}
 
+	public bool CanAttack()
+	{
+		if (Time.time < AttackCooldown) return false;
+		return true;
+	}
+
 	/// <summary>
 	/// full comparison and calculation of attacker and defender stats
 	/// </summary>
 	/// <param name="defender">defender's character stats</param>
 	/// <param name="damage">actual damage done to defender</param>
 	/// <returns>true if hit</returns>
-	public bool CalculateDamage(CharacterStats defender, out int damage)
+	public bool CalculateDamage(CharacterStats defender, float cooldown, out int damage)
 	{
 		Recalculate();
 		bool hit;
+
+		if (Time.time < AttackCooldown)
+		{
+			hit = false;
+			damage = 0;
+			return hit;
+		}
+		AttackCooldown = Time.time + cooldown;
+		if (defender == null)
+		{
+			hit = false;
+			damage = 0;
+			return hit;
+		}
 		// calculate whether there was a hit;
 		// just make some chance to miss for testing
 		int r = Random.Range(1, 100);

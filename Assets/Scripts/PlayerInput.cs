@@ -29,9 +29,14 @@ public class PlayerInput : MonoBehaviour
 			{
 				if (Input.GetMouseButtonDown(0))
 				{
-					player.Animator.Stop();
-					player.Animator.SetDirection();
-					player.Animator.DoAttack();
+					if (player.Stats.CanAttack())
+					{
+						player.Animator.Stop();
+						player.Animator.SetDirection();
+						player.Animator.DoAttack();
+						int damage;
+						player.Stats.CalculateDamage(null, 0.5f, out damage);
+					}
 				}
 			}
 			else

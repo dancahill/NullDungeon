@@ -11,8 +11,10 @@ public class GameCanvas : MonoBehaviour
 	private void Start()
 	{
 		m_Manager = GameManager.instance;
+		CharacterPanel.SetActive(false);
+		InventoryPanel.SetActive(false);
+		BottomPanel.SetActive(true);
 	}
-
 
 	public void SetInfo(string message)
 	{
