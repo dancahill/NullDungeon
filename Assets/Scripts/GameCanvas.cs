@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameCanvas : MonoBehaviour
@@ -11,6 +12,7 @@ public class GameCanvas : MonoBehaviour
 	private void Start()
 	{
 		m_Manager = GameManager.instance;
+		m_Manager.Settings.CameraSkew = 0;
 		CharacterPanel.SetActive(false);
 		InventoryPanel.SetActive(false);
 		BottomPanel.SetActive(true);
@@ -20,13 +22,14 @@ public class GameCanvas : MonoBehaviour
 	{
 		GameObject info = GameObject.Find("InfoBox");
 		Text t = info.GetComponent<Text>();
-		t.text = message;
+		t.text = message.ToUpper();
 	}
 
 	public void OpenMenu()
 	{
-		SetInfo("Quitting");
-		Application.Quit();
+		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ClickHeavy);
+		GameSave.SaveGame();
+		SceneManager.LoadScene("MainMenu");
 	}
 
 	public bool IsCharacterPanelOpen()
@@ -42,6 +45,7 @@ public class GameCanvas : MonoBehaviour
 
 	public void ToggleCharacterPanel()
 	{
+		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.Click);
 		CharacterPanel.SetActive(!CharacterPanel.activeSelf);
 		AdjustCameraSkew();
 	}
@@ -59,6 +63,7 @@ public class GameCanvas : MonoBehaviour
 
 	public void ToggleInventoryPanel()
 	{
+		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.Click);
 		InventoryPanel.SetActive(!InventoryPanel.activeSelf);
 		AdjustCameraSkew();
 	}

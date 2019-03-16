@@ -22,6 +22,13 @@ public class GameSave
 		p.Stats.ResetTimers();
 	}
 
+	public static void SaveGame(CharacterStats stats)
+	{
+		string filepath = Application.persistentDataPath + "/character.json";
+		Debug.Log("writing " + filepath);
+		File.WriteAllText(filepath, JsonUtility.ToJson(stats, true));
+	}
+
 	public static void SaveGame()
 	{
 		string filepath = Application.persistentDataPath + "/character.json";

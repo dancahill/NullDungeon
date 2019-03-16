@@ -9,9 +9,9 @@ public class CharacterStats
 		Warrior,
 		Rogue,
 		Sorceror,
-		Peon,
 	}
 	[Header("Character Class")]
+	public string Name;
 	public CharacterClass Class;
 	[Header("Base Stats")]
 	public int Strength;
@@ -21,19 +21,20 @@ public class CharacterStats
 	[Header("Level/Experience")]
 	public int Level;
 	public int Experience;
-
 	[Header("Calculated Stats")]
 	public int BaseLife;
 	public int BaseMana;
-	public int ArmorClass;
+	public int ArmourClass;
 	public int ToHitPercent;
 	public int Damage;
 	[Header("Life")]
 	public int Life;
 	[Header("NPC Values")]
 	public int GivesExperience;
-	[Header("...")]
-	public float AttackCooldown;
+	[Header("Inventory")]
+	public CharacterItem[] Inventory;
+	//[Header("...")]
+	[System.NonSerialized] public float AttackCooldown;
 
 	public CharacterStats(string _class)
 	{
@@ -48,6 +49,7 @@ public class CharacterStats
 
 	void SetStats(CharacterClass _class)
 	{
+		Name = "Player";
 		Class = _class;
 		Strength = 10;
 		Dexterity = 20;
@@ -62,8 +64,9 @@ public class CharacterStats
 		switch (_class)
 		{
 			case CharacterClass.NPC:
+				Name = "NPC";
 				GivesExperience = 100;
-				break;
+				return;
 			case CharacterClass.Warrior:
 				Strength = 30;
 				Magic = 10;
@@ -82,10 +85,11 @@ public class CharacterStats
 				Dexterity = 15;
 				Vitality = 20;
 				break;
-			case CharacterClass.Peon:
-				break;
 			default: break;
 		}
+		Inventory = new CharacterItem[4];
+		Inventory[0] = new CharacterItem { Name = "Rubber Chicken", Damage = 5 };
+		Inventory[1] = new CharacterItem { Name = "Diaper", Armour = 5 };
 	}
 
 	public void ResetTimers()
@@ -93,10 +97,10 @@ public class CharacterStats
 		AttackCooldown = Time.time;
 	}
 
-	void Recalculate()
+	public void Recalculate()
 	{
 		//Life = Vitality * 2;
-		ArmorClass = Dexterity;
+		ArmourClass = Dexterity;
 		ToHitPercent = Dexterity * 2;
 		Damage = Strength;
 	}
@@ -107,9 +111,20 @@ public class CharacterStats
 		return true;
 	}
 
+	public void AddExperience(int experience)
+	{
+		Experience += experience;
+		if (Experience >= NextLevel())
+		{
+			Level++;
+			Debug.Log("character leveled up - something interesting should happen");
+		}
+	}
+
 	public int NextLevel()
 	{
-		return 2000;
+		if (Level >= CharacterTables.Levels.Length) return int.MaxValue;
+		return CharacterTables.Levels[Level].Experience;
 	}
 
 	/// <summary>

@@ -4,6 +4,10 @@ using UnityEngine.UI;
 public class CharacterPanel : MonoBehaviour
 {
 	GameManager Manager;
+
+	Text NameText;
+	Text ClassText;
+
 	Text LevelText;
 	Text ExperienceText;
 	Text NextLevelText;
@@ -24,6 +28,10 @@ public class CharacterPanel : MonoBehaviour
 			return transform.Find(p).GetComponent<Text>();
 		}
 		Manager = GameManager.instance;
+
+		NameText = findtext("Name");
+		ClassText = findtext("Class");
+
 		LevelText = findtext("Level");
 		ExperienceText = findtext("Experience");
 		NextLevelText = findtext("NextLevel");
@@ -40,6 +48,11 @@ public class CharacterPanel : MonoBehaviour
 	void Update()
 	{
 		CharacterStats stats = Manager.player.GetComponent<Player>().Stats;
+		stats.Recalculate();
+
+		NameText.text = stats.Name.ToString();
+		ClassText.text = stats.Class.ToString();
+
 		LevelText.text = stats.Level.ToString();
 		ExperienceText.text = stats.Experience.ToString();
 		NextLevelText.text = stats.NextLevel().ToString();

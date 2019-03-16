@@ -60,7 +60,7 @@ public class PlayerInput : MonoBehaviour
 			}
 			if (Input.GetKeyDown(KeyCode.S))
 			{
-				GameManager.instance.Settings.Playsound = !GameManager.instance.Settings.Playsound;
+				GameManager.instance.Settings.PlaySound = !GameManager.instance.Settings.PlaySound;
 				GameSave.SaveSettings();
 			}
 		}

@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class GameSettings
 {
-	public float CameraZoom;
-	public float CameraSkew;
+	[System.NonSerialized] public float CameraSkew = 0;
+	public float CameraZoom = 0;
 	public bool PlayMusic = true;
-	public bool Playsound = true;
+	public bool PlaySound = true;
 }
 
 public class GameManager : MonoBehaviour
@@ -23,11 +23,8 @@ public class GameManager : MonoBehaviour
 	public GameSettings Settings;
 	public GameObject player;
 	public GameCanvas Canvas;
-	[HideInInspector]
-	public GameObject SelectedTarget = null;
-	[HideInInspector]
-	public PlayerAnimator PlayerAnimator;
-
+	[HideInInspector] public GameObject SelectedTarget = null;
+	[HideInInspector] public PlayerAnimator PlayerAnimator;
 	public SoundManager m_SoundManager;
 
 	void Awake()
@@ -36,33 +33,37 @@ public class GameManager : MonoBehaviour
 		Settings = settingsinstance;
 		if (m_StartScene == "")
 		{
-			GameSave.LoadSettings();
-			if (SceneManager.GetActiveScene().name != "Town")
+			if (SceneManager.GetActiveScene().name != "MainMenu")
 			{
 				//Debug.Log("you should start in town");
-				SceneManager.LoadScene("Town");
+				SceneManager.LoadScene("MainMenu");
 				return;
 			}
-			m_StartScene = "Town";
+			m_StartScene = "MainMenu";
 		}
+		GameSave.LoadSettings();
 		player = GameObject.Find("Player");
 		RebuildNavMesh();
 	}
 
 	void Start()
 	{
-		if (m_NewInTown)
+		string scene = SceneManager.GetActiveScene().name;
+		if (scene != "MainMenu")
 		{
-			m_NewInTown = false;
-			player.transform.position = new Vector3(37, 0, 12);
+			if (m_NewInTown)
+			{
+				m_NewInTown = false;
+				player.transform.position = new Vector3(37, 0, 12);
+			}
+			GameSave.LoadGame();
+			if (SceneManager.GetActiveScene().name == "Town")
+			{
+				Light l = player.GetComponentInChildren<Light>();
+				l.enabled = false;
+			}
+			PlayerAnimator = player.GetComponent<PlayerAnimator>();
 		}
-		GameSave.LoadGame();
-		if (SceneManager.GetActiveScene().name == "Town")
-		{
-			Light l = player.GetComponentInChildren<Light>();
-			l.enabled = false;
-		}
-		PlayerAnimator = player.GetComponent<PlayerAnimator>();
 		m_SoundManager = gameObject.AddComponent<SoundManager>();
 		m_SoundManager.PlayMusic();
 	}
@@ -75,15 +76,22 @@ public class GameManager : MonoBehaviour
 	void RebuildNavMesh()
 	{
 		GameObject env = GameObject.Find("Environment");
-		NavMeshSurface nms = env.AddComponent<NavMeshSurface>();
-		nms.layerMask = 1 << LayerMask.NameToLayer("Ground");
-		nms.BuildNavMesh();
+		if (env != null)
+		{
+			NavMeshSurface nms = env.AddComponent<NavMeshSurface>();
+			nms.layerMask = 1 << LayerMask.NameToLayer("Ground");
+			nms.BuildNavMesh();
+		}
 	}
 
 	void RepositionCamera()
 	{
-		Camera.main.transform.position = player.transform.position + new Vector3(4 - Settings.CameraZoom, 5 - Settings.CameraZoom, 4 - Settings.CameraZoom);
-		Camera.main.transform.LookAt(player.transform.position + new Vector3(0, 0.1f, 0));
-		if (Settings.CameraSkew != 0) Camera.main.transform.Translate(Vector3.right * Settings.CameraSkew * 3, Space.Self);
+		string scene = SceneManager.GetActiveScene().name;
+		if (scene != "MainMenu")
+		{
+			Camera.main.transform.position = player.transform.position + new Vector3(4 - Settings.CameraZoom, 5 - Settings.CameraZoom, 4 - Settings.CameraZoom);
+			Camera.main.transform.LookAt(player.transform.position + new Vector3(0, 0.1f, 0));
+			if (Settings.CameraSkew != 0) Camera.main.transform.Translate(Vector3.right * Settings.CameraSkew * 3, Space.Self);
+		}
 	}
 }

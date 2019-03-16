@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
 		{
 			Stats.Life = 0;
 			GetComponent<EnemyAnimator>().Death();
-			m_Manager.player.GetComponent<Player>().Stats.Experience += Stats.GivesExperience;
+			m_Manager.player.GetComponent<Player>().Stats.AddExperience(Stats.GivesExperience);
 		}
 		else
 		{

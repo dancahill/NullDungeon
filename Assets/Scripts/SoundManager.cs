@@ -5,6 +5,8 @@ public class SoundManager : MonoBehaviour
 {
 	public enum Sounds
 	{
+		Click,
+		ClickHeavy,
 		PlayerAttack1,
 		PlayerAttack2,
 		SkeletonHit1,
@@ -12,13 +14,13 @@ public class SoundManager : MonoBehaviour
 		ZombieHit1,
 		ZombieDie1,
 	};
-	AudioSource m_SoundSource;
 	AudioSource m_MusicSource;
+	AudioSource m_SoundSource;
 
 	private void Awake()
 	{
-		m_SoundSource = gameObject.AddComponent<AudioSource>();
 		m_MusicSource = gameObject.AddComponent<AudioSource>();
+		m_SoundSource = gameObject.AddComponent<AudioSource>();
 	}
 
 	private void Update()
@@ -41,19 +43,27 @@ public class SoundManager : MonoBehaviour
 		if (!GameManager.instance.Settings.PlayMusic) return;
 		//https://downloads.khinsider.com/game-soundtracks/album/diablo-the-music-of-1996-2011-diablo-15-year-anniversary
 		string currentscene = SceneManager.GetActiveScene().name;
-		string songname = "Music/Diablo/" + (currentscene == "Town" ? "02 - Tristram" : "03 - Dungeon");
-		AudioClip clip = (AudioClip)Resources.Load(songname);
-		if (clip == null) Debug.Log("couldn't find music " + songname);
+		string songname = "Music/Diablo/";
+		switch (currentscene)
+		{
+			case "MainMenu": songname += "01 - Diablo Intro"; break;
+			case "Town": songname += "02 - Tristram"; break;
+			default: songname += "03 - Dungeon"; break;
+		}
+		m_MusicSource.clip = (AudioClip)Resources.Load(songname);
+		if (m_MusicSource.clip == null) Debug.Log("couldn't find music " + songname);
 		m_MusicSource.loop = true;
-		m_MusicSource.PlayOneShot(clip);
+		m_MusicSource.Play();
 	}
 
 	public void PlaySound(Sounds sound)
 	{
-		if (!GameManager.instance.Settings.Playsound) return;
+		if (!GameManager.instance.Settings.PlaySound) return;
 		string soundname = "";
 		switch (sound)
 		{
+			case Sounds.Click: soundname = "File00000001"; break;
+			case Sounds.ClickHeavy: soundname = "File00000002"; break;
 			case Sounds.PlayerAttack1: soundname = "File00000063"; break;
 			case Sounds.PlayerAttack2: soundname = "File00000064"; break;
 			case Sounds.SkeletonHit1: soundname = "File00001346"; break;

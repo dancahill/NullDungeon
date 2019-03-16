@@ -3406,7 +3406,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Settings:
     CameraZoom: 0
-    CameraSkew: 0
+    PlayMusic: 1
+    PlaySound: 1
   player: {fileID: 67729542}
   Canvas: {fileID: 7338860057744629525}
   SelectedTarget: {fileID: 0}
@@ -3852,6 +3853,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -151.20491
+      objectReference: {fileID: 0}
+    - target: {fileID: 6648426783694438133, guid: 9bf64c72e1b09f240ad5830204b702e6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bf64c72e1b09f240ad5830204b702e6, type: 3}
