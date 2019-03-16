@@ -45,12 +45,12 @@ public class PlayerAnimator : MonoBehaviour
 						}
 						else
 						{
-							Debug.Log("missed");
+							//Debug.Log("missed");
 						}
 					}
 					else
 					{
-						Debug.Log("cooling down");
+						//Debug.Log("cooling down");
 					}
 				}
 			}

@@ -25,7 +25,8 @@ public class WayPoint : MonoBehaviour
 			}
 			else
 			{
-				Debug.Log("fleeing to town");
+				//Debug.Log("fleeing to town");
+				GameSave.SaveGame();
 				SceneManager.LoadScene("Town");
 			}
 		}
@@ -33,7 +34,8 @@ public class WayPoint : MonoBehaviour
 		{
 			if (currentscene == "Town")
 			{
-				Debug.Log("descending into madness");
+				//Debug.Log("descending into madness");
+				GameSave.SaveGame();
 				SceneManager.LoadScene("Dungeon1");
 			}
 			else

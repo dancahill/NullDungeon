@@ -7,12 +7,15 @@ public class CharacterStats
 	{
 		NPC,
 		Warrior,
+		Rogue,
+		Sorceror,
 		Peon,
 	}
 	[Header("Character Class")]
 	public CharacterClass Class;
 	[Header("Base Stats")]
 	public int Strength;
+	public int Magic;
 	public int Dexterity;
 	public int Vitality;
 	[Header("Level/Experience")]
@@ -55,20 +58,39 @@ public class CharacterStats
 		BaseMana = 1;
 		Life = BaseLife;
 		Recalculate();
-		Debug.Log("creating " + _class + " character");
+		//Debug.Log("creating " + _class + " character");
 		switch (_class)
 		{
 			case CharacterClass.NPC:
 				GivesExperience = 100;
 				break;
 			case CharacterClass.Warrior:
-				Strength = 25;
+				Strength = 30;
+				Magic = 10;
+				Dexterity = 20;
+				Vitality = 25;
+				break;
+			case CharacterClass.Rogue:
+				Strength = 20;
+				Magic = 15;
+				Dexterity = 30;
+				Vitality = 20;
+				break;
+			case CharacterClass.Sorceror:
+				Strength = 15;
+				Magic = 35;
+				Dexterity = 15;
 				Vitality = 20;
 				break;
 			case CharacterClass.Peon:
 				break;
 			default: break;
 		}
+	}
+
+	public void ResetTimers()
+	{
+		AttackCooldown = Time.time;
 	}
 
 	void Recalculate()

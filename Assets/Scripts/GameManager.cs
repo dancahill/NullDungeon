@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
 		{
 			if (SceneManager.GetActiveScene().name != "Town")
 			{
-				Debug.Log("you should start in town");
+				//Debug.Log("you should start in town");
 				SceneManager.LoadScene("Town");
 				return;
 			}
@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
 			m_NewInTown = false;
 			player.transform.position = new Vector3(37, 0, 12);
 		}
+		GameSave.LoadGame();
 		if (SceneManager.GetActiveScene().name == "Town")
 		{
 			Light l = player.GetComponentInChildren<Light>();
