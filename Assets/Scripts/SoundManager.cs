@@ -12,26 +12,45 @@ public class SoundManager : MonoBehaviour
 		ZombieHit1,
 		ZombieDie1,
 	};
-	AudioSource m_Audio;
+	AudioSource m_SoundSource;
+	AudioSource m_MusicSource;
 
 	private void Awake()
 	{
-		m_Audio = gameObject.AddComponent<AudioSource>();
+		m_SoundSource = gameObject.AddComponent<AudioSource>();
+		m_MusicSource = gameObject.AddComponent<AudioSource>();
+	}
+
+	private void Update()
+	{
+		if (m_MusicSource)
+		{
+			if (m_MusicSource.isPlaying)
+			{
+				if (!GameManager.instance.Settings.PlayMusic) m_MusicSource.Stop();
+			}
+			else
+			{
+				if (GameManager.instance.Settings.PlayMusic) PlayMusic();
+			}
+		}
 	}
 
 	public void PlayMusic()
 	{
+		if (!GameManager.instance.Settings.PlayMusic) return;
 		//https://downloads.khinsider.com/game-soundtracks/album/diablo-the-music-of-1996-2011-diablo-15-year-anniversary
 		string currentscene = SceneManager.GetActiveScene().name;
 		string songname = "Music/Diablo/" + (currentscene == "Town" ? "02 - Tristram" : "03 - Dungeon");
 		AudioClip clip = (AudioClip)Resources.Load(songname);
 		if (clip == null) Debug.Log("couldn't find music " + songname);
-		m_Audio.loop = true;
-		m_Audio.PlayOneShot(clip);
+		m_MusicSource.loop = true;
+		m_MusicSource.PlayOneShot(clip);
 	}
 
 	public void PlaySound(Sounds sound)
 	{
+		if (!GameManager.instance.Settings.Playsound) return;
 		string soundname = "";
 		switch (sound)
 		{
@@ -49,7 +68,7 @@ public class SoundManager : MonoBehaviour
 	void PlaySound(string soundname)
 	{
 		AudioClip clip = (AudioClip)Resources.Load("Sounds/" + soundname);
-		if (clip != null) m_Audio.PlayOneShot(clip);
+		if (clip != null) m_SoundSource.PlayOneShot(clip);
 		else Debug.Log("missing sound effect");
 	}
 }

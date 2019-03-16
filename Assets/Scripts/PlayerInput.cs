@@ -51,6 +51,19 @@ public class PlayerInput : MonoBehaviour
 			if (scroll != 0) m_Manager.Settings.CameraZoom += Mathf.Sign(scroll);
 			m_Manager.Settings.CameraZoom = Mathf.Clamp(m_Manager.Settings.CameraZoom, 0, 2);
 		}
+		if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+		{
+			if (Input.GetKeyDown(KeyCode.M))
+			{
+				GameManager.instance.Settings.PlayMusic = !GameManager.instance.Settings.PlayMusic;
+				GameSave.SaveSettings();
+			}
+			if (Input.GetKeyDown(KeyCode.S))
+			{
+				GameManager.instance.Settings.Playsound = !GameManager.instance.Settings.Playsound;
+				GameSave.SaveSettings();
+			}
+		}
 		if (Input.GetKeyDown(KeyCode.C))
 		{
 			m_Manager.Canvas.OpenCharacterPanel(!m_Manager.Canvas.IsCharacterPanelOpen());

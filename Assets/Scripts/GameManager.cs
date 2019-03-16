@@ -7,6 +7,8 @@ public class GameSettings
 {
 	public float CameraZoom;
 	public float CameraSkew;
+	public bool PlayMusic = true;
+	public bool Playsound = true;
 }
 
 public class GameManager : MonoBehaviour
@@ -30,8 +32,11 @@ public class GameManager : MonoBehaviour
 
 	void Awake()
 	{
+		instance = this;
+		Settings = settingsinstance;
 		if (m_StartScene == "")
 		{
+			GameSave.LoadSettings();
 			if (SceneManager.GetActiveScene().name != "Town")
 			{
 				//Debug.Log("you should start in town");
@@ -40,8 +45,6 @@ public class GameManager : MonoBehaviour
 			}
 			m_StartScene = "Town";
 		}
-		instance = this;
-		Settings = settingsinstance;
 		player = GameObject.Find("Player");
 		RebuildNavMesh();
 	}
