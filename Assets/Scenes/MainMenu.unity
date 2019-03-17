@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -88,7 +88,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 209f280a3d5e6b344b8bde81047113e8,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -960,6 +961,8 @@ MonoBehaviour:
   SelectedTarget: {fileID: 0}
   PlayerAnimator: {fileID: 0}
   m_SoundManager: {fileID: 0}
+  faderObject: {fileID: 0}
+  fader: {fileID: 0}
 --- !u!114 &1200925949
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -44,7 +44,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -88,7 +88,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: d532fbe996681de48b7cc2430c188a89,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -2420,6 +2421,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950701783688605659, guid: 9bf64c72e1b09f240ad5830204b702e6,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -157.60585
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bf64c72e1b09f240ad5830204b702e6, type: 3}
@@ -6057,12 +6063,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Settings:
     CameraZoom: 0
-    CameraSkew: 0
+    PlayMusic: 1
+    PlaySound: 1
   player: {fileID: 1520436095}
   Canvas: {fileID: 1100751833}
   SelectedTarget: {fileID: 0}
   PlayerAnimator: {fileID: 0}
   m_SoundManager: {fileID: 0}
+  faderObject: {fileID: 0}
+  fader: {fileID: 0}
 --- !u!4 &816431122
 Transform:
   m_ObjectHideFlags: 0
