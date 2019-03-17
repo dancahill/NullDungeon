@@ -5,11 +5,49 @@ public class Enemy : MonoBehaviour
 {
 	public CharacterStats Stats;
 	GameManager m_Manager;
+	[HideInInspector] public EnemyAnimator Animator;
+	[HideInInspector] GameObject player;
+	bool Provoked = false;
+
+	Vector3 start;
+	Vector3 end;
 
 	void Start()
 	{
 		Stats = new CharacterStats(CharacterStats.CharacterClass.NPC);
 		m_Manager = GameManager.instance;
+		Animator = GetComponent<EnemyAnimator>();
+		player = GameObject.Find("Player");
+
+		start = transform.Find("Waypoints/Start").position;
+		end = transform.Find("Waypoints/End").position;
+	}
+
+	private void Update()
+	{
+		float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+		if (distanceToPlayer < 5)
+		{
+			Provoked = true;
+		}
+		if (Provoked)
+		{
+			Animator.SetDestination(player.transform.position);
+		}
+		else
+		{
+			if (Animator.GetDistance() < 0.5f)
+			{
+				if (Animator.GetDestination() == start)
+				{
+					Animator.SetDestination(end);
+				}
+				else
+				{
+					Animator.SetDestination(start);
+				}
+			}
+		}
 	}
 
 	private void OnMouseOver()
