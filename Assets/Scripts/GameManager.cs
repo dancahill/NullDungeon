@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
 	[HideInInspector] public PlayerAnimator PlayerAnimator;
 	[HideInInspector] public SoundManager m_SoundManager;
 
-	public GameObject faderObject;
-	public SceneFader fader;
+	[HideInInspector] public GameObject faderObject;
+	[HideInInspector] public SceneFader fader;
 
 	void Awake()
 	{

@@ -57,13 +57,16 @@ public class EnemyAnimator : MonoBehaviour
 			m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ZombieDie1);
 		Debug.Log(name + " died");
 		m_Agent.speed = 0;
-		m_Animator.Play("Death");
-		yield return new WaitForSeconds(2);
 		//Destroy(gameObject);
 		// maybe we can leave it there for decoration
 		m_Agent.enabled = false;
-		CapsuleCollider cc = GetComponent<CapsuleCollider>();
-		cc.enabled = false;
+		m_Animator.Play("Death");
+		if (name == "Skeleton")
+		{
+			transform.position -= new Vector3(0, 0.85f, 0);
+		}
+		yield return new WaitForSeconds(2);
+		GetComponent<CapsuleCollider>().enabled = false;
 	}
 
 	/// <summary>
