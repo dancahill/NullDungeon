@@ -19,13 +19,13 @@ public class WayPoint : MonoBehaviour
 		Debug.Log("collision with " + name + " point by " + collision.gameObject.name);
 		if (name == "Start")
 		{
-			if (currentscene == "Town")
+			if (currentscene == "Dungeon2")
 			{
-				//SceneManager.LoadScene("Dungeon1");
+				GameSave.SaveGame();
+				SceneManager.LoadScene("Dungeon1");
 			}
 			else
 			{
-				//Debug.Log("fleeing to town");
 				GameSave.SaveGame();
 				SceneManager.LoadScene("Town");
 			}
@@ -34,9 +34,13 @@ public class WayPoint : MonoBehaviour
 		{
 			if (currentscene == "Town")
 			{
-				//Debug.Log("descending into madness");
 				GameSave.SaveGame();
 				SceneManager.LoadScene("Dungeon1");
+			}
+			else if (currentscene == "Dungeon1")
+			{
+				GameSave.SaveGame();
+				SceneManager.LoadScene("Dungeon2");
 			}
 			else
 			{
