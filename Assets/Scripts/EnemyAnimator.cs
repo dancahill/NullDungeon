@@ -53,7 +53,7 @@ public class EnemyAnimator : MonoBehaviour
 	{
 		if (name == "Skeleton")
 			m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.SkeletonDie1);
-		else
+		else if (name == "Zombie")
 			m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ZombieDie1);
 		Debug.Log(name + " died");
 		m_Agent.speed = 0;
@@ -73,6 +73,10 @@ public class EnemyAnimator : MonoBehaviour
 	{
 		// this should probably time these things. maybe use an animator
 		m_Animator.Play("Attack");
-		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerAttack1);
+		if (name == "Skeleton")
+			m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.SkeletonAttack1);
+		else if (name == "Zombie")
+			m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ZombieAttack1);
+
 	}
 }

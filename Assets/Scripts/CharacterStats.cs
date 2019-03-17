@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class CharacterStats
 {
 	public enum CharacterClass
@@ -32,13 +33,14 @@ public class CharacterStats
 	[Header("NPC Values")]
 	public int GivesExperience;
 	[Header("Inventory")]
+	public CharacterItem[] Equipped;
 	public CharacterItem[] Inventory;
 	//[Header("...")]
-	[System.NonSerialized] public float AttackCooldown;
+	[NonSerialized] public float AttackCooldown;
 
 	public CharacterStats(string _class)
 	{
-		CharacterClass cc = (CharacterClass)System.Enum.Parse(typeof(CharacterClass), _class);
+		CharacterClass cc = (CharacterClass)Enum.Parse(typeof(CharacterClass), _class);
 		SetStats(cc);
 	}
 
@@ -51,14 +53,7 @@ public class CharacterStats
 	{
 		Name = "Player";
 		Class = _class;
-		Strength = 10;
-		Dexterity = 20;
-		Vitality = 10;
-		Level = 1;
 		Experience = 0;
-		BaseLife = 100;
-		BaseMana = 1;
-		Life = BaseLife;
 		Recalculate();
 		//Debug.Log("creating " + _class + " character");
 		switch (_class)
@@ -66,30 +61,43 @@ public class CharacterStats
 			case CharacterClass.NPC:
 				Name = "NPC";
 				GivesExperience = 100;
+				Level = 1;
+				Strength = 10 * Level;
+				Dexterity = 10 * Level;
+				Vitality = 10 * Level;
+				Life = BaseLife = 100;
 				return;
 			case CharacterClass.Warrior:
 				Strength = 30;
 				Magic = 10;
 				Dexterity = 20;
 				Vitality = 25;
+				Life = BaseLife = 100;
+				BaseMana = 1;
 				break;
 			case CharacterClass.Rogue:
 				Strength = 20;
 				Magic = 15;
 				Dexterity = 30;
 				Vitality = 20;
+				Life = BaseLife = 100;
+				BaseMana = 1;
 				break;
 			case CharacterClass.Sorceror:
 				Strength = 15;
 				Magic = 35;
 				Dexterity = 15;
 				Vitality = 20;
+				Life = BaseLife = 100;
+				BaseMana = 1;
 				break;
 			default: break;
 		}
-		Inventory = new CharacterItem[4];
-		Inventory[0] = new CharacterItem { Name = "Rubber Chicken", Damage = 5 };
-		Inventory[1] = new CharacterItem { Name = "Diaper", Armour = 5 };
+		Equipped = new CharacterItem[4];
+		Inventory = new CharacterItem[8];
+		Equipped[0] = new CharacterItem { Name = "Rubber Chicken", Damage = 5 };
+		Equipped[1] = new CharacterItem { Name = "Diaper", Armour = 5 };
+		Inventory[0] = new CharacterItem { Name = "Booger Collection" };
 	}
 
 	public void ResetTimers()
@@ -99,10 +107,19 @@ public class CharacterStats
 
 	public void Recalculate()
 	{
-		//Life = Vitality * 2;
+		// none of this really makes sense, but it's a start
 		ArmourClass = Dexterity;
 		ToHitPercent = Dexterity * 2;
 		Damage = Strength;
+		if (Life > BaseLife) Life = BaseLife;
+		if (Equipped != null && Equipped.Length > 0)
+		{
+			foreach (CharacterItem ci in Equipped)
+			{
+				ArmourClass += ci.Armour;
+				Damage += ci.Damage;
+			}
+		}
 	}
 
 	public bool CanAttack()
@@ -153,7 +170,7 @@ public class CharacterStats
 		}
 		// calculate whether there was a hit;
 		// just make some chance to miss for testing
-		int r = Random.Range(1, 100);
+		int r = UnityEngine.Random.Range(1, 100);
 		if (r > ToHitPercent)
 		{
 			hit = false;
@@ -163,7 +180,8 @@ public class CharacterStats
 		{
 			hit = true;
 			// and then calculate the damage
-			damage = Damage;
+			damage = Damage - ArmourClass;
+			if (damage < 0) damage = 0;
 		}
 		return hit;
 	}

@@ -41,7 +41,7 @@ public class PlayerAnimator : MonoBehaviour
 						int damage;
 						if (player.Stats.CalculateDamage(e.Stats, 0.5f, out damage))
 						{
-							e.TakeDamage(damage);
+							if (damage > 0) e.TakeDamage(damage);
 						}
 						else
 						{

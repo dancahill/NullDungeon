@@ -29,7 +29,8 @@ public class GameCanvas : MonoBehaviour
 	{
 		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ClickHeavy);
 		GameSave.SaveGame();
-		SceneManager.LoadScene("MainMenu");
+		m_Manager.fader.FadeTo("MainMenu");
+
 	}
 
 	public bool IsCharacterPanelOpen()

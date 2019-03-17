@@ -19,11 +19,7 @@ public class Player : MonoBehaviour
 
 	public void TakeDamage(int damage)
 	{
-		if (Stats.Life <= 0)
-		{
-			Debug.Log(name + " is dead, jim");
-			return;
-		}
+		if (damage <= 0 || Stats.Life <= 0) return;
 		Stats.Life -= damage;
 		Debug.Log(name + " takes " + damage + " damage");
 		if (Stats.Life <= 0)
@@ -33,7 +29,7 @@ public class Player : MonoBehaviour
 			//m_Manager.player.GetComponent<Player>().Stats.AddExperience(Stats.GivesExperience);
 			FindObjectOfType<GameCanvas>().SetInfo("You died");
 			Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerDie1);
-			Time.timeScale = 0f;
+			//Time.timeScale = 0f;
 		}
 		else
 		{

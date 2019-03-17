@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
-[System.Serializable]
+[Serializable]
 public class GameSettings
 {
-	[System.NonSerialized] public float CameraSkew = 0;
+	[NonSerialized] public float CameraSkew = 0;
 	public float CameraZoom = 0;
 	public bool PlayMusic = true;
 	public bool PlaySound = true;
@@ -21,16 +22,20 @@ public class GameManager : MonoBehaviour
 	#endregion
 
 	public GameSettings Settings;
-	public GameObject player;
-	public GameCanvas Canvas;
+	[HideInInspector] public GameObject player;
+	[HideInInspector] public GameCanvas Canvas;
 	[HideInInspector] public GameObject SelectedTarget = null;
 	[HideInInspector] public PlayerAnimator PlayerAnimator;
-	public SoundManager m_SoundManager;
+	[HideInInspector] public SoundManager m_SoundManager;
+
+	public GameObject faderObject;
+	public SceneFader fader;
 
 	void Awake()
 	{
 		instance = this;
 		Settings = settingsinstance;
+
 		if (m_StartScene == "")
 		{
 			if (SceneManager.GetActiveScene().name != "MainMenu")
@@ -43,6 +48,11 @@ public class GameManager : MonoBehaviour
 		}
 		GameSave.LoadSettings();
 		player = GameObject.Find("Player");
+
+		// add a fader
+		faderObject = new GameObject("SceneFader");
+		fader = faderObject.AddComponent<SceneFader>();
+
 		RebuildNavMesh();
 	}
 

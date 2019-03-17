@@ -22,12 +22,12 @@ public class WayPoint : MonoBehaviour
 			if (currentscene == "Dungeon2")
 			{
 				GameSave.SaveGame();
-				SceneManager.LoadScene("Dungeon1");
+				GameManager.instance.fader.FadeTo("Dungeon1");
 			}
 			else
 			{
 				GameSave.SaveGame();
-				SceneManager.LoadScene("Town");
+				GameManager.instance.fader.FadeTo("Town");
 			}
 		}
 		else if (name == "End")
@@ -35,12 +35,12 @@ public class WayPoint : MonoBehaviour
 			if (currentscene == "Town")
 			{
 				GameSave.SaveGame();
-				SceneManager.LoadScene("Dungeon1");
+				GameManager.instance.fader.FadeTo("Dungeon1");
 			}
 			else if (currentscene == "Dungeon1")
 			{
 				GameSave.SaveGame();
-				SceneManager.LoadScene("Dungeon2");
+				GameManager.instance.fader.FadeTo("Dungeon2");
 			}
 			else
 			{

@@ -25,10 +25,16 @@ public class Enemy : MonoBehaviour
 
 	private void Update()
 	{
+
+		if (!IsAlive()) return; // dead undead can't attack
 		float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 		if (distanceToPlayer < 5)
 		{
 			Provoked = true;
+		}
+		else
+		{
+			Provoked = false;
 		}
 		if (Provoked)
 		{
@@ -36,14 +42,14 @@ public class Enemy : MonoBehaviour
 			if (distanceToPlayer < 1.1)
 			{
 				Player p = player.GetComponent<Player>();
-				m_Manager.SelectedTarget = null;
+				//m_Manager.SelectedTarget = null;
 				if (Stats.CanAttack())
 				{
 					Animator.DoAttack();
 					int damage;
-					if (Stats.CalculateDamage(p.Stats, 0.5f, out damage))
+					if (Stats.CalculateDamage(p.Stats, 2.0f, out damage))
 					{
-						p.TakeDamage(damage);
+						if (damage > 0) p.TakeDamage(damage);
 					}
 					else
 					{
@@ -103,11 +109,7 @@ public class Enemy : MonoBehaviour
 
 	public void TakeDamage(int damage)
 	{
-		if (Stats.Life <= 0)
-		{
-			Debug.Log(name + " is dead, jim");
-			return;
-		}
+		if (damage <= 0 || Stats.Life <= 0) return;
 		Stats.Life -= damage;
 		Debug.Log(name + " takes " + damage + " damage");
 		if (Stats.Life <= 0)

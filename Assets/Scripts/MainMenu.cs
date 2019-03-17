@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -14,14 +13,14 @@ public class MainMenu : MonoBehaviour
 	public void MenuContinueGame()
 	{
 		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ClickHeavy);
-		SceneManager.LoadScene("Town");
+		m_Manager.fader.FadeTo("Town");
 	}
 
 	public void MenuNewGame()
 	{
 		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ClickHeavy);
 		GameSave.SaveGame(new CharacterStats(CharacterStats.CharacterClass.Warrior));
-		SceneManager.LoadScene("Town");
+		m_Manager.fader.FadeTo("Town");
 	}
 
 	public void MenuExit()
@@ -29,5 +28,6 @@ public class MainMenu : MonoBehaviour
 		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ClickHeavy);
 		Debug.Log("Application.Quit();");
 		Application.Quit();
+		m_Manager.fader.FadeTo("GameOver");
 	}
 }

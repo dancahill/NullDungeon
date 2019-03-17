@@ -11,8 +11,10 @@ public class SoundManager : MonoBehaviour
 		PlayerAttack1,
 		PlayerAttack2,
 		PlayerDie1,
+		SkeletonAttack1,
 		SkeletonHit1,
 		SkeletonDie1,
+		ZombieAttack1,
 		ZombieHit1,
 		ZombieDie1,
 	};
@@ -70,8 +72,10 @@ public class SoundManager : MonoBehaviour
 			case Sounds.PlayerAttack1: soundname = "File00000063"; break;
 			case Sounds.PlayerAttack2: soundname = "File00000064"; break;
 			case Sounds.PlayerDie1: soundname = "File00000065"; break;
+			case Sounds.SkeletonAttack1: soundname = "File00001344"; break;
 			case Sounds.SkeletonHit1: soundname = "File00001346"; break;
 			case Sounds.SkeletonDie1: soundname = "File00001348"; break;
+			case Sounds.ZombieAttack1: soundname = "File00001425"; break;
 			case Sounds.ZombieHit1: soundname = "File00001427"; break;
 			case Sounds.ZombieDie1: soundname = "File00001430"; break;
 			default: Debug.Log("missing sound " + sound); break;
