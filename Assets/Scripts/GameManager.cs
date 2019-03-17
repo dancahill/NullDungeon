@@ -66,6 +66,11 @@ public class GameManager : MonoBehaviour
 		}
 		m_SoundManager = gameObject.AddComponent<SoundManager>();
 		m_SoundManager.PlayMusic();
+		if (player)
+		{
+			Player p = player.GetComponent<Player>();
+			if (p.Stats.Life < 1) p.Stats.Life = p.Stats.BaseLife;
+		}
 	}
 
 	void LateUpdate()

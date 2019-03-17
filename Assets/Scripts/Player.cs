@@ -16,4 +16,28 @@ public class Player : MonoBehaviour
 		Animator = GetComponent<PlayerAnimator>();
 		Input = GetComponent<PlayerInput>();
 	}
+
+	public void TakeDamage(int damage)
+	{
+		if (Stats.Life <= 0)
+		{
+			Debug.Log(name + " is dead, jim");
+			return;
+		}
+		Stats.Life -= damage;
+		Debug.Log(name + " takes " + damage + " damage");
+		if (Stats.Life <= 0)
+		{
+			Stats.Life = 0;
+			//GetComponent<EnemyAnimator>().Death();
+			//m_Manager.player.GetComponent<Player>().Stats.AddExperience(Stats.GivesExperience);
+			FindObjectOfType<GameCanvas>().SetInfo("You died");
+			Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerDie1);
+			Time.timeScale = 0f;
+		}
+		else
+		{
+			Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerHit1);
+		}
+	}
 }

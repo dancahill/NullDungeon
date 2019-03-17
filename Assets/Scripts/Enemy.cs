@@ -33,6 +33,28 @@ public class Enemy : MonoBehaviour
 		if (Provoked)
 		{
 			Animator.SetDestination(player.transform.position);
+			if (distanceToPlayer < 1.1)
+			{
+				Player p = player.GetComponent<Player>();
+				m_Manager.SelectedTarget = null;
+				if (Stats.CanAttack())
+				{
+					Animator.DoAttack();
+					int damage;
+					if (Stats.CalculateDamage(p.Stats, 0.5f, out damage))
+					{
+						p.TakeDamage(damage);
+					}
+					else
+					{
+						//Debug.Log("missed");
+					}
+				}
+				else
+				{
+					//Debug.Log("cooling down");
+				}
+			}
 		}
 		else
 		{

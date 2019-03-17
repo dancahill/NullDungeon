@@ -7,8 +7,10 @@ public class SoundManager : MonoBehaviour
 	{
 		Click,
 		ClickHeavy,
+		PlayerHit1,
 		PlayerAttack1,
 		PlayerAttack2,
+		PlayerDie1,
 		SkeletonHit1,
 		SkeletonDie1,
 		ZombieHit1,
@@ -64,8 +66,10 @@ public class SoundManager : MonoBehaviour
 		{
 			case Sounds.Click: soundname = "File00000001"; break;
 			case Sounds.ClickHeavy: soundname = "File00000002"; break;
+			case Sounds.PlayerHit1: soundname = "File00000061"; break;
 			case Sounds.PlayerAttack1: soundname = "File00000063"; break;
 			case Sounds.PlayerAttack2: soundname = "File00000064"; break;
+			case Sounds.PlayerDie1: soundname = "File00000065"; break;
 			case Sounds.SkeletonHit1: soundname = "File00001346"; break;
 			case Sounds.SkeletonDie1: soundname = "File00001348"; break;
 			case Sounds.ZombieHit1: soundname = "File00001427"; break;

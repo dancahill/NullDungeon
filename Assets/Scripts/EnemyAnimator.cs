@@ -65,4 +65,14 @@ public class EnemyAnimator : MonoBehaviour
 		CapsuleCollider cc = GetComponent<CapsuleCollider>();
 		cc.enabled = false;
 	}
+
+	/// <summary>
+	/// play the attack animation and sound
+	/// </summary>
+	public void DoAttack()
+	{
+		// this should probably time these things. maybe use an animator
+		m_Animator.Play("Attack");
+		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerAttack1);
+	}
 }
