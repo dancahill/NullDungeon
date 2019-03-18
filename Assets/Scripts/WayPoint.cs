@@ -44,6 +44,7 @@ public class WayPoint : MonoBehaviour
 			}
 			else
 			{
+				GameManager.instance.m_SoundManager.PlaySound(SoundManager.Sounds.CantDoThat);
 				Debug.Log("this is as deep as we go");
 			}
 		}

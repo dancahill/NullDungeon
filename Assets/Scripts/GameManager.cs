@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameSettings
 {
 	[NonSerialized] public float CameraSkew = 0;
+	[NonSerialized] public bool FreshMeat = true;
+	[NonSerialized] public bool NewInTown = true;
 	public float CameraZoom = 0;
 	public bool PlayMusic = true;
 	public bool PlaySound = true;
@@ -18,7 +20,6 @@ public class GameManager : MonoBehaviour
 	public static GameSettings settingsinstance = new GameSettings();
 	public static GameManager instance;
 	static string m_StartScene = "";
-	static bool m_NewInTown = true;
 	#endregion
 
 	public GameSettings Settings;
@@ -61,9 +62,9 @@ public class GameManager : MonoBehaviour
 		string scene = SceneManager.GetActiveScene().name;
 		if (scene != "MainMenu")
 		{
-			if (m_NewInTown)
+			if (Settings.NewInTown)
 			{
-				m_NewInTown = false;
+				Settings.NewInTown = false;
 				player.transform.position = new Vector3(37, 0, 12);
 			}
 			GameSave.LoadGame();
@@ -81,8 +82,9 @@ public class GameManager : MonoBehaviour
 			Player p = player.GetComponent<Player>();
 			if (p.Stats.Life < 1) p.Stats.Life = p.Stats.BaseLife;
 		}
-		if (scene == "Dungeon1")
+		if (scene == "Dungeon1" && Settings.FreshMeat)
 		{
+			Settings.FreshMeat = false;
 			m_SoundManager.PlaySound(SoundManager.Sounds.FreshMeat);
 		}
 	}

@@ -12,6 +12,7 @@ public class SoundManager : MonoBehaviour
 		PlayerAttack1,
 		PlayerAttack2,
 		PlayerDie1,
+		CantDoThat,
 		SkeletonAttack1,
 		SkeletonHit1,
 		SkeletonDie1,
@@ -19,6 +20,7 @@ public class SoundManager : MonoBehaviour
 		ZombieHit1,
 		ZombieDie1,
 		FreshMeat,
+		CainHello,
 	};
 	AudioSource m_MusicSource;
 	AudioSource m_SoundSource;
@@ -74,6 +76,8 @@ public class SoundManager : MonoBehaviour
 			case Sounds.PlayerAttack1: soundname = "File00000063"; break;
 			case Sounds.PlayerAttack2: soundname = "File00000064"; break;
 			case Sounds.PlayerDie1: soundname = "File00000065"; break;
+			case Sounds.CantDoThat: soundname = "File00000334"; break;
+
 			case Sounds.SkeletonAttack1: soundname = "File00001344"; break;
 			case Sounds.SkeletonHit1: soundname = "File00001346"; break;
 			case Sounds.SkeletonDie1: soundname = "File00001348"; break;
@@ -82,6 +86,7 @@ public class SoundManager : MonoBehaviour
 			case Sounds.ZombieDie1: soundname = "File00001430"; break;
 			case Sounds.CowAlright: soundname = "File00002306"; break;
 			case Sounds.FreshMeat: soundname = "File00002322"; break;
+			case Sounds.CainHello: soundname = "File00002455"; break;
 			default: Debug.Log("missing sound " + sound); break;
 		}
 		PlaySound(soundname);

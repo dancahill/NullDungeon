@@ -62,9 +62,9 @@ public class CharacterStats
 				Name = "NPC";
 				GivesExperience = 100;
 				Level = 1;
-				Strength = 10 * Level;
-				Dexterity = 10 * Level;
-				Vitality = 10 * Level;
+				Strength = 10 + (5 * Level);
+				Dexterity = 20 + (5 * Level);
+				Vitality = 10 + (5 * Level);
 				Life = BaseLife = 100;
 				return;
 			case CharacterClass.Warrior:
@@ -170,18 +170,22 @@ public class CharacterStats
 		}
 		// calculate whether there was a hit;
 		// just make some chance to miss for testing
-		int r = UnityEngine.Random.Range(1, 100);
-		if (r > ToHitPercent)
-		{
-			hit = false;
-			damage = 0;
-		}
-		else
+		float chance = (float)ToHitPercent / (float)defender.ArmourClass;
+		float r = UnityEngine.Random.Range(0, chance);
+		Debug.Log("chance=" + chance + ",r=" + r);
+		if (r > 1f)
 		{
 			hit = true;
 			// and then calculate the damage
-			damage = Damage - ArmourClass;
+			//damage = Damage - defender.ArmourClass;
+			damage = Damage;
+			Debug.Log("good for a hit. damage is " + damage);
 			if (damage < 0) damage = 0;
+		}
+		else
+		{
+			hit = false;
+			damage = 0;
 		}
 		return hit;
 	}

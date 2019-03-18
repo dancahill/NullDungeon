@@ -29,7 +29,10 @@ public class Player : MonoBehaviour
 			//m_Manager.player.GetComponent<Player>().Stats.AddExperience(Stats.GivesExperience);
 			FindObjectOfType<GameCanvas>().SetInfo("You died");
 			Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerDie1);
-			//Time.timeScale = 0f;
+			Manager.Settings.NewInTown = true;
+			CharacterStats stats = Manager.player.GetComponent<Player>().Stats;
+			stats.Life = stats.BaseLife;
+			Manager.fader.FadeTo("Town");
 		}
 		else
 		{
