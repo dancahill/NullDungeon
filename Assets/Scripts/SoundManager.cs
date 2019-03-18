@@ -5,6 +5,7 @@ public class SoundManager : MonoBehaviour
 {
 	public enum Sounds
 	{
+		CowAlright,
 		Click,
 		ClickHeavy,
 		PlayerHit1,
@@ -17,6 +18,7 @@ public class SoundManager : MonoBehaviour
 		ZombieAttack1,
 		ZombieHit1,
 		ZombieDie1,
+		FreshMeat,
 	};
 	AudioSource m_MusicSource;
 	AudioSource m_SoundSource;
@@ -78,6 +80,8 @@ public class SoundManager : MonoBehaviour
 			case Sounds.ZombieAttack1: soundname = "File00001425"; break;
 			case Sounds.ZombieHit1: soundname = "File00001427"; break;
 			case Sounds.ZombieDie1: soundname = "File00001430"; break;
+			case Sounds.CowAlright: soundname = "File00002306"; break;
+			case Sounds.FreshMeat: soundname = "File00002322"; break;
 			default: Debug.Log("missing sound " + sound); break;
 		}
 		PlaySound(soundname);

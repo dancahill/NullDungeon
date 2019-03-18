@@ -81,6 +81,10 @@ public class GameManager : MonoBehaviour
 			Player p = player.GetComponent<Player>();
 			if (p.Stats.Life < 1) p.Stats.Life = p.Stats.BaseLife;
 		}
+		if (scene == "Dungeon1")
+		{
+			m_SoundManager.PlaySound(SoundManager.Sounds.FreshMeat);
+		}
 	}
 
 	void LateUpdate()
