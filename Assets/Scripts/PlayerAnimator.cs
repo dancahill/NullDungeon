@@ -9,6 +9,7 @@ public class PlayerAnimator : MonoBehaviour
 	NavMeshAgent m_Agent;
 	Animator m_Animator;
 	float maxspeed = 3.0f;
+	GameObject SelectedTarget = null;
 
 	void Start()
 	{
@@ -31,39 +32,55 @@ public class PlayerAnimator : MonoBehaviour
 		if (m_Animator) m_Animator.SetFloat("SpeedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
 		//float x = m_Animator.GetFloat("SpeedPercent");
 		//Debug.Log(string.Format("{0} {1}", speedPercent, x));
-		if (m_Manager.SelectedTarget != null)
+		if (SelectedTarget != null)
 		{
-			float distanceToEnemy = Vector3.Distance(transform.position, m_Manager.SelectedTarget.transform.position);
-			if (distanceToEnemy < 1.1)
+			float distanceToTarget = Vector3.Distance(transform.position, SelectedTarget.transform.position);
+			//Debug.Log("distance to target is " + distanceToTarget);
+			if (distanceToTarget < 1.2)
 			{
-				//transform.LookAt(m_Manager.SelectedTarget.transform);
-				Enemy e = m_Manager.SelectedTarget.gameObject.GetComponent<Enemy>();
-				m_Manager.SelectedTarget = null;
-				if (e.IsAlive())
+				bool targetresolved = false;
+				TownNPC t = SelectedTarget.gameObject.GetComponent<TownNPC>();
+				if (t)
 				{
-					//Debug.Log("close! attack?!?");
-					if (player.Stats.CanAttack())
+					targetresolved = true;
+					Stop();
+					t.Interact();
+				}
+				Enemy e = SelectedTarget.gameObject.GetComponent<Enemy>();
+				if (e)
+				{
+					targetresolved = true;
+					if (e.IsAlive())
 					{
-						DoAttack();
-						int damage;
-						if (player.Stats.CalculateDamage(e.Stats, 0.5f, out damage))
+						//Debug.Log("close! attack?!?");
+						if (player.Stats.CanAttack())
 						{
-							if (damage > 0) e.TakeDamage(damage);
+							DoAttack();
+							int damage;
+							if (player.Stats.CalculateDamage(e.Stats, 0.5f, out damage))
+							{
+								if (damage > 0) e.TakeDamage(damage);
+							}
+							else
+							{
+								//Debug.Log("missed");
+							}
 						}
 						else
 						{
-							//Debug.Log("missed");
+							//Debug.Log("cooling down");
 						}
 					}
-					else
-					{
-						//Debug.Log("cooling down");
-					}
+				}
+				SelectedTarget = null;
+				if (!targetresolved)
+				{
+					Debug.Log("target not resolved");
 				}
 			}
 			else
 			{
-				MoveTo(m_Manager.SelectedTarget.transform.position);
+				MoveTo(SelectedTarget.transform.position);
 			}
 		}
 		// adding a rigidbody to player caused some really weird and broken
@@ -83,10 +100,19 @@ public class PlayerAnimator : MonoBehaviour
 
 	public void SetTarget(GameObject target)
 	{
-		m_Manager.SelectedTarget = target;
-		float distanceToEnemy = Vector3.Distance(m_Manager.SelectedTarget.transform.position, Scene_Manager.instance.player.transform.position);
+		SelectedTarget = target;
+		float distanceToTarget = Vector3.Distance(SelectedTarget.transform.position, Scene_Manager.instance.player.transform.position);
 		//Debug.Log("clicked on '" + target.name + "' distance = " + distanceToEnemy.ToString("0.0"));
-		MoveTo(m_Manager.SelectedTarget.transform.position);
+		//Debug.Log("distance to target is " + distanceToTarget);
+		if (distanceToTarget > 1.2)
+		{
+			MoveTo(SelectedTarget.transform.position);
+		}
+		else
+		{
+			player.Animator.Stop();
+			player.Animator.SetDirection();
+		}
 	}
 
 	/// <summary>
@@ -121,7 +147,7 @@ public class PlayerAnimator : MonoBehaviour
 			// this is ugly - find a better solution
 			if (hitname.StartsWith("Floor") || hitname.StartsWith("Stairs") || hitname == "Plane" || hitname == "Terrain" || hitname == "Start" || hitname == "End")
 			{
-				m_Manager.SelectedTarget = null;
+				SelectedTarget = null;
 				MoveTo(hit.point);
 			}
 		}

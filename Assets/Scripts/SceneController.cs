@@ -16,7 +16,6 @@ public class SceneController : MonoBehaviour
 	public event Action AfterSceneLoad;
 	public event Action BeforeSceneUnload;
 
-	//public Canvas PersistentCanvas;
 	public string StartingSceneName = "MainMenu";
 	public string CurrentScene = "";
 	public string PreviousScene = "";

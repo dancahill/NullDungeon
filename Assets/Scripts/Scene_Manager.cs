@@ -15,7 +15,7 @@ public class Scene_Manager : MonoBehaviour
 	[HideInInspector] public PlayerAnimator PlayerAnimator;
 
 	SceneController sceneController;
-	public bool NavMeshBaked = false;
+	//public bool NavMeshBaked = false;
 
 	void Awake()
 	{
@@ -27,9 +27,9 @@ public class Scene_Manager : MonoBehaviour
 		}
 		manager = FindObjectOfType<GameManager>();
 		sceneController = manager.sceneController;
-		NavMeshBaked = false;
+		//NavMeshBaked = false;
 		RebuildNavMesh();
-		NavMeshBaked = true;
+		//NavMeshBaked = true;
 	}
 
 	private void Start()
@@ -51,15 +51,15 @@ public class Scene_Manager : MonoBehaviour
 			GameCanvas c = FindObjectOfType<GameCanvas>();
 			c.OpenCharacterPanel(false);
 			c.OpenInventoryPanel(false);
-
-			if (Settings.NewInTown)
-			{
-				Settings.NewInTown = false;
-				player.transform.position = new Vector3(37, 0, 12);
-			}
 			GameSave.LoadCharacter();
 			if (SceneManager.GetActiveScene().name == "Town")
 			{
+				if (Settings.NewInTown)
+				{
+					Settings.NewInTown = false;
+					manager.PlayerStats.Life = manager.PlayerStats.BaseLife;
+					player.transform.position = new Vector3(37, 0, 12);
+				}
 				Light l = player.GetComponentInChildren<Light>();
 				l.enabled = false;
 			}
@@ -75,25 +75,15 @@ public class Scene_Manager : MonoBehaviour
 				Player p = player.GetComponent<Player>();
 				if (p.Stats.Class == CharacterStats.CharacterClass.Warrior)
 				{
-					// clean this later to avoid making a mess when adding more classes
-					//GameObject warrior = player.transform.Find("Warrior").gameObject;
-					//GameObject rogue = player.transform.Find("Rogue").gameObject;
-					//warrior.SetActive(true);
-					//rogue.SetActive(false);
 					setactive("Warrior");
 				}
 				else if (p.Stats.Class == CharacterStats.CharacterClass.Rogue)
 				{
-					//GameObject warrior = player.transform.Find("Warrior").gameObject;
-					//GameObject rogue = player.transform.Find("Rogue").gameObject;
-					//warrior.SetActive(false);
-					//rogue.SetActive(true);
 					setactive("Rogue");
 				}
 			}
 			PlayerAnimator = player.GetComponent<PlayerAnimator>();
 		}
-
 		if (player)
 		{
 			Player p = player.GetComponent<Player>();
@@ -114,12 +104,14 @@ public class Scene_Manager : MonoBehaviour
 
 	private void OnEnable()
 	{
+		if (!sceneController) return;
 		sceneController.BeforeSceneUnload += Save;
 		sceneController.AfterSceneLoad += Load;
 	}
 
 	private void OnDisable()
 	{
+		if (!sceneController) return;
 		sceneController.BeforeSceneUnload -= Save;
 		sceneController.AfterSceneLoad -= Load;
 	}

@@ -29,7 +29,8 @@ public class CharacterStats
 	public int ToHitPercent;
 	public int Damage;
 	[Header("Life")]
-	public int Life;
+	public float Life;
+	public float Mana;
 	[Header("NPC Values")]
 	public int GivesExperience;
 	[Header("Inventory")]
@@ -73,7 +74,7 @@ public class CharacterStats
 				Dexterity = 20;
 				Vitality = 25;
 				Life = BaseLife = 100;
-				BaseMana = 1;
+				BaseMana = 10;
 				break;
 			case CharacterClass.Rogue:
 				Strength = 20;
@@ -81,7 +82,7 @@ public class CharacterStats
 				Dexterity = 30;
 				Vitality = 20;
 				Life = BaseLife = 100;
-				BaseMana = 1;
+				BaseMana = 10;
 				break;
 			case CharacterClass.Sorceror:
 				Strength = 15;
@@ -89,7 +90,7 @@ public class CharacterStats
 				Dexterity = 15;
 				Vitality = 20;
 				Life = BaseLife = 100;
-				BaseMana = 1;
+				BaseMana = 10;
 				break;
 			default: break;
 		}

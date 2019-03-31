@@ -17,6 +17,16 @@ public class Player : MonoBehaviour
 		Input = GetComponent<PlayerInput>();
 	}
 
+	private void Update()
+	{
+		if (Stats.Life > 0)
+		{
+			// three minutes to heal fully. more base health means you heal faster
+			Stats.Life = Mathf.Clamp(Stats.Life + ((float)Stats.BaseLife / 180f * Time.deltaTime), 0, Stats.BaseLife);
+			Stats.Mana = Mathf.Clamp(Stats.Mana + ((float)Stats.BaseLife / 180f * Time.deltaTime), 0, Stats.BaseMana);
+		}
+	}
+
 	public void TakeDamage(int damage)
 	{
 		if (damage <= 0 || Stats.Life <= 0) return;
@@ -31,7 +41,6 @@ public class Player : MonoBehaviour
 			Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerDie1, FindObjectOfType<Player>().Stats.Class);
 			Manager.Settings.NewInTown = true;
 			CharacterStats stats = Manager.PlayerStats;
-			stats.Life = stats.BaseLife;
 			GameSave.SaveCharacter();
 			Manager.sceneController.FadeAndLoadScene("Town");
 		}

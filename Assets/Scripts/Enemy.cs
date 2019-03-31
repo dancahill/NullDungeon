@@ -11,7 +11,6 @@ public class Enemy : MonoBehaviour
 	[HideInInspector] public EnemyAnimator Animator;
 	[HideInInspector] GameObject player;
 	bool Provoked = false;
-	public bool Deleted = false;
 
 	Vector3 start;
 	Vector3 end;
@@ -49,7 +48,6 @@ public class Enemy : MonoBehaviour
 			if (distanceToPlayer < 1.1)
 			{
 				Player p = player.GetComponent<Player>();
-				//m_Manager.SelectedTarget = null;
 				if (Stats.CanAttack())
 				{
 					Animator.DoAttack();

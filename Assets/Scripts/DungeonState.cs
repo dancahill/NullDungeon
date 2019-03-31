@@ -7,7 +7,7 @@ public class DungeonObject
 	public string Name;
 	public CharacterStats.CharacterClass Class;
 	public int BaseLife;
-	public int Life;
+	public float Life;
 	public double x;
 	public double y;
 	public double z;
@@ -47,13 +47,9 @@ public class DungeonState
 			Transform enemy = enemies.transform.GetChild(i);
 			//Debug.Log("destroying child object enemy=" + enemy.name);
 			Enemy e = enemy.GetComponentInChildren<Enemy>();
-			e.Deleted = true;
 			UnityEngine.Object.Destroy(enemy.gameObject);
 		}
-		//enemies.transform.DetachChildren();
-
 		EnemyPrefabs ep = GameObject.FindObjectOfType<EnemyPrefabs>();
-
 		foreach (DungeonObject d in dl.DungeonObjects)
 		{
 			GameObject prefab;
@@ -73,19 +69,7 @@ public class DungeonState
 			GameObject g = GameObject.Instantiate(prefab, new Vector3((float)d.x, (float)d.y, (float)d.z), Quaternion.identity, enemies.transform);
 			g.name = d.Name;
 			Enemy e = g.GetComponentInChildren<Enemy>();
-			if (e.Deleted)
-			{
-				Debug.Log("THIS WAS SUPPOSED TO BE DELETED");
-			}
-			else
-			{
-				e.Stats.Life = d.Life;
-				if (d.Life <= 0)
-				{
-					//g.name += " (dead)";
-					//e.MakeDead();
-				}
-			}
+			e.Stats.Life = d.Life;
 		}
 	}
 
@@ -97,14 +81,8 @@ public class DungeonState
 		{
 			DungeonObjects = new DungeonObject[enemies.transform.childCount]
 		};
-
-		int x = 0;
-		foreach (Transform enemy in enemies.transform)
-		{
-			x++;
-		}
 		//Debug.Log("enemies.transform.childCount=" + enemies.transform.childCount + ", x=" + x);
-
+		//foreach (Transform enemy in enemies.transform)
 		for (int i = 0; i < enemies.transform.childCount; i++)
 		{
 			Transform enemy = enemies.transform.GetChild(i);

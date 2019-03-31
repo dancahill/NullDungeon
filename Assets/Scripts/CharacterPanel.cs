@@ -62,7 +62,7 @@ public class CharacterPanel : MonoBehaviour
 		VitalityText.text = stats.Vitality.ToString();
 
 		BaseLifeText.text = stats.BaseLife.ToString();
-		LifeText.text = stats.Life.ToString();
+		LifeText.text = stats.Life.ToString("0");
 		BaseManaText.text = stats.BaseMana.ToString();
 	}
 }

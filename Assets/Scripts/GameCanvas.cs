@@ -9,6 +9,7 @@ public class GameCanvas : MonoBehaviour
 	public GameObject CharacterPanel;
 	public GameObject InventoryPanel;
 	public GameObject BottomPanel;
+	public Image healthBar;
 
 	void Awake()
 	{
@@ -20,6 +21,11 @@ public class GameCanvas : MonoBehaviour
 	private void Start()
 	{
 		m_Manager = GameManager.instance;
+	}
+
+	private void Update()
+	{
+		healthBar.fillAmount = (float)m_Manager.PlayerStats.Life / (float)m_Manager.PlayerStats.BaseLife;
 	}
 
 	public void SetInfo(string message)

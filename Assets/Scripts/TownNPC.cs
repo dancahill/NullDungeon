@@ -14,6 +14,11 @@ public class TownNPC : MonoBehaviour
 
 	void OnMouseDown()
 	{
+		Scene_Manager.instance.PlayerAnimator.SetTarget(transform.gameObject);
+	}
+
+	public void Interact()
+	{
 		switch (name)
 		{
 			case "Cow":
