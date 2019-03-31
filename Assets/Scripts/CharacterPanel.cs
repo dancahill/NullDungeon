@@ -47,7 +47,7 @@ public class CharacterPanel : MonoBehaviour
 
 	void Update()
 	{
-		CharacterStats stats = Manager.player.GetComponent<Player>().Stats;
+		CharacterStats stats = Manager.PlayerStats;
 		stats.Recalculate();
 
 		NameText.text = stats.Name.ToString();

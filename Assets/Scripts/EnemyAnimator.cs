@@ -8,15 +8,19 @@ public class EnemyAnimator : MonoBehaviour
 	NavMeshAgent m_Agent;
 	Animator m_Animator;
 
+	private void Awake()
+	{
+		// this causes warnings in awake but if put in start, its late load causes errors in dungeon restore
+	}
+
 	void Start()
 	{
 		m_Manager = GameManager.instance;
 		m_Animator = GetComponentInChildren<Animator>();
-
-
 		m_Agent = gameObject.AddComponent<NavMeshAgent>();
-		m_Agent.speed = 2.0f;
-		if (name == "Zombie") m_Agent.speed = 1.5f;
+
+		m_Agent.speed = 1.0f;
+		if (name == "Zombie") m_Agent.speed = 0.8f;
 		m_Agent.angularSpeed = 500;
 	}
 
@@ -37,10 +41,12 @@ public class EnemyAnimator : MonoBehaviour
 
 	public Vector3 GetDestination()
 	{
+		if (m_Agent == null || !m_Agent.enabled) return transform.position;
 		return m_Agent.destination;
 	}
 	public float GetDistance()
 	{
+		if (m_Agent == null || !m_Agent.enabled) return 0;
 		return m_Agent.remainingDistance;
 	}
 
@@ -56,18 +62,33 @@ public class EnemyAnimator : MonoBehaviour
 		else if (name == "Zombie")
 			m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ZombieDie1);
 		Debug.Log(name + " died");
-		m_Agent.speed = 0;
+		SetDead(false);
+		m_Animator.Play("Death");
+		yield return new WaitForSeconds(2);
+	}
+
+	public void SetDead(bool alreadydead)
+	{
 		//Destroy(gameObject);
 		// maybe we can leave it there for decoration
+		//if (m_Agent)
+		//{
+		m_Agent.speed = 0;
 		m_Agent.enabled = false;
-		m_Animator.Play("Death");
+		//		}
+
+		if (alreadydead)
+		{
+			m_Animator.Play("RestoreDeath");
+		}
+
 		if (name == "Skeleton")
 		{
 			transform.position -= new Vector3(0, 0.85f, 0);
 		}
-		yield return new WaitForSeconds(2);
 		GetComponent<CapsuleCollider>().enabled = false;
 	}
+
 
 	/// <summary>
 	/// play the attack animation and sound
@@ -80,6 +101,5 @@ public class EnemyAnimator : MonoBehaviour
 			m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.SkeletonAttack1);
 		else if (name == "Zombie")
 			m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ZombieAttack1);
-
 	}
 }

@@ -5,17 +5,21 @@ using UnityEngine.UI;
 public class GameCanvas : MonoBehaviour
 {
 	GameManager m_Manager;
+	SceneController sceneController;
 	public GameObject CharacterPanel;
 	public GameObject InventoryPanel;
 	public GameObject BottomPanel;
 
+	void Awake()
+	{
+		sceneController = FindObjectOfType<SceneController>();
+		if (!sceneController) throw new UnityException("Scene Controller missing. Make sure it exists in the Persistent scene.");
+		return;
+	}
+
 	private void Start()
 	{
 		m_Manager = GameManager.instance;
-		m_Manager.Settings.CameraSkew = 0;
-		CharacterPanel.SetActive(false);
-		InventoryPanel.SetActive(false);
-		BottomPanel.SetActive(true);
 	}
 
 	public void SetInfo(string message)
@@ -28,8 +32,8 @@ public class GameCanvas : MonoBehaviour
 	public void OpenMenu()
 	{
 		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ClickHeavy);
-		GameSave.SaveGame();
-		m_Manager.fader.FadeTo("MainMenu");
+		GameSave.SaveCharacter();
+		m_Manager.sceneController.FadeAndLoadScene("MainMenu");
 
 	}
 
@@ -73,6 +77,6 @@ public class GameCanvas : MonoBehaviour
 	{
 		if (CharacterPanel.activeSelf && !InventoryPanel.activeSelf) m_Manager.Settings.CameraSkew = -1;
 		else if (!CharacterPanel.activeSelf && InventoryPanel.activeSelf) m_Manager.Settings.CameraSkew = 1;
-		else m_Manager.Settings.CameraSkew = 0;
+		else GameManager.instance.Settings.CameraSkew = 0;
 	}
 }

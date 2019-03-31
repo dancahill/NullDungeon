@@ -171,9 +171,9 @@ public class CharacterStats
 		// calculate whether there was a hit;
 		// just make some chance to miss for testing
 		float chance = (float)ToHitPercent / (float)defender.ArmourClass;
-		float r = UnityEngine.Random.Range(0, chance);
-		Debug.Log("chance=" + chance + ",r=" + r);
-		if (r > 1f)
+		float roll = UnityEngine.Random.Range(0, chance);
+		Debug.Log("chance=" + chance + ",roll=" + roll);
+		if (roll > 1f)
 		{
 			hit = true;
 			// and then calculate the damage

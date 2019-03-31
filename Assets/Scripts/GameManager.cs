@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 [Serializable]
@@ -19,100 +18,88 @@ public class GameManager : MonoBehaviour
 	#region Singleton
 	public static GameSettings settingsinstance = new GameSettings();
 	public static GameManager instance;
-	static string m_StartScene = "";
+	//static string m_StartScene = "";
 	#endregion
 
 	public GameSettings Settings;
-	[HideInInspector] public GameObject player;
-	[HideInInspector] public GameCanvas Canvas;
+
+	public CharacterStats PlayerStats = new CharacterStats(CharacterStats.CharacterClass.Warrior);
+
+	public DungeonState m_DungeonState;
+
+	//[HideInInspector] public GameObject player;
+	//[HideInInspector] public GameCanvas Canvas;
 	[HideInInspector] public GameObject SelectedTarget = null;
-	[HideInInspector] public PlayerAnimator PlayerAnimator;
 	[HideInInspector] public SoundManager m_SoundManager;
 
-	[HideInInspector] public GameObject faderObject;
-	[HideInInspector] public SceneFader fader;
+	[HideInInspector] public SceneController sceneController;
+	[HideInInspector] public Camera ActiveCamera;
+
+	//[HideInInspector] public GameObject faderObject;
+	//[HideInInspector] public SceneFader fader;
 
 	void Awake()
 	{
 		instance = this;
 		Settings = settingsinstance;
 
-		if (m_StartScene == "")
+		//if (m_StartScene == "")
+		//{
+		//	if (SceneManager.GetActiveScene().name != "MainMenu")
+		//	{
+		//		//Debug.Log("you should start in town");
+		//		SceneManager.LoadScene("MainMenu");
+		//		return;
+		//	}
+		//	m_StartScene = "MainMenu";
+		//}
+
+		if (SceneManager.GetActiveScene().name != "Persistent")
 		{
-			if (SceneManager.GetActiveScene().name != "MainMenu")
-			{
-				//Debug.Log("you should start in town");
-				SceneManager.LoadScene("MainMenu");
-				return;
-			}
-			m_StartScene = "MainMenu";
+			//Debug.Log("you should start in town");
+			SceneManager.LoadScene("Persistent");
+			return;
 		}
+
+		sceneController = FindObjectOfType<SceneController>();
+		if (!sceneController) throw new UnityException("Scene Controller missing. Make sure it exists in the Persistent scene.");
+		if (sceneController.CurrentScene == "") sceneController.CurrentScene = "MainMenu";
+		if (sceneController.CurrentScene == "MainMenu")
+		{
+			GameObject c = GameObject.Find("Cameras/MainMenu");
+			c.SetActive(true);
+			ActiveCamera = c.GetComponent<Camera>();
+			c = GameObject.Find("Cameras/Game");
+			c.SetActive(false);
+		}
+		else
+		{
+			GameObject c = GameObject.Find("Cameras/MainMenu");
+			c.SetActive(false);
+			c = GameObject.Find("Cameras/Game");
+			c.SetActive(true);
+			ActiveCamera = c.GetComponent<Camera>();
+		}
+
 		GameSave.LoadSettings();
-		player = GameObject.Find("Player");
+		//player = GameObject.Find("Player");
+		//player = new GameObject("Player");
+		///player.AddComponent<Player>();
+		//player.AddComponent<CharacterStats>();
+		//Stats = new CharacterStats(CharacterStats.CharacterClass.Warrior);
+
+
 
 		// add a fader
-		faderObject = new GameObject("SceneFader");
-		fader = faderObject.AddComponent<SceneFader>();
-
-		RebuildNavMesh();
+		//faderObject = new GameObject("SceneFader");
+		//fader = faderObject.AddComponent<SceneFader>();
+		//fader = FindObjectOfType<SceneFader>();
 	}
 
 	void Start()
 	{
-		string scene = SceneManager.GetActiveScene().name;
-		if (scene != "MainMenu")
-		{
-			if (Settings.NewInTown)
-			{
-				Settings.NewInTown = false;
-				player.transform.position = new Vector3(37, 0, 12);
-			}
-			GameSave.LoadGame();
-			if (SceneManager.GetActiveScene().name == "Town")
-			{
-				Light l = player.GetComponentInChildren<Light>();
-				l.enabled = false;
-			}
-			PlayerAnimator = player.GetComponent<PlayerAnimator>();
-		}
+		m_DungeonState = new DungeonState();
 		m_SoundManager = gameObject.AddComponent<SoundManager>();
 		m_SoundManager.PlayMusic();
-		if (player)
-		{
-			Player p = player.GetComponent<Player>();
-			if (p.Stats.Life < 1) p.Stats.Life = p.Stats.BaseLife;
-		}
-		if (scene == "Dungeon1" && Settings.FreshMeat)
-		{
-			Settings.FreshMeat = false;
-			m_SoundManager.PlaySound(SoundManager.Sounds.FreshMeat);
-		}
-	}
-
-	void LateUpdate()
-	{
-		RepositionCamera();
-	}
-
-	void RebuildNavMesh()
-	{
-		GameObject env = GameObject.Find("Environment");
-		if (env != null)
-		{
-			NavMeshSurface nms = env.AddComponent<NavMeshSurface>();
-			nms.layerMask = 1 << LayerMask.NameToLayer("Ground");
-			nms.BuildNavMesh();
-		}
-	}
-
-	void RepositionCamera()
-	{
-		string scene = SceneManager.GetActiveScene().name;
-		if (scene != "MainMenu")
-		{
-			Camera.main.transform.position = player.transform.position + new Vector3(4 - Settings.CameraZoom, 5 - Settings.CameraZoom, 4 - Settings.CameraZoom);
-			Camera.main.transform.LookAt(player.transform.position + new Vector3(0, 0.1f, 0));
-			if (Settings.CameraSkew != 0) Camera.main.transform.Translate(Vector3.right * Settings.CameraSkew * 3, Space.Self);
-		}
 	}
 }

@@ -54,9 +54,15 @@ public class SoundManager : MonoBehaviour
 		string songname = "Music/Diablo/";
 		switch (currentscene)
 		{
+			case "GameOver": songname = ""; break;
 			case "MainMenu": songname += "01 - Diablo Intro"; break;
 			case "Town": songname += "02 - Tristram"; break;
 			default: songname += "03 - Dungeon"; break;
+		}
+		if (songname == "")
+		{
+			m_MusicSource.Stop();
+			return;
 		}
 		m_MusicSource.clip = (AudioClip)Resources.Load(songname);
 		if (m_MusicSource.clip == null) Debug.Log("couldn't find music " + songname);
@@ -67,29 +73,66 @@ public class SoundManager : MonoBehaviour
 	public void PlaySound(Sounds sound)
 	{
 		if (!GameManager.instance.Settings.PlaySound) return;
+		PlaySound(sound, CharacterStats.CharacterClass.NPC);
+	}
+
+	public void PlaySound(Sounds sound, CharacterStats.CharacterClass characterclass)
+	{
+		if (!GameManager.instance.Settings.PlaySound) return;
 		string soundname = "";
 		switch (sound)
 		{
 			case Sounds.Click: soundname = "File00000001"; break;
 			case Sounds.ClickHeavy: soundname = "File00000002"; break;
-			case Sounds.PlayerHit1: soundname = "File00000061"; break;
-			case Sounds.PlayerAttack1: soundname = "File00000063"; break;
-			case Sounds.PlayerAttack2: soundname = "File00000064"; break;
-			case Sounds.PlayerDie1: soundname = "File00000065"; break;
-			case Sounds.CantDoThat: soundname = "File00000334"; break;
-
 			case Sounds.SkeletonAttack1: soundname = "File00001344"; break;
 			case Sounds.SkeletonHit1: soundname = "File00001346"; break;
 			case Sounds.SkeletonDie1: soundname = "File00001348"; break;
 			case Sounds.ZombieAttack1: soundname = "File00001425"; break;
 			case Sounds.ZombieHit1: soundname = "File00001427"; break;
 			case Sounds.ZombieDie1: soundname = "File00001430"; break;
-			case Sounds.CowAlright: soundname = "File00002306"; break;
 			case Sounds.FreshMeat: soundname = "File00002322"; break;
 			case Sounds.CainHello: soundname = "File00002455"; break;
-			default: Debug.Log("missing sound " + sound); break;
+				//default: Debug.Log("missing sound " + sound); break;
 		}
-		PlaySound(soundname);
+		if (soundname != "")
+		{
+			PlaySound(soundname);
+			return;
+		}
+		switch (characterclass)
+		{
+			case CharacterStats.CharacterClass.Warrior:
+				switch (sound)
+				{
+					case Sounds.PlayerHit1: soundname = "File00000061"; break;
+					case Sounds.PlayerAttack1: soundname = "File00000063"; break;
+					case Sounds.PlayerAttack2: soundname = "File00000064"; break;
+					case Sounds.PlayerDie1: soundname = "File00000065"; break;
+					case Sounds.CantDoThat: soundname = "File00000334"; break;
+					case Sounds.CowAlright: soundname = "File00002306"; break;
+					default: Debug.Log("missing sound " + sound); break;
+				}
+				break;
+			case CharacterStats.CharacterClass.Rogue:
+				switch (sound)
+				{
+					case Sounds.PlayerHit1: soundname = "File00000292"; break;
+					case Sounds.PlayerAttack1: soundname = "File00000063"; break;// same as warrior
+					case Sounds.PlayerAttack2: soundname = "File00000064"; break;// same as warrior
+					case Sounds.PlayerDie1: soundname = "File00000295"; break;
+					case Sounds.CantDoThat: soundname = "File00000272"; break;
+					case Sounds.CowAlright: soundname = "File00002300"; break;
+					default: Debug.Log("missing sound " + sound); break;
+				}
+				break;
+			default:
+				break;
+		}
+		if (soundname != "")
+		{
+			PlaySound(soundname);
+			return;
+		}
 	}
 
 	void PlaySound(string soundname)

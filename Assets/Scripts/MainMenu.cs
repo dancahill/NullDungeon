@@ -7,20 +7,19 @@ public class MainMenu : MonoBehaviour
 	void Start()
 	{
 		m_Manager = GameManager.instance;
-		GameSave.LoadSettings();
+		//GameSave.LoadSettings();
 	}
 
 	public void MenuContinueGame()
 	{
 		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ClickHeavy);
-		m_Manager.fader.FadeTo("Town");
+		m_Manager.sceneController.FadeAndLoadScene("Town");
 	}
 
 	public void MenuNewGame()
 	{
-		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ClickHeavy);
-		GameSave.SaveGame(new CharacterStats(CharacterStats.CharacterClass.Warrior));
-		m_Manager.fader.FadeTo("Town");
+		GameSave.SaveCharacter(new CharacterStats(CharacterStats.CharacterClass.Warrior));
+		MenuContinueGame();
 	}
 
 	public void MenuExit()
@@ -28,6 +27,6 @@ public class MainMenu : MonoBehaviour
 		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ClickHeavy);
 		Debug.Log("Application.Quit();");
 		Application.Quit();
-		m_Manager.fader.FadeTo("GameOver");
+		m_Manager.sceneController.FadeAndLoadScene("GameOver");
 	}
 }

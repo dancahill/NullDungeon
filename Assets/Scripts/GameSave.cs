@@ -4,37 +4,47 @@ using UnityEngine;
 public class GameSave
 {
 	//https://docs.unity3d.com/Manual/JSONSerialization.html
-	public static void LoadGame()
+	public static void LoadCharacter()
 	{
-		string filepath = Application.persistentDataPath + "/character.json";
+		string filepath = Application.persistentDataPath + "/character1.json";
 		Debug.Log("reading " + filepath);
-		Player p = GameManager.instance.player.GetComponent<Player>();
+		CharacterStats p = GameManager.instance.PlayerStats;
 		try
 		{
 			string json = File.ReadAllText(filepath);
-			JsonUtility.FromJsonOverwrite(json, p.Stats);
+			JsonUtility.FromJsonOverwrite(json, p);
 		}
 		catch (FileNotFoundException)
 		{
 			Debug.Log("saved char doesn't exist yet. i'll make one");
-			SaveGame();
+			SaveCharacter();
 		}
-		p.Stats.ResetTimers();
+		p.ResetTimers();
 	}
 
-	public static void SaveGame(CharacterStats stats)
+	public static void SaveCharacter(CharacterStats stats)
 	{
-		string filepath = Application.persistentDataPath + "/character.json";
+		string filepath = Application.persistentDataPath + "/character1.json";
 		Debug.Log("writing " + filepath);
 		File.WriteAllText(filepath, JsonUtility.ToJson(stats, true));
 	}
 
-	public static void SaveGame()
+	public static void SaveCharacter()
 	{
-		string filepath = Application.persistentDataPath + "/character.json";
+		SaveCharacter(GameManager.instance.PlayerStats);
+	}
+
+	public static void LoadDungeon()
+	{
+		string filepath = Application.persistentDataPath + "/dungeon1.json";
+		Debug.Log("reading " + filepath);
+	}
+
+	public static void SaveDungeon()
+	{
+		string filepath = Application.persistentDataPath + "/dungeon1.json";
 		Debug.Log("writing " + filepath);
-		Player p = GameManager.instance.player.GetComponent<Player>();
-		File.WriteAllText(filepath, JsonUtility.ToJson(p.Stats, true));
+		File.WriteAllText(filepath, JsonUtility.ToJson(GameManager.instance.m_DungeonState, true));
 	}
 
 	public static void LoadSettings()

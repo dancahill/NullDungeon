@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class PlayerAnimator : MonoBehaviour
 {
@@ -7,23 +8,29 @@ public class PlayerAnimator : MonoBehaviour
 	Player player;
 	NavMeshAgent m_Agent;
 	Animator m_Animator;
+	float maxspeed = 3.0f;
 
 	void Start()
 	{
 		m_Manager = GameManager.instance;
 		player = gameObject.GetComponentInParent<Player>();
-
 		m_Agent = gameObject.AddComponent<NavMeshAgent>();
-		m_Agent.speed = 3.0f;
+		m_Agent.speed = maxspeed;
 		m_Agent.angularSpeed = 500;
+		if (SceneManager.GetActiveScene().name == "Town")
+		{
+			m_Agent.speed = 2.0f;
+		}
 	}
 
 	void Update()
 	{
 		const float locomotionAnimationSmoothTime = .1f;
-		float speedPercent = m_Agent.velocity.magnitude / m_Agent.speed;
+		float speedPercent = m_Agent.velocity.magnitude / maxspeed;
 		m_Animator = GetComponentInChildren<Animator>();
 		if (m_Animator) m_Animator.SetFloat("SpeedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
+		//float x = m_Animator.GetFloat("SpeedPercent");
+		//Debug.Log(string.Format("{0} {1}", speedPercent, x));
 		if (m_Manager.SelectedTarget != null)
 		{
 			float distanceToEnemy = Vector3.Distance(transform.position, m_Manager.SelectedTarget.transform.position);
@@ -77,7 +84,7 @@ public class PlayerAnimator : MonoBehaviour
 	public void SetTarget(GameObject target)
 	{
 		m_Manager.SelectedTarget = target;
-		float distanceToEnemy = Vector3.Distance(m_Manager.SelectedTarget.transform.position, m_Manager.player.transform.position);
+		float distanceToEnemy = Vector3.Distance(m_Manager.SelectedTarget.transform.position, Scene_Manager.instance.player.transform.position);
 		//Debug.Log("clicked on '" + target.name + "' distance = " + distanceToEnemy.ToString("0.0"));
 		MoveTo(m_Manager.SelectedTarget.transform.position);
 	}
@@ -132,6 +139,6 @@ public class PlayerAnimator : MonoBehaviour
 	{
 		// this should probably time these things. maybe use an animator
 		m_Animator.Play("Attack");
-		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerAttack1);
+		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerAttack1, FindObjectOfType<Player>().Stats.Class);
 	}
 }

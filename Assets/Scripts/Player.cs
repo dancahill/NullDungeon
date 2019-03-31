@@ -11,8 +11,8 @@ public class Player : MonoBehaviour
 
 	private void Start()
 	{
-		Stats = new CharacterStats(CharacterStats.CharacterClass.Warrior);
 		Manager = GameManager.instance;
+		Stats = GameManager.instance.PlayerStats;
 		Animator = GetComponent<PlayerAnimator>();
 		Input = GetComponent<PlayerInput>();
 	}
@@ -28,15 +28,16 @@ public class Player : MonoBehaviour
 			//GetComponent<EnemyAnimator>().Death();
 			//m_Manager.player.GetComponent<Player>().Stats.AddExperience(Stats.GivesExperience);
 			FindObjectOfType<GameCanvas>().SetInfo("You died");
-			Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerDie1);
+			Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerDie1, FindObjectOfType<Player>().Stats.Class);
 			Manager.Settings.NewInTown = true;
-			CharacterStats stats = Manager.player.GetComponent<Player>().Stats;
+			CharacterStats stats = Manager.PlayerStats;
 			stats.Life = stats.BaseLife;
-			Manager.fader.FadeTo("Town");
+			GameSave.SaveCharacter();
+			Manager.sceneController.FadeAndLoadScene("Town");
 		}
 		else
 		{
-			Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerHit1);
+			Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerHit1, FindObjectOfType<Player>().Stats.Class);
 		}
 	}
 }

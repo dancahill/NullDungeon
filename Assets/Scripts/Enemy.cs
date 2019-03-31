@@ -1,31 +1,38 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(EnemyAnimator))]
 public class Enemy : MonoBehaviour
 {
+	[Header("Other")]
 	public CharacterStats Stats;
 	GameManager m_Manager;
+	Scene_Manager m_SceneManager;
 	[HideInInspector] public EnemyAnimator Animator;
 	[HideInInspector] GameObject player;
 	bool Provoked = false;
+	public bool Deleted = false;
 
 	Vector3 start;
 	Vector3 end;
 
-	void Start()
+	void Awake()
 	{
 		Stats = new CharacterStats(CharacterStats.CharacterClass.NPC);
 		m_Manager = GameManager.instance;
+		m_SceneManager = FindObjectOfType<Scene_Manager>();//should probably just use a static instance
 		Animator = GetComponent<EnemyAnimator>();
-		player = GameObject.Find("Player");
+	}
 
+	void Start()
+	{
+		player = GameObject.Find("Player");
 		start = transform.Find("Waypoints/Start").position;
 		end = transform.Find("Waypoints/End").position;
 	}
 
 	private void Update()
 	{
-
 		if (!IsAlive()) return; // dead undead can't attack
 		float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 		if (distanceToPlayer < 5)
@@ -94,7 +101,7 @@ public class Enemy : MonoBehaviour
 
 	private void OnMouseDown()
 	{
-		m_Manager.PlayerAnimator.SetTarget(transform.gameObject);
+		m_SceneManager.PlayerAnimator.SetTarget(transform.gameObject);
 	}
 
 	private void OnMouseExit()
@@ -104,7 +111,19 @@ public class Enemy : MonoBehaviour
 
 	public bool IsAlive()
 	{
+		NavMeshAgent m_Agent = GetComponent<NavMeshAgent>();
+		if (Stats.Life <= 0 && m_Agent.enabled)
+		{
+			Debug.Log("enemy " + name + " should already be dead");
+			MakeDead();
+		}
 		return (Stats.Life > 0);
+	}
+
+	public void MakeDead()
+	{
+		Stats.Life = 0;
+		GetComponent<EnemyAnimator>().SetDead(true);
 	}
 
 	public void TakeDamage(int damage)
@@ -116,7 +135,7 @@ public class Enemy : MonoBehaviour
 		{
 			Stats.Life = 0;
 			GetComponent<EnemyAnimator>().Death();
-			m_Manager.player.GetComponent<Player>().Stats.AddExperience(Stats.GivesExperience);
+			m_Manager.PlayerStats.AddExperience(Stats.GivesExperience);
 		}
 		else
 		{
