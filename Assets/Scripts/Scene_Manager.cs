@@ -12,7 +12,7 @@ public class Scene_Manager : MonoBehaviour
 	GameSettings Settings;
 	public GameObject player;
 
-	[HideInInspector] public PlayerAnimator PlayerAnimator;
+	//[HideInInspector] public PlayerAnimator PlayerAnimator;
 
 	SceneController sceneController;
 	//public bool NavMeshBaked = false;
@@ -46,54 +46,30 @@ public class Scene_Manager : MonoBehaviour
 		Settings = manager.Settings;
 		player = GameObject.Find("Player");
 
+		manager.m_SoundManager.PlayMusic();
 		if (scene != "MainMenu")
 		{
 			GameCanvas c = FindObjectOfType<GameCanvas>();
 			c.OpenCharacterPanel(false);
 			c.OpenInventoryPanel(false);
 			GameSave.LoadCharacter();
-			if (SceneManager.GetActiveScene().name == "Town")
+			if (SceneManager.GetActiveScene().name == "Town" && Settings.NewInTown)
 			{
-				if (Settings.NewInTown)
-				{
-					Settings.NewInTown = false;
-					manager.PlayerStats.Life = manager.PlayerStats.BaseLife;
-					player.transform.position = new Vector3(37, 0, 12);
-				}
-				Light l = player.GetComponentInChildren<Light>();
-				l.enabled = false;
+				Settings.NewInTown = false;
+				manager.PlayerStats.Life = manager.PlayerStats.BaseLife;
+				player.transform.position = new Vector3(37, 0, 12);
 			}
-			if (player != null)
+			//PlayerAnimator = player.GetComponent<PlayerAnimator>();
+			if (scene == "Dungeon1" && Settings.FreshMeat)
 			{
-				void setactive(string cclass)
-				{
-					GameObject warrior = player.transform.Find("Warrior").gameObject;
-					GameObject rogue = player.transform.Find("Rogue").gameObject;
-					warrior.SetActive(cclass == "Warrior");
-					rogue.SetActive(cclass == "Rogue");
-				}
-				Player p = player.GetComponent<Player>();
-				if (p.Stats.Class == CharacterStats.CharacterClass.Warrior)
-				{
-					setactive("Warrior");
-				}
-				else if (p.Stats.Class == CharacterStats.CharacterClass.Rogue)
-				{
-					setactive("Rogue");
-				}
+				Settings.FreshMeat = false;
+				manager.m_SoundManager.PlaySound(SoundManager.Sounds.FreshMeat);
 			}
-			PlayerAnimator = player.GetComponent<PlayerAnimator>();
 		}
 		if (player)
 		{
 			Player p = player.GetComponent<Player>();
 			if (p.Stats.Life < 1) p.Stats.Life = p.Stats.BaseLife;
-		}
-		manager.m_SoundManager.PlayMusic();
-		if (scene == "Dungeon1" && Settings.FreshMeat)
-		{
-			Settings.FreshMeat = false;
-			manager.m_SoundManager.PlaySound(SoundManager.Sounds.FreshMeat);
 		}
 	}
 

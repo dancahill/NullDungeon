@@ -2,8 +2,9 @@
 using UnityEngine.AI;
 
 [RequireComponent(typeof(EnemyAnimator))]
-public class Enemy : MonoBehaviour
+public class Enemy : Interactable
 {
+	public static float ProvokeRadius = 5;
 	[Header("Other")]
 	public CharacterStats Stats;
 	GameManager m_Manager;
@@ -34,7 +35,7 @@ public class Enemy : MonoBehaviour
 	{
 		if (!IsAlive()) return; // dead undead can't attack
 		float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-		if (distanceToPlayer < 5)
+		if (distanceToPlayer < ProvokeRadius)
 		{
 			Provoked = true;
 		}
@@ -51,8 +52,7 @@ public class Enemy : MonoBehaviour
 				if (Stats.CanAttack())
 				{
 					Animator.DoAttack();
-					int damage;
-					if (Stats.CalculateDamage(p.Stats, 2.0f, out damage))
+					if (Stats.CalculateDamage(p.Stats, 2.0f, out int damage))
 					{
 						if (damage > 0) p.TakeDamage(damage);
 					}
@@ -87,24 +87,38 @@ public class Enemy : MonoBehaviour
 	{
 		string s;
 		if (Stats.Life <= 0)
-		{
 			s = string.Format("Dead {0}", name);
-		}
 		else
-		{
 			s = string.Format("{0}\nHealth={1}/{2}", name, Stats.Life, Stats.BaseLife);
-		}
 		FindObjectOfType<GameCanvas>().SetInfo(s);
 	}
 
-	private void OnMouseDown()
-	{
-		m_SceneManager.PlayerAnimator.SetTarget(transform.gameObject);
-	}
+	//private void OnMouseDown()
+	//{
+	//	PlayerAnimator PlayerAnimator = player.GetComponent<PlayerAnimator>();
+	//	PlayerAnimator.SetTarget(transform.gameObject);
+	//}
 
-	private void OnMouseExit()
+	//private void OnMouseExit()
+	//{
+	//	FindObjectOfType<GameCanvas>().SetInfo("");
+	//}
+
+	public override bool Interact()
 	{
-		FindObjectOfType<GameCanvas>().SetInfo("");
+		base.Interact();
+		if (!IsAlive()) return false;
+		Debug.Log("attacking enemy " + name);
+		//Debug.Log("close! attack?!?");
+		if (GameManager.instance.PlayerStats.CalculateDamage(Stats, 0.5f, out int damage))
+		{
+			if (damage > 0) TakeDamage(damage);
+		}
+		else
+		{
+			//Debug.Log("missed");
+		}
+		return true;
 	}
 
 	public bool IsAlive()

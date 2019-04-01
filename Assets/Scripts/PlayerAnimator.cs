@@ -18,6 +18,11 @@ public class PlayerAnimator : MonoBehaviour
 		m_Agent = gameObject.AddComponent<NavMeshAgent>();
 		m_Agent.speed = maxspeed;
 		m_Agent.angularSpeed = 500;
+		m_Agent.stoppingDistance = 1.1f;
+		m_Agent.updateRotation = true;
+		// not tested - might be useful to enable stoppingDistance
+		//m_Agent.stoppingDistance = 1.1f;
+		//m_Agent.updateRotation = true;
 		if (SceneManager.GetActiveScene().name == "Town")
 		{
 			m_Agent.speed = 2.0f;
@@ -28,59 +33,32 @@ public class PlayerAnimator : MonoBehaviour
 	{
 		const float locomotionAnimationSmoothTime = .1f;
 		float speedPercent = m_Agent.velocity.magnitude / maxspeed;
-		m_Animator = GetComponentInChildren<Animator>();
+		m_Animator = GetComponentInChildren<Animator>();//lets us change avatars from editor, but otherwise, bad place for this
 		if (m_Animator) m_Animator.SetFloat("SpeedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
 		//float x = m_Animator.GetFloat("SpeedPercent");
 		//Debug.Log(string.Format("{0} {1}", speedPercent, x));
 		if (SelectedTarget != null)
 		{
-			float distanceToTarget = Vector3.Distance(transform.position, SelectedTarget.transform.position);
-			//Debug.Log("distance to target is " + distanceToTarget);
-			if (distanceToTarget < 1.2)
+			Interactable ia = SelectedTarget.gameObject.GetComponent<Interactable>();
+			if (ia)
 			{
-				bool targetresolved = false;
-				TownNPC t = SelectedTarget.gameObject.GetComponent<TownNPC>();
-				if (t)
+				float distanceToTarget = Vector3.Distance(transform.position, SelectedTarget.transform.position);
+				if (distanceToTarget < ia.radius)
 				{
-					targetresolved = true;
 					Stop();
-					t.Interact();
-				}
-				Enemy e = SelectedTarget.gameObject.GetComponent<Enemy>();
-				if (e)
-				{
-					targetresolved = true;
-					if (e.IsAlive())
+					Enemy e = SelectedTarget.gameObject.GetComponent<Enemy>();
+					bool caninteract = (e != null) ? player.Stats.CanAttack() : true;
+					if (caninteract)
 					{
-						//Debug.Log("close! attack?!?");
-						if (player.Stats.CanAttack())
-						{
-							DoAttack();
-							int damage;
-							if (player.Stats.CalculateDamage(e.Stats, 0.5f, out damage))
-							{
-								if (damage > 0) e.TakeDamage(damage);
-							}
-							else
-							{
-								//Debug.Log("missed");
-							}
-						}
-						else
-						{
-							//Debug.Log("cooling down");
-						}
+						bool didinteract = ia.Interact();
+						if (e != null && didinteract) DoAttack();
 					}
+					SelectedTarget = null;
 				}
-				SelectedTarget = null;
-				if (!targetresolved)
+				else
 				{
-					Debug.Log("target not resolved");
+					MoveTo(SelectedTarget.transform.position);
 				}
-			}
-			else
-			{
-				MoveTo(SelectedTarget.transform.position);
 			}
 		}
 		// adding a rigidbody to player caused some really weird and broken
@@ -95,6 +73,7 @@ public class PlayerAnimator : MonoBehaviour
 
 	void MoveTo(Vector3 point)
 	{
+		m_Agent.stoppingDistance = 1.1f;
 		m_Agent.SetDestination(point);
 	}
 
@@ -120,10 +99,9 @@ public class PlayerAnimator : MonoBehaviour
 	/// </summary>
 	public void SetDirection()
 	{
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Ray ray = m_Manager.ActiveCamera.ScreenPointToRay(Input.mousePosition);
 		LayerMask movementMask = LayerMask.GetMask("Ground");
-		RaycastHit hit;
-		if (Physics.Raycast(ray, out hit, movementMask))
+		if (Physics.Raycast(ray, out RaycastHit hit, movementMask))
 		{
 			// looks ugly turning this suddenly, but good enough for now
 			transform.LookAt(hit.point);
@@ -135,17 +113,23 @@ public class PlayerAnimator : MonoBehaviour
 	/// </summary>
 	public void SetDestination()
 	{
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Ray ray = m_Manager.ActiveCamera.ScreenPointToRay(Input.mousePosition);
 		LayerMask movementMask = LayerMask.GetMask("Ground");
 		RaycastHit hit;
 		if (Physics.Raycast(ray, out hit, movementMask))
 		{
+			//Interactable interactable = hit.collider.GetComponent<Interactable>();
+			//if (interactable)
+			//{
+			//	Debug.Log(hit.transform.name + " is interactable");
+			//}
+
 			string hitname = hit.transform.name;
 			//if (hit.transform.name.StartsWith("Floor"))
 			//if (hit.transform.gameObject.layer == movementMask)
 			//if ((movementMask & 1 << hit.transform.gameObject.layer) == 1 << hit.transform.gameObject.layer)
 			// this is ugly - find a better solution
-			if (hitname.StartsWith("Floor") || hitname.StartsWith("Stairs") || hitname == "Plane" || hitname == "Terrain" || hitname == "Start" || hitname == "End")
+			if (hitname.StartsWith("Floor") || hitname.StartsWith("Stairs") || hitname == "Plane" || hitname == "Terrain")// || hitname == "Start" || hitname == "End")
 			{
 				SelectedTarget = null;
 				MoveTo(hit.point);
@@ -155,6 +139,7 @@ public class PlayerAnimator : MonoBehaviour
 
 	public void Stop()
 	{
+		m_Agent.stoppingDistance = 0f;
 		MoveTo(transform.position);
 	}
 

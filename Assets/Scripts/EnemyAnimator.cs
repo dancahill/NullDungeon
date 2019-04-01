@@ -22,6 +22,7 @@ public class EnemyAnimator : MonoBehaviour
 		m_Agent.speed = 1.0f;
 		if (name == "Zombie") m_Agent.speed = 0.8f;
 		m_Agent.angularSpeed = 500;
+		m_Agent.stoppingDistance = 1.1f;
 	}
 
 	private void Update()

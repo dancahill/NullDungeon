@@ -151,6 +151,7 @@ MonoBehaviour:
     ToHitPercent: 0
     Damage: 0
     Life: 0
+    Mana: 0
     GivesExperience: 0
     Equipped: []
     Inventory: []
@@ -169,7 +170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 354f99bd564d8a64da5b2cffdf464f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectedTarget: {fileID: 0}
 --- !u!114 &1899304442652301889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,14 +474,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rogue
       objectReference: {fileID: 0}
-    - target: {fileID: 9500000, guid: 00029917b06304048bc4022b05098b5e, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 87c0201d6fa3beb42b7ed774629746ac, type: 2}
-    - target: {fileID: 9500000, guid: 00029917b06304048bc4022b05098b5e, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 400014, guid: 00029917b06304048bc4022b05098b5e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -524,6 +516,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400014, guid: 00029917b06304048bc4022b05098b5e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 00029917b06304048bc4022b05098b5e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 87c0201d6fa3beb42b7ed774629746ac, type: 2}
+    - target: {fileID: 9500000, guid: 00029917b06304048bc4022b05098b5e, type: 3}
+      propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

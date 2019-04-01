@@ -7,7 +7,6 @@ public class MainMenu : MonoBehaviour
 	void Start()
 	{
 		m_Manager = GameManager.instance;
-		//GameSave.LoadSettings();
 	}
 
 	public void MenuContinueGame()
@@ -26,7 +25,6 @@ public class MainMenu : MonoBehaviour
 	public void MenuExit()
 	{
 		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ClickHeavy);
-		Debug.Log("Application.Quit();");
 		Application.Quit();
 		m_Manager.sceneController.FadeAndLoadScene("GameOver");
 	}

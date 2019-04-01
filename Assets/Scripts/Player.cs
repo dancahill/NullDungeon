@@ -15,6 +15,26 @@ public class Player : MonoBehaviour
 		Stats = GameManager.instance.PlayerStats;
 		Animator = GetComponent<PlayerAnimator>();
 		Input = GetComponent<PlayerInput>();
+
+		void setactive(string cclass)
+		{
+			GameObject warrior = transform.Find("Warrior").gameObject;
+			GameObject rogue = transform.Find("Rogue").gameObject;
+			warrior.SetActive(cclass == "Warrior");
+			rogue.SetActive(cclass == "Rogue");
+		}
+		if (Stats.Class == CharacterStats.CharacterClass.Warrior)
+		{
+			setactive("Warrior");
+		}
+		else if (Stats.Class == CharacterStats.CharacterClass.Rogue)
+		{
+			setactive("Rogue");
+		}
+		if (SceneController.GetActiveSceneName() == "Town")
+		{
+			GetComponentInChildren<Light>().enabled = false;
+		}
 	}
 
 	private void Update()

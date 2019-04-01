@@ -11,10 +11,6 @@ public class GameSettings
 	public float CameraZoom = 0;
 	public bool PlayMusic = true;
 	public bool PlaySound = true;
-	public GameSettings()
-	{
-		//GameSave.LoadSettings();
-	}
 }
 
 public class GameManager : MonoBehaviour
@@ -32,13 +28,13 @@ public class GameManager : MonoBehaviour
 	void Awake()
 	{
 		instance = this;
-		Settings = new GameSettings();
-		GameSave.LoadSettings();
 		if (SceneManager.GetActiveScene().name != "Persistent")
 		{
 			SceneManager.LoadScene("Persistent");
 			return;
 		}
+		Settings = new GameSettings();
+		GameSave.LoadSettings();
 		PlayerStats = new CharacterStats(CharacterStats.CharacterClass.Warrior);
 		sceneController = FindObjectOfType<SceneController>();
 		if (!sceneController) throw new UnityException("Scene Controller missing. Make sure it exists in the Persistent scene.");

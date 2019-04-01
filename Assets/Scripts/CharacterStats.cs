@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -34,8 +35,10 @@ public class CharacterStats
 	[Header("NPC Values")]
 	public int GivesExperience;
 	[Header("Inventory")]
-	public CharacterItem[] Equipped;
-	public CharacterItem[] Inventory;
+	public List<Item> Equipped = new List<Item>();
+	public List<Item> Inventory = new List<Item>();
+	//public CharacterItem[] Equipped;
+	//public CharacterItem[] Inventory;
 	//[Header("...")]
 	[NonSerialized] public float AttackCooldown;
 
@@ -94,11 +97,11 @@ public class CharacterStats
 				break;
 			default: break;
 		}
-		Equipped = new CharacterItem[4];
-		Inventory = new CharacterItem[8];
-		Equipped[0] = new CharacterItem { Name = "Rubber Chicken", Damage = 5 };
-		Equipped[1] = new CharacterItem { Name = "Diaper", Armour = 5 };
-		Inventory[0] = new CharacterItem { Name = "Booger Collection" };
+		//Equipped = new CharacterItem[4];
+		//Inventory = new CharacterItem[8];
+		//Equipped.Add(new Item { Name = "Rubber Chicken", MaxDamage = 5 });
+		//Equipped.Add(new Item { Name = "Diaper", Armour = 5 });
+		//Inventory.Add(new Item { Name = "Booger Collection" });
 	}
 
 	public void ResetTimers()
@@ -113,12 +116,12 @@ public class CharacterStats
 		ToHitPercent = Dexterity * 2;
 		Damage = Strength;
 		if (Life > BaseLife) Life = BaseLife;
-		if (Equipped != null && Equipped.Length > 0)
+		if (Equipped != null && Equipped.Count > 0)
 		{
-			foreach (CharacterItem ci in Equipped)
+			foreach (Item ci in Equipped)
 			{
 				ArmourClass += ci.Armour;
-				Damage += ci.Damage;
+				Damage += ci.MaxDamage;
 			}
 		}
 	}
@@ -126,6 +129,7 @@ public class CharacterStats
 	public bool CanAttack()
 	{
 		if (Time.time < AttackCooldown) return false;
+		if (Life == 0) return false;
 		return true;
 	}
 
@@ -149,6 +153,7 @@ public class CharacterStats
 	/// full comparison and calculation of attacker and defender stats
 	/// </summary>
 	/// <param name="defender">defender's character stats</param>
+	/// <param name="cooldown">seconds between attacks</param>
 	/// <param name="damage">actual damage done to defender</param>
 	/// <returns>true if hit</returns>
 	public bool CalculateDamage(CharacterStats defender, float cooldown, out int damage)
