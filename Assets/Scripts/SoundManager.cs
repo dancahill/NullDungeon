@@ -73,10 +73,10 @@ public class SoundManager : MonoBehaviour
 	public void PlaySound(Sounds sound)
 	{
 		if (!GameManager.instance.Settings.PlaySound) return;
-		PlaySound(sound, CharacterStats.CharacterClass.NPC);
+		PlaySound(sound, Character.CharacterClass.NPC);
 	}
 
-	public void PlaySound(Sounds sound, CharacterStats.CharacterClass characterclass)
+	public void PlaySound(Sounds sound, Character.CharacterClass characterclass)
 	{
 		if (!GameManager.instance.Settings.PlaySound) return;
 		string soundname = "";
@@ -101,7 +101,7 @@ public class SoundManager : MonoBehaviour
 		}
 		switch (characterclass)
 		{
-			case CharacterStats.CharacterClass.Warrior:
+			case Character.CharacterClass.Warrior:
 				switch (sound)
 				{
 					case Sounds.PlayerHit1: soundname = "File00000061"; break;
@@ -113,7 +113,7 @@ public class SoundManager : MonoBehaviour
 					default: Debug.Log("missing sound " + sound); break;
 				}
 				break;
-			case CharacterStats.CharacterClass.Rogue:
+			case Character.CharacterClass.Rogue:
 				switch (sound)
 				{
 					case Sounds.PlayerHit1: soundname = "File00000292"; break;

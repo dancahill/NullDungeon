@@ -5,9 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Scene_Manager : MonoBehaviour
 {
-	#region Singleton
 	public static Scene_Manager instance;
-	#endregion
 	GameManager manager;
 	GameSettings Settings;
 	public GameObject player;
@@ -25,6 +23,7 @@ public class Scene_Manager : MonoBehaviour
 			SceneManager.LoadScene("Persistent");
 			return;
 		}
+		SetCamera();
 		manager = FindObjectOfType<GameManager>();
 		sceneController = manager.sceneController;
 		//NavMeshBaked = false;
@@ -56,7 +55,7 @@ public class Scene_Manager : MonoBehaviour
 			if (SceneManager.GetActiveScene().name == "Town" && Settings.NewInTown)
 			{
 				Settings.NewInTown = false;
-				manager.PlayerStats.Life = manager.PlayerStats.BaseLife;
+				manager.PlayerCharacter.Life = manager.PlayerCharacter.BaseLife;
 				player.transform.position = new Vector3(37, 0, 12);
 			}
 			//PlayerAnimator = player.GetComponent<PlayerAnimator>();
@@ -111,6 +110,27 @@ public class Scene_Manager : MonoBehaviour
 			nms.layerMask = 1 << LayerMask.NameToLayer("Ground");
 			nms.BuildNavMesh();
 		}
+	}
+
+	void SetCamera()
+	{
+		GameManager.instance.ActiveCamera = Camera.main;
+		//if (sceneController.CurrentScene == "MainMenu")
+		//{
+		//	GameObject c = GameObject.Find("Cameras/MainMenu");
+		//	c.SetActive(true);
+		//	GameManager.instance.ActiveCamera = c.GetComponent<Camera>();
+		//	c = GameObject.Find("Cameras/Game");
+		//	c.SetActive(false);
+		//}
+		//else
+		//{
+		//	GameObject c = GameObject.Find("Cameras/MainMenu");
+		//	c.SetActive(false);
+		//	c = GameObject.Find("Cameras/Game");
+		//	c.SetActive(true);
+		//	GameManager.instance.ActiveCamera = c.GetComponent<Camera>();
+		//}
 	}
 
 	void RepositionCamera()

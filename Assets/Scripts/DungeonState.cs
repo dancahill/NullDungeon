@@ -5,7 +5,7 @@ using UnityEngine;
 public class DungeonObject
 {
 	public string Name;
-	public CharacterStats.CharacterClass Class;
+	public Character.CharacterClass Class;
 	public int BaseLife;
 	public float Life;
 	public double x;

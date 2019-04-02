@@ -60,10 +60,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Imports\RPGPackFree\Scripts\BowString.cs" />
+    <Compile Include="Assets\Imports\RPGPackFree\Scripts\OpenChest.cs" />
     <Compile Include="Assets\Imports\TestModels\Knight\scripts\rotator.cs" />
     <Compile Include="Assets\Scripts\CanvasManager.cs" />
+    <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\CharacterPanel.cs" />
-    <Compile Include="Assets\Scripts\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\CharacterTables.cs" />
     <Compile Include="Assets\Scripts\DungeonState.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
@@ -73,6 +75,9 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameSave.cs" />
     <Compile Include="Assets\Scripts\Interactable.cs" />
+    <Compile Include="Assets\Scripts\InventoryPanel.cs" />
+    <Compile Include="Assets\Scripts\InventorySlot.cs" />
+    <Compile Include="Assets\Scripts\Loot.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimator.cs" />
@@ -81,6 +86,7 @@
     <Compile Include="Assets\Scripts\SceneController.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\Item.cs" />
     <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\Stash.cs" />
     <Compile Include="Assets\Scripts\TownNPC.cs" />
     <Compile Include="Assets\Scripts\Util\SizeCheck.cs" />
     <Compile Include="Assets\Scripts\WayPoint.cs" />

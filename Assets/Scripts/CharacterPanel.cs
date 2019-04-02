@@ -47,7 +47,7 @@ public class CharacterPanel : MonoBehaviour
 
 	void Update()
 	{
-		CharacterStats stats = Manager.PlayerStats;
+		Character stats = Manager.PlayerCharacter;
 		stats.Recalculate();
 
 		NameText.text = stats.Name.ToString();

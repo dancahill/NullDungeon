@@ -25,7 +25,7 @@ public class GameCanvas : MonoBehaviour
 
 	private void Update()
 	{
-		healthBar.fillAmount = (float)m_Manager.PlayerStats.Life / (float)m_Manager.PlayerStats.BaseLife;
+		healthBar.fillAmount = (float)m_Manager.PlayerCharacter.Life / (float)m_Manager.PlayerCharacter.BaseLife;
 	}
 
 	public void SetInfo(string message)

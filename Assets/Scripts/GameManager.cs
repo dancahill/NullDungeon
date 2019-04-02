@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 	public static GameManager instance;
 	#endregion
 	public GameSettings Settings;
-	public CharacterStats PlayerStats;
+	public Character PlayerCharacter;
 	public DungeonState m_DungeonState;
 	[HideInInspector] public SoundManager m_SoundManager;
 	[HideInInspector] public SceneController sceneController;
@@ -35,11 +35,10 @@ public class GameManager : MonoBehaviour
 		}
 		Settings = new GameSettings();
 		GameSave.LoadSettings();
-		PlayerStats = new CharacterStats(CharacterStats.CharacterClass.Warrior);
+		PlayerCharacter = new Character(Character.CharacterClass.Warrior);
 		sceneController = FindObjectOfType<SceneController>();
 		if (!sceneController) throw new UnityException("Scene Controller missing. Make sure it exists in the Persistent scene.");
 		if (sceneController.CurrentScene == "") sceneController.CurrentScene = "MainMenu";
-		SetCamera();
 	}
 
 	void Start()
@@ -47,25 +46,5 @@ public class GameManager : MonoBehaviour
 		m_DungeonState = new DungeonState();
 		m_SoundManager = gameObject.AddComponent<SoundManager>();
 		m_SoundManager.PlayMusic();
-	}
-
-	void SetCamera()
-	{
-		if (sceneController.CurrentScene == "MainMenu")
-		{
-			GameObject c = GameObject.Find("Cameras/MainMenu");
-			c.SetActive(true);
-			ActiveCamera = c.GetComponent<Camera>();
-			c = GameObject.Find("Cameras/Game");
-			c.SetActive(false);
-		}
-		else
-		{
-			GameObject c = GameObject.Find("Cameras/MainMenu");
-			c.SetActive(false);
-			c = GameObject.Find("Cameras/Game");
-			c.SetActive(true);
-			ActiveCamera = c.GetComponent<Camera>();
-		}
 	}
 }

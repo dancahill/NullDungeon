@@ -4,7 +4,7 @@
 [RequireComponent(typeof(PlayerInput))]
 public class Player : MonoBehaviour
 {
-	public CharacterStats Stats;
+	public Character Stats;
 	[HideInInspector] public GameManager Manager;
 	[HideInInspector] public PlayerAnimator Animator;
 	[HideInInspector] public PlayerInput Input;
@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 	private void Start()
 	{
 		Manager = GameManager.instance;
-		Stats = GameManager.instance.PlayerStats;
+		Stats = GameManager.instance.PlayerCharacter;
 		Animator = GetComponent<PlayerAnimator>();
 		Input = GetComponent<PlayerInput>();
 
@@ -23,11 +23,11 @@ public class Player : MonoBehaviour
 			warrior.SetActive(cclass == "Warrior");
 			rogue.SetActive(cclass == "Rogue");
 		}
-		if (Stats.Class == CharacterStats.CharacterClass.Warrior)
+		if (Stats.Class == Character.CharacterClass.Warrior)
 		{
 			setactive("Warrior");
 		}
-		else if (Stats.Class == CharacterStats.CharacterClass.Rogue)
+		else if (Stats.Class == Character.CharacterClass.Rogue)
 		{
 			setactive("Rogue");
 		}
@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
 			FindObjectOfType<GameCanvas>().SetInfo("You died");
 			Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerDie1, FindObjectOfType<Player>().Stats.Class);
 			Manager.Settings.NewInTown = true;
-			CharacterStats stats = Manager.PlayerStats;
+			Character stats = Manager.PlayerCharacter;
 			GameSave.SaveCharacter();
 			Manager.sceneController.FadeAndLoadScene("Town");
 		}

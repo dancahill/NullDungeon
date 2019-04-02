@@ -8,11 +8,6 @@ public class EnemyAnimator : MonoBehaviour
 	NavMeshAgent m_Agent;
 	Animator m_Animator;
 
-	private void Awake()
-	{
-		// this causes warnings in awake but if put in start, its late load causes errors in dungeon restore
-	}
-
 	void Start()
 	{
 		m_Manager = GameManager.instance;

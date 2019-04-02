@@ -12,7 +12,7 @@ public class TownNPC : Interactable
 				return true;
 			case "Deckard Cain":
 				GameManager.instance.m_SoundManager.PlaySound(SoundManager.Sounds.CainHello);
-				GameManager.instance.PlayerStats.Life = GameManager.instance.PlayerStats.BaseLife;
+				GameManager.instance.PlayerCharacter.Life = GameManager.instance.PlayerCharacter.BaseLife;
 				return true;
 			default:
 				Debug.Log("interaction with " + name + " not defined");

@@ -3,8 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class CharacterStats
+public class Character
 {
+	[Serializable]
+	public struct EquippedItems
+	{
+		public Item lefthand;
+		public Item righthand;
+		public Item head;
+		public Item body;
+	}
 	public enum CharacterClass
 	{
 		NPC,
@@ -35,20 +43,22 @@ public class CharacterStats
 	[Header("NPC Values")]
 	public int GivesExperience;
 	[Header("Inventory")]
-	public List<Item> Equipped = new List<Item>();
+	//public List<Item> Equipped = new List<Item>();
+	public EquippedItems Equipped;
 	public List<Item> Inventory = new List<Item>();
+	readonly int InventoryMaxSize = 16;
 	//public CharacterItem[] Equipped;
 	//public CharacterItem[] Inventory;
 	//[Header("...")]
 	[NonSerialized] public float AttackCooldown;
 
-	public CharacterStats(string _class)
+	public Character(string _class)
 	{
 		CharacterClass cc = (CharacterClass)Enum.Parse(typeof(CharacterClass), _class);
 		SetStats(cc);
 	}
 
-	public CharacterStats(CharacterClass _class)
+	public Character(CharacterClass _class)
 	{
 		SetStats(_class);
 	}
@@ -116,14 +126,16 @@ public class CharacterStats
 		ToHitPercent = Dexterity * 2;
 		Damage = Strength;
 		if (Life > BaseLife) Life = BaseLife;
-		if (Equipped != null && Equipped.Count > 0)
-		{
-			foreach (Item ci in Equipped)
-			{
-				ArmourClass += ci.Armour;
-				Damage += ci.MaxDamage;
-			}
-		}
+
+		ArmourClass += (Equipped.lefthand) ? Equipped.lefthand.Armour : 0;
+		ArmourClass += (Equipped.righthand) ? Equipped.righthand.Armour : 0;
+		ArmourClass += (Equipped.head) ? Equipped.head.Armour : 0;
+		ArmourClass += (Equipped.body) ? Equipped.body.Armour : 0;
+
+		Damage += (Equipped.lefthand) ? Equipped.lefthand.MaxDamage : 0;
+		Damage += (Equipped.righthand) ? Equipped.righthand.MaxDamage : 0;
+		Damage += (Equipped.head) ? Equipped.head.MaxDamage : 0;
+		Damage += (Equipped.body) ? Equipped.body.MaxDamage : 0;
 	}
 
 	public bool CanAttack()
@@ -156,7 +168,7 @@ public class CharacterStats
 	/// <param name="cooldown">seconds between attacks</param>
 	/// <param name="damage">actual damage done to defender</param>
 	/// <returns>true if hit</returns>
-	public bool CalculateDamage(CharacterStats defender, float cooldown, out int damage)
+	public bool CalculateDamage(Character defender, float cooldown, out int damage)
 	{
 		Recalculate();
 		bool hit;
@@ -194,5 +206,28 @@ public class CharacterStats
 			damage = 0;
 		}
 		return hit;
+	}
+
+	public bool InventoryAdd(Item item)
+	{
+		if (item.equipmentType == Item.EquipmentType.MeleeWeapon && Equipped.lefthand == null)
+		{
+			Equipped.lefthand = item;
+			return true;
+		}
+		if (item.equipmentType == Item.EquipmentType.Shield && Equipped.righthand == null)
+		{
+			Equipped.righthand = item;
+			return true;
+		}
+		if (Inventory.Count >= InventoryMaxSize) return false;
+		Inventory.Add(item);
+		return true;
+	}
+
+	public bool InventoryRemove(Item item)
+	{
+		Inventory.Remove(item);
+		return false;
 	}
 }

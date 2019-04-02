@@ -6,7 +6,7 @@ public class Enemy : Interactable
 {
 	public static float ProvokeRadius = 5;
 	[Header("Other")]
-	public CharacterStats Stats;
+	public Character Stats;
 	GameManager m_Manager;
 	Scene_Manager m_SceneManager;
 	[HideInInspector] public EnemyAnimator Animator;
@@ -18,7 +18,7 @@ public class Enemy : Interactable
 
 	void Awake()
 	{
-		Stats = new CharacterStats(CharacterStats.CharacterClass.NPC);
+		Stats = new Character(Character.CharacterClass.NPC);
 		m_Manager = GameManager.instance;
 		m_SceneManager = FindObjectOfType<Scene_Manager>();//should probably just use a static instance
 		Animator = GetComponent<EnemyAnimator>();
@@ -110,7 +110,7 @@ public class Enemy : Interactable
 		if (!IsAlive()) return false;
 		Debug.Log("attacking enemy " + name);
 		//Debug.Log("close! attack?!?");
-		if (GameManager.instance.PlayerStats.CalculateDamage(Stats, 0.5f, out int damage))
+		if (GameManager.instance.PlayerCharacter.CalculateDamage(Stats, 0.5f, out int damage))
 		{
 			if (damage > 0) TakeDamage(damage);
 		}
@@ -147,7 +147,7 @@ public class Enemy : Interactable
 		{
 			Stats.Life = 0;
 			GetComponent<EnemyAnimator>().Death();
-			m_Manager.PlayerStats.AddExperience(Stats.GivesExperience);
+			m_Manager.PlayerCharacter.AddExperience(Stats.GivesExperience);
 		}
 		else
 		{

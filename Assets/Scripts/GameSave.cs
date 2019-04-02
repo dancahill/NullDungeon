@@ -8,7 +8,7 @@ public class GameSave
 	{
 		string filepath = Application.persistentDataPath + "/character1.json";
 		Debug.Log("reading " + filepath);
-		CharacterStats p = GameManager.instance.PlayerStats;
+		Character p = GameManager.instance.PlayerCharacter;
 		try
 		{
 			string json = File.ReadAllText(filepath);
@@ -22,7 +22,7 @@ public class GameSave
 		p.ResetTimers();
 	}
 
-	public static void SaveCharacter(CharacterStats stats)
+	public static void SaveCharacter(Character stats)
 	{
 		string filepath = Application.persistentDataPath + "/character1.json";
 		Debug.Log("writing " + filepath);
@@ -31,7 +31,7 @@ public class GameSave
 
 	public static void SaveCharacter()
 	{
-		SaveCharacter(GameManager.instance.PlayerStats);
+		SaveCharacter(GameManager.instance.PlayerCharacter);
 	}
 
 	public static void LoadDungeon()

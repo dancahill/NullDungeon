@@ -8,7 +8,7 @@ public class PlayerAnimator : MonoBehaviour
 	Player player;
 	NavMeshAgent m_Agent;
 	Animator m_Animator;
-	float maxspeed = 3.0f;
+	readonly float maxspeed = 3.0f;
 	GameObject SelectedTarget = null;
 
 	void Start()
@@ -35,8 +35,6 @@ public class PlayerAnimator : MonoBehaviour
 		float speedPercent = m_Agent.velocity.magnitude / maxspeed;
 		m_Animator = GetComponentInChildren<Animator>();//lets us change avatars from editor, but otherwise, bad place for this
 		if (m_Animator) m_Animator.SetFloat("SpeedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
-		//float x = m_Animator.GetFloat("SpeedPercent");
-		//Debug.Log(string.Format("{0} {1}", speedPercent, x));
 		if (SelectedTarget != null)
 		{
 			Interactable ia = SelectedTarget.gameObject.GetComponent<Interactable>();
@@ -81,8 +79,7 @@ public class PlayerAnimator : MonoBehaviour
 	{
 		SelectedTarget = target;
 		float distanceToTarget = Vector3.Distance(SelectedTarget.transform.position, Scene_Manager.instance.player.transform.position);
-		//Debug.Log("clicked on '" + target.name + "' distance = " + distanceToEnemy.ToString("0.0"));
-		//Debug.Log("distance to target is " + distanceToTarget);
+		//Debug.Log("clicked on '" + target.name + "' distance = " + distanceToTarget.ToString("0.0"));
 		if (distanceToTarget > 1.2)
 		{
 			MoveTo(SelectedTarget.transform.position);
@@ -123,7 +120,6 @@ public class PlayerAnimator : MonoBehaviour
 			//{
 			//	Debug.Log(hit.transform.name + " is interactable");
 			//}
-
 			string hitname = hit.transform.name;
 			//if (hit.transform.name.StartsWith("Floor"))
 			//if (hit.transform.gameObject.layer == movementMask)

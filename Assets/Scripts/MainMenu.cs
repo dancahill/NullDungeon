@@ -18,7 +18,7 @@ public class MainMenu : MonoBehaviour
 
 	public void MenuNewGame()
 	{
-		GameSave.SaveCharacter(new CharacterStats(CharacterStats.CharacterClass.Warrior));
+		GameSave.SaveCharacter(new Character(Character.CharacterClass.Warrior));
 		MenuContinueGame();
 	}
 
