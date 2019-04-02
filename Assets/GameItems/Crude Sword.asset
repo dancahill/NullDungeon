@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acf182b44fde3214dbfbd1b416285bee, type: 3}
+  m_Script: {fileID: 11500000, guid: e2b7711f1c1cf5f41b9f0122e6564690, type: 3}
   m_Name: Crude Sword
   m_EditorClassIdentifier: 
   Name: Crude Sword
-  equipmentType: 1
   Icon: {fileID: 21300000, guid: 89a840252dff6444dbfdb066d7ef39ba, type: 3}
+  equipmentType: 1
   Armour: 0
-  MinDamage: 5
-  MaxDamage: 8
+  MinDamage: 1
+  MaxDamage: 3

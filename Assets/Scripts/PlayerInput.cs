@@ -19,11 +19,24 @@ public class PlayerInput : MonoBehaviour
 
 	void GetInput()
 	{
+		bool uitouched = false;
+
+		// Check if there is a touch
+		// NONE OF THIS FUCKING WORKS ON MOBILE
+		if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+		{
+			// Check if finger is over a UI element
+			if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+			{
+				uitouched = true;
+				//Debug.Log("Touched the UI");
+			}
+		}
 		if (EventSystem.current.IsPointerOverGameObject())
 		{
-			//Debug.Log("Clicked on the UI");
+			uitouched = true;
 		}
-		else
+		if (!uitouched)
 		{
 			if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 			{
@@ -51,6 +64,11 @@ public class PlayerInput : MonoBehaviour
 			if (scroll != 0) m_Manager.Settings.CameraZoom += Mathf.Sign(scroll);
 			m_Manager.Settings.CameraZoom = Mathf.Clamp(m_Manager.Settings.CameraZoom, 0, 2);
 		}
+		else
+		{
+			//Debug.Log("pointing at the UI");
+		}
+
 		if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
 		{
 			if (Input.GetKeyDown(KeyCode.M))

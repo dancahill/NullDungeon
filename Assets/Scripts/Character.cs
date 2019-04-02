@@ -8,10 +8,10 @@ public class Character
 	[Serializable]
 	public struct EquippedItems
 	{
-		public Item lefthand;
-		public Item righthand;
-		public Item head;
-		public Item body;
+		public Equipment lefthand;
+		public Equipment righthand;
+		public Equipment head;
+		public Equipment body;
 	}
 	public enum CharacterClass
 	{
@@ -208,15 +208,20 @@ public class Character
 
 	public bool InventoryAdd(Item item)
 	{
-		if (item.equipmentType == Item.EquipmentType.MeleeWeapon && Equipped.lefthand == null)
+		//Debug.Log("typeof='" + item.GetType() + "'");
+		if (item.GetType() == typeof(Equipment))
 		{
-			Equipped.lefthand = item;
-			return true;
-		}
-		if (item.equipmentType == Item.EquipmentType.Shield && Equipped.righthand == null)
-		{
-			Equipped.righthand = item;
-			return true;
+			Equipment e = (Equipment)item;
+			if (e.equipmentType == Equipment.EquipmentType.MeleeWeapon && Equipped.righthand == null)
+			{
+				Equipped.righthand = e;
+				return true;
+			}
+			if (e.equipmentType == Equipment.EquipmentType.Shield && Equipped.lefthand == null)
+			{
+				Equipped.lefthand = e;
+				return true;
+			}
 		}
 		if (Inventory.Count >= InventoryMaxSize) return false;
 		Inventory.Add(item);

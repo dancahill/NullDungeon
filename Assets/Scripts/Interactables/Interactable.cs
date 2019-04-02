@@ -17,13 +17,13 @@ public class Interactable : MonoBehaviour
 
 	private void OnMouseOver()
 	{
-		Debug.Log("mouse over " + name);
+		//Debug.Log("mouse over " + name);
 		EnableCanvas();
 	}
 
 	private void OnMouseExit()
 	{
-		Debug.Log("mouse leaving " + name);
+		//Debug.Log("mouse leaving " + name);
 		DisableCanvas();
 	}
 
