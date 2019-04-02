@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(EnemyAnimator))]
 public class Enemy : Interactable
 {
+	public Image healthBar;
 	public static float ProvokeRadius = 5;
 	[Header("Other")]
 	public Character Stats;
@@ -16,12 +18,13 @@ public class Enemy : Interactable
 	Vector3 start;
 	Vector3 end;
 
-	void Awake()
+	protected override void Awake()
 	{
 		Stats = new Character(Character.CharacterClass.NPC);
 		m_Manager = GameManager.instance;
 		m_SceneManager = FindObjectOfType<Scene_Manager>();//should probably just use a static instance
 		Animator = GetComponent<EnemyAnimator>();
+		if (overheadCanvas) overheadCanvas.gameObject.SetActive(false);
 	}
 
 	void Start()
@@ -31,9 +34,15 @@ public class Enemy : Interactable
 		end = transform.Find("Waypoints/End").position;
 	}
 
-	private void Update()
+	protected override void Update()
 	{
+		base.Update();
 		if (!IsAlive()) return; // dead undead can't attack
+		if (overheadCanvas && overheadCanvas.enabled)
+		{
+			healthBar.fillAmount = Stats.Life / Stats.BaseLife;
+			//AlignCanvas();
+		}
 		float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 		if (distanceToPlayer < ProvokeRadius)
 		{
@@ -83,25 +92,16 @@ public class Enemy : Interactable
 		}
 	}
 
-	private void OnMouseOver()
-	{
-		string s;
-		if (Stats.Life <= 0)
-			s = string.Format("Dead {0}", name);
-		else
-			s = string.Format("{0}\nHealth={1}/{2}", name, Stats.Life, Stats.BaseLife);
-		FindObjectOfType<GameCanvas>().SetInfo(s);
-	}
-
-	//private void OnMouseDown()
+	//private void OnMouseOver()
 	//{
-	//	PlayerAnimator PlayerAnimator = player.GetComponent<PlayerAnimator>();
-	//	PlayerAnimator.SetTarget(transform.gameObject);
-	//}
-
-	//private void OnMouseExit()
-	//{
-	//	FindObjectOfType<GameCanvas>().SetInfo("");
+	//	Debug.Log("enemy mouse over " + name);
+	//	EnableCanvas();
+	//	string s;
+	//	if (Stats.Life <= 0)
+	//		s = string.Format("Dead {0}", name);
+	//	else
+	//		s = string.Format("{0}\nHealth={1}/{2}", name, Stats.Life, Stats.BaseLife);
+	//	FindObjectOfType<GameCanvas>().SetInfo(s);
 	//}
 
 	public override bool Interact()

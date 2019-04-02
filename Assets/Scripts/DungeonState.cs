@@ -16,6 +16,7 @@ public class DungeonObject
 [Serializable]
 public class DungeonLevel
 {
+	public string SceneName;
 	public DungeonObject[] DungeonObjects;
 }
 
@@ -79,9 +80,9 @@ public class DungeonState
 		if (!enemies) return;
 		DungeonLevel dl = new DungeonLevel
 		{
+			SceneName = SceneController.GetActiveSceneName(),
 			DungeonObjects = new DungeonObject[enemies.transform.childCount]
 		};
-		//Debug.Log("enemies.transform.childCount=" + enemies.transform.childCount + ", x=" + x);
 		//foreach (Transform enemy in enemies.transform)
 		for (int i = 0; i < enemies.transform.childCount; i++)
 		{

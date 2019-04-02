@@ -43,13 +43,11 @@ public class Character
 	[Header("NPC Values")]
 	public int GivesExperience;
 	[Header("Inventory")]
-	//public List<Item> Equipped = new List<Item>();
 	public EquippedItems Equipped;
 	public List<Item> Inventory = new List<Item>();
+	public List<Item> Stash = new List<Item>();
 	readonly int InventoryMaxSize = 16;
-	//public CharacterItem[] Equipped;
-	//public CharacterItem[] Inventory;
-	//[Header("...")]
+	readonly int StashMaxSize = 32;
 	[NonSerialized] public float AttackCooldown;
 
 	public Character(string _class)
@@ -79,7 +77,7 @@ public class Character
 				Strength = 10 + (5 * Level);
 				Dexterity = 20 + (5 * Level);
 				Vitality = 10 + (5 * Level);
-				Life = BaseLife = 100;
+				Life = BaseLife = 50;
 				return;
 			case CharacterClass.Warrior:
 				Strength = 30;
@@ -165,7 +163,7 @@ public class Character
 	/// full comparison and calculation of attacker and defender stats
 	/// </summary>
 	/// <param name="defender">defender's character stats</param>
-	/// <param name="cooldown">seconds between attacks</param>
+	/// <param name="cooldown">seconds to wait between attacks</param>
 	/// <param name="damage">actual damage done to defender</param>
 	/// <returns>true if hit</returns>
 	public bool CalculateDamage(Character defender, float cooldown, out int damage)

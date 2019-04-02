@@ -7,14 +7,12 @@ public class Player : MonoBehaviour
 	public Character Stats;
 	[HideInInspector] public GameManager Manager;
 	[HideInInspector] public PlayerAnimator Animator;
-	[HideInInspector] public PlayerInput Input;
 
 	private void Start()
 	{
 		Manager = GameManager.instance;
 		Stats = GameManager.instance.PlayerCharacter;
 		Animator = GetComponent<PlayerAnimator>();
-		Input = GetComponent<PlayerInput>();
 
 		void setactive(string cclass)
 		{

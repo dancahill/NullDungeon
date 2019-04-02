@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CanvasManager : MonoBehaviour
+public class CanvasController : MonoBehaviour
 {
 	public GameObject MainMenuCanvas;
 	public GameObject GameCanvas;

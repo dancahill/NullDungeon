@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
@@ -9,11 +8,7 @@ public class Scene_Manager : MonoBehaviour
 	GameManager manager;
 	GameSettings Settings;
 	public GameObject player;
-
-	//[HideInInspector] public PlayerAnimator PlayerAnimator;
-
 	SceneController sceneController;
-	//public bool NavMeshBaked = false;
 
 	void Awake()
 	{
@@ -26,14 +21,12 @@ public class Scene_Manager : MonoBehaviour
 		SetCamera();
 		manager = FindObjectOfType<GameManager>();
 		sceneController = manager.sceneController;
-		//NavMeshBaked = false;
 		RebuildNavMesh();
-		//NavMeshBaked = true;
 	}
 
 	private void Start()
 	{
-		FindObjectOfType<CanvasManager>().SetActiveCanvas();
+		FindObjectOfType<CanvasController>().SetActiveCanvas();
 		string scene = SceneManager.GetActiveScene().name;
 		if (scene == "GameOver")
 		{
@@ -58,7 +51,6 @@ public class Scene_Manager : MonoBehaviour
 				manager.PlayerCharacter.Life = manager.PlayerCharacter.BaseLife;
 				player.transform.position = new Vector3(37, 0, 12);
 			}
-			//PlayerAnimator = player.GetComponent<PlayerAnimator>();
 			if (scene == "Dungeon1" && Settings.FreshMeat)
 			{
 				Settings.FreshMeat = false;
@@ -115,22 +107,6 @@ public class Scene_Manager : MonoBehaviour
 	void SetCamera()
 	{
 		GameManager.instance.ActiveCamera = Camera.main;
-		//if (sceneController.CurrentScene == "MainMenu")
-		//{
-		//	GameObject c = GameObject.Find("Cameras/MainMenu");
-		//	c.SetActive(true);
-		//	GameManager.instance.ActiveCamera = c.GetComponent<Camera>();
-		//	c = GameObject.Find("Cameras/Game");
-		//	c.SetActive(false);
-		//}
-		//else
-		//{
-		//	GameObject c = GameObject.Find("Cameras/MainMenu");
-		//	c.SetActive(false);
-		//	c = GameObject.Find("Cameras/Game");
-		//	c.SetActive(true);
-		//	GameManager.instance.ActiveCamera = c.GetComponent<Camera>();
-		//}
 	}
 
 	void RepositionCamera()
