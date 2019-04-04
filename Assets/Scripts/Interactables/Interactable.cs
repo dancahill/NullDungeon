@@ -65,7 +65,7 @@ public class Interactable : MonoBehaviour
 
 	public virtual bool Interact()
 	{
-		Debug.Log("interacting with " + transform.name);
+		//Debug.Log("interacting with " + transform.name);
 		return false;
 	}
 }

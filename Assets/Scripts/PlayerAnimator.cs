@@ -18,8 +18,8 @@ public class PlayerAnimator : MonoBehaviour
 		m_Agent = gameObject.AddComponent<NavMeshAgent>();
 		m_Agent.speed = maxspeed;
 		m_Agent.angularSpeed = 500;
-		m_Agent.stoppingDistance = 1.1f;
-		m_Agent.updateRotation = true;
+		//m_Agent.stoppingDistance = 1.1f;
+		//m_Agent.updateRotation = true;
 		// not tested - might be useful to enable stoppingDistance
 		//m_Agent.stoppingDistance = 1.1f;
 		//m_Agent.updateRotation = true;
@@ -71,7 +71,7 @@ public class PlayerAnimator : MonoBehaviour
 
 	void MoveTo(Vector3 point)
 	{
-		m_Agent.stoppingDistance = 1.1f;
+		//m_Agent.stoppingDistance = 1.1f;
 		m_Agent.SetDestination(point);
 	}
 
@@ -135,7 +135,7 @@ public class PlayerAnimator : MonoBehaviour
 
 	public void Stop()
 	{
-		m_Agent.stoppingDistance = 0f;
+		//m_Agent.stoppingDistance = 0f;
 		MoveTo(transform.position);
 	}
 

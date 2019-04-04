@@ -28,15 +28,18 @@ public class Character
 	public int Magic;
 	public int Dexterity;
 	public int Vitality;
+	public int Unallocated;
 	[Header("Level/Experience")]
 	public int Level;
 	public int Experience;
+	public int Gold;
 	[Header("Calculated Stats")]
 	public int BaseLife;
 	public int BaseMana;
 	public int ArmourClass;
 	public int ToHitPercent;
-	public int Damage;
+	public int MinDamage;
+	public int MaxDamage;
 	[Header("Life")]
 	public float Life;
 	public float Mana;
@@ -53,41 +56,64 @@ public class Character
 	public Character(string _class)
 	{
 		CharacterClass cc = (CharacterClass)Enum.Parse(typeof(CharacterClass), _class);
-		SetStats(cc);
+		SetStats(cc, "");
+	}
+
+	public Character(CharacterClass _class, string name)
+	{
+		SetStats(_class, name);
 	}
 
 	public Character(CharacterClass _class)
 	{
-		SetStats(_class);
+		SetStats(_class, "");
 	}
 
-	void SetStats(CharacterClass _class)
+	void SetStats(CharacterClass _class, string name)
 	{
 		Name = "Player";
 		Class = _class;
+		Level = 1;
 		Experience = 0;
 		Recalculate();
 		//Debug.Log("creating " + _class + " character");
 		switch (_class)
 		{
 			case CharacterClass.NPC:
-				Name = "NPC";
-				GivesExperience = 100;
-				Level = 1;
-				Strength = 10 + (5 * Level);
-				Dexterity = 20 + (5 * Level);
-				Vitality = 10 + (5 * Level);
-				Life = BaseLife = 50;
+				Strength = 10;
+				Dexterity = 10;
+				Vitality = 10;
+				GameDataTables.EnemyStats stats = GameDataTables.EnemyStats.Find(name);
+				if (stats != null)
+				{
+					Name = name;
+					Level = stats.Level;
+					Life = BaseLife = stats.MaxHP;
+					ArmourClass = stats.ArmourClass;
+					ToHitPercent = stats.ToHitPercent;
+					MinDamage = stats.MinDamage;
+					MaxDamage = stats.MaxDamage;
+					GivesExperience = stats.BaseExp;
+				}
+				else
+				{
+					Name = "NPC";
+					Level = 1;
+					Life = BaseLife = 10;
+					GivesExperience = 1;
+				}
 				return;
 			case CharacterClass.Warrior:
+				Gold = 100;
 				Strength = 30;
 				Magic = 10;
 				Dexterity = 20;
 				Vitality = 25;
-				Life = BaseLife = 100;
+				Life = BaseLife = 70;
 				BaseMana = 10;
 				break;
 			case CharacterClass.Rogue:
+				Gold = 100;
 				Strength = 20;
 				Magic = 15;
 				Dexterity = 30;
@@ -96,6 +122,7 @@ public class Character
 				BaseMana = 10;
 				break;
 			case CharacterClass.Sorceror:
+				Gold = 100;
 				Strength = 15;
 				Magic = 35;
 				Dexterity = 15;
@@ -105,11 +132,6 @@ public class Character
 				break;
 			default: break;
 		}
-		//Equipped = new CharacterItem[4];
-		//Inventory = new CharacterItem[8];
-		//Equipped.Add(new Item { Name = "Rubber Chicken", MaxDamage = 5 });
-		//Equipped.Add(new Item { Name = "Diaper", Armour = 5 });
-		//Inventory.Add(new Item { Name = "Booger Collection" });
 	}
 
 	public void ResetTimers()
@@ -119,21 +141,37 @@ public class Character
 
 	public void Recalculate()
 	{
-		// none of this really makes sense, but it's a start
-		ArmourClass = Dexterity;
-		ToHitPercent = Dexterity * 2;
-		Damage = Strength;
 		if (Life > BaseLife) Life = BaseLife;
+		if (Class == CharacterClass.NPC)
+		{
+			// presets are probably fine for now. check later
+		}
+		else
+		{
+			ArmourClass = 4; // Dexterity; // needs proper calculation based on dex?
+			ArmourClass += (Equipped.lefthand) ? Equipped.lefthand.Armour : 0;
+			ArmourClass += (Equipped.righthand) ? Equipped.righthand.Armour : 0;
+			ArmourClass += (Equipped.head) ? Equipped.head.Armour : 0;
+			ArmourClass += (Equipped.body) ? Equipped.body.Armour : 0;
 
-		ArmourClass += (Equipped.lefthand) ? Equipped.lefthand.Armour : 0;
-		ArmourClass += (Equipped.righthand) ? Equipped.righthand.Armour : 0;
-		ArmourClass += (Equipped.head) ? Equipped.head.Armour : 0;
-		ArmourClass += (Equipped.body) ? Equipped.body.Armour : 0;
+			ToHitPercent = 60; //Dexterity * 2; // needs proper calculation based on dex?
 
-		Damage += (Equipped.lefthand) ? Equipped.lefthand.MaxDamage : 0;
-		Damage += (Equipped.righthand) ? Equipped.righthand.MaxDamage : 0;
-		Damage += (Equipped.head) ? Equipped.head.MaxDamage : 0;
-		Damage += (Equipped.body) ? Equipped.body.MaxDamage : 0;
+			MinDamage = 0;
+			MinDamage += (Equipped.lefthand) ? Equipped.lefthand.MinDamage : 0;
+			MinDamage += (Equipped.righthand) ? Equipped.righthand.MinDamage : 0;
+			MinDamage += (Equipped.head) ? Equipped.head.MinDamage : 0;
+			MinDamage += (Equipped.body) ? Equipped.body.MinDamage : 0;
+
+			MaxDamage = 0; //Strength;// needs proper calculation based on str and dex?
+			MaxDamage += (Equipped.lefthand) ? Equipped.lefthand.MaxDamage : 0;
+			MaxDamage += (Equipped.righthand) ? Equipped.righthand.MaxDamage : 0;
+			MaxDamage += (Equipped.head) ? Equipped.head.MaxDamage : 0;
+			MaxDamage += (Equipped.body) ? Equipped.body.MaxDamage : 0;
+
+			if (MinDamage < 1) MinDamage = 1;
+			if (MaxDamage < 1) MaxDamage = 1;
+			if (MinDamage > MaxDamage) MaxDamage = MinDamage;
+		}
 	}
 
 	public bool CanAttack()
@@ -149,14 +187,15 @@ public class Character
 		if (Experience >= NextLevel())
 		{
 			Level++;
+			Unallocated += 5;
 			Debug.Log("character leveled up - something interesting should happen");
 		}
 	}
 
 	public int NextLevel()
 	{
-		if (Level >= CharacterTables.Levels.Length) return int.MaxValue;
-		return CharacterTables.Levels[Level].Experience;
+		if (Level >= GameDataTables.Levels.Length) return int.MaxValue;
+		return GameDataTables.Levels[Level].Experience;
 	}
 
 	/// <summary>
@@ -186,15 +225,17 @@ public class Character
 		}
 		// calculate whether there was a hit;
 		// just make some chance to miss for testing
-		float chance = (float)ToHitPercent / (float)defender.ArmourClass;
-		float roll = UnityEngine.Random.Range(0, chance);
+		// reinclude armour class later
+		//float chance = (float)ToHitPercent / (float)defender.ArmourClass;
+		float chance = (float)ToHitPercent;
+		float roll = UnityEngine.Random.Range(0, 100f);
 		Debug.Log("chance=" + chance + ",roll=" + roll);
-		if (roll > 1f)
+		if (roll <= chance)
 		{
 			hit = true;
 			// and then calculate the damage
 			//damage = Damage - defender.ArmourClass;
-			damage = Damage;
+			damage = UnityEngine.Random.Range(MinDamage, MaxDamage);
 			Debug.Log("good for a hit. damage is " + damage);
 			if (damage < 0) damage = 0;
 		}

@@ -20,7 +20,7 @@ public class Enemy : Interactable
 
 	protected override void Awake()
 	{
-		Stats = new Character(Character.CharacterClass.NPC);
+		Stats = new Character(Character.CharacterClass.NPC, name);
 		m_Manager = GameManager.instance;
 		m_SceneManager = FindObjectOfType<Scene_Manager>();//should probably just use a static instance
 		Animator = GetComponent<EnemyAnimator>();
@@ -108,7 +108,7 @@ public class Enemy : Interactable
 	{
 		base.Interact();
 		if (!IsAlive()) return false;
-		Debug.Log("attacking enemy " + name);
+		//Debug.Log("attacking enemy " + name);
 		//Debug.Log("close! attack?!?");
 		if (GameManager.instance.PlayerCharacter.CalculateDamage(Stats, 0.5f, out int damage))
 		{

@@ -68,9 +68,12 @@ public class DungeonState
 				continue;
 			}
 			GameObject g = GameObject.Instantiate(prefab, new Vector3((float)d.x, (float)d.y, (float)d.z), Quaternion.identity, enemies.transform);
-			g.name = d.Name;
 			Enemy e = g.GetComponentInChildren<Enemy>();
-			e.Stats.Life = d.Life;
+			g.name = d.Name;
+			e.Stats = new Character(Character.CharacterClass.NPC, d.Name)
+			{
+				Life = d.Life
+			};
 		}
 	}
 

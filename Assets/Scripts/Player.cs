@@ -39,9 +39,9 @@ public class Player : MonoBehaviour
 	{
 		if (Stats.Life > 0)
 		{
-			// three minutes to heal fully. more base health means you heal faster
-			Stats.Life = Mathf.Clamp(Stats.Life + ((float)Stats.BaseLife / 180f * Time.deltaTime), 0, Stats.BaseLife);
-			Stats.Mana = Mathf.Clamp(Stats.Mana + ((float)Stats.BaseLife / 180f * Time.deltaTime), 0, Stats.BaseMana);
+			// five minutes to heal fully. more base health means you heal faster
+			Stats.Life = Mathf.Clamp(Stats.Life + ((float)Stats.BaseLife / 300f * Time.deltaTime), 0, Stats.BaseLife);
+			Stats.Mana = Mathf.Clamp(Stats.Mana + ((float)Stats.BaseLife / 300f * Time.deltaTime), 0, Stats.BaseMana);
 		}
 	}
 

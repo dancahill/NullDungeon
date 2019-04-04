@@ -64,10 +64,10 @@
     <Compile Include="Assets\Imports\RPGPackFree\Scripts\OpenChest.cs" />
     <Compile Include="Assets\Imports\TestModels\Knight\scripts\rotator.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
-    <Compile Include="Assets\Scripts\CharacterTables.cs" />
     <Compile Include="Assets\Scripts\DungeonState.cs" />
     <Compile Include="Assets\Scripts\EnemyAnimator.cs" />
     <Compile Include="Assets\Scripts\EnemyPrefabs.cs" />
+    <Compile Include="Assets\Scripts\GameDataTables.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameSave.cs" />
     <Compile Include="Assets\Scripts\Interactables\Enemy.cs" />
