@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Interactable : MonoBehaviour
 {
 	public Canvas overheadCanvas;
+	public Text text;
 	[HideInInspector] public float radius = 1.1f;
 
 	protected virtual void Awake()
@@ -42,7 +44,10 @@ public class Interactable : MonoBehaviour
 	public void EnableCanvas()
 	{
 		FindObjectOfType<GameCanvas>().SetInfo(name);
-		if (overheadCanvas) overheadCanvas.gameObject.SetActive(true);
+		if (overheadCanvas)
+		{
+			overheadCanvas.gameObject.SetActive(true);
+		}
 	}
 
 	public void DisableCanvas()

@@ -67,6 +67,7 @@ public class Scene_Manager : MonoBehaviour
 	void LateUpdate()
 	{
 		RepositionCamera();
+		RepositionMinimapCamera();
 	}
 
 	private void OnEnable()
@@ -118,5 +119,14 @@ public class Scene_Manager : MonoBehaviour
 			manager.ActiveCamera.transform.LookAt(player.transform.position + new Vector3(0, 0.1f, 0));
 			if (Settings.CameraSkew != 0) manager.ActiveCamera.transform.Translate(Vector3.right * Settings.CameraSkew * 3, Space.Self);
 		}
+	}
+
+	void RepositionMinimapCamera()
+	{
+		if (!player) return;
+		Transform minicam = player.transform.Find("Minimap Camera");
+		if (!minicam) return;
+		minicam.position = player.transform.position + new Vector3(20, 21, 20);
+		minicam.LookAt(player.transform.position + new Vector3(0, 0.1f, 0));
 	}
 }

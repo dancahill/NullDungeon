@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6320754, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.4627451, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -120,6 +120,7 @@ RectTransform:
   m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children:
   - {fileID: 3754419985623210467}
+  - {fileID: 1420025776750411616}
   m_Father: {fileID: 8699178778292264781}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -248,7 +249,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5654255841747664969}
-  - {fileID: 1420025776750411616}
   m_Father: {fileID: 7277806933859115766}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -386,7 +386,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3754419985623210467}
+  m_Father: {fileID: 7277806933859115766}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -513,6 +513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overheadCanvas: {fileID: 7884356630805912606}
+  text: {fileID: 6973495660425512476}
   radius: 1.1
   healthBar: {fileID: 7605843293484071197}
   Stats:
@@ -538,6 +539,7 @@ MonoBehaviour:
       head: {fileID: 0}
       body: {fileID: 0}
     Inventory: []
+    Stash: []
   Animator: {fileID: 0}
 --- !u!114 &8335991779124374811
 MonoBehaviour:

@@ -3714,6 +3714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overheadCanvas: {fileID: 0}
+  text: {fileID: 0}
   radius: 1.1
 --- !u!65 &438197654
 BoxCollider:
@@ -10419,6 +10420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overheadCanvas: {fileID: 1672373872}
+  text: {fileID: 0}
   radius: 1.1
 --- !u!136 &1072910589
 CapsuleCollider:
@@ -11473,6 +11475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overheadCanvas: {fileID: 1920923974}
+  text: {fileID: 0}
   radius: 1.1
 --- !u!4 &1159467112 stripped
 Transform:
@@ -12389,6 +12392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overheadCanvas: {fileID: 1245205225}
+  text: {fileID: 0}
   radius: 1.1
 --- !u!65 &1232469791
 BoxCollider:
@@ -16801,7 +16805,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 823
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -20118,6 +20122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overheadCanvas: {fileID: 791319101}
+  text: {fileID: 0}
   radius: 1.1
 --- !u!1001 &1992964580
 PrefabInstance:
