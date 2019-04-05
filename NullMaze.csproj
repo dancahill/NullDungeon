@@ -635,10 +635,10 @@
     <Compile Include="Assets\Imports\RPGPackFree\Scripts\OpenChest.cs" />
     <Compile Include="Assets\Imports\TestModels\Knight\scripts\rotator.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
-    <Compile Include="Assets\Scripts\CharacterTables.cs" />
     <Compile Include="Assets\Scripts\DungeonState.cs" />
     <Compile Include="Assets\Scripts\EnemyAnimator.cs" />
     <Compile Include="Assets\Scripts\EnemyPrefabs.cs" />
+    <Compile Include="Assets\Scripts\GameDataTables.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameSave.cs" />
     <Compile Include="Assets\Scripts\Interactables\Enemy.cs" />
@@ -647,6 +647,7 @@
     <Compile Include="Assets\Scripts\Interactables\Stash.cs" />
     <Compile Include="Assets\Scripts\Interactables\TownNPC.cs" />
     <Compile Include="Assets\Scripts\Interactables\WayPoint.cs" />
+    <Compile Include="Assets\Scripts\Items\Consumable.cs" />
     <Compile Include="Assets\Scripts\Items\Equipment.cs" />
     <Compile Include="Assets\Scripts\Items\Item.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
@@ -659,14 +660,17 @@
     <Compile Include="Assets\Scripts\UI\CanvasController.cs" />
     <Compile Include="Assets\Scripts\UI\CharacterPanel.cs" />
     <Compile Include="Assets\Scripts\UI\GameCanvas.cs" />
+    <Compile Include="Assets\Scripts\UI\InventoryButton.cs" />
     <Compile Include="Assets\Scripts\UI\InventoryPanel.cs" />
     <Compile Include="Assets\Scripts\UI\InventorySlot.cs" />
     <Compile Include="Assets\Scripts\Util\SizeCheck.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Imports\MedievalTownExteriors\Readme.txt" />
     <None Include="Assets\Imports\Mega Fantasy Props Pack\README.txt" />
     <None Include="Assets\Imports\TestModels\Knight\shaders\doublesidedshader.shader" />
     <None Include="Assets\Imports\TestModels\Raw Mocap Data\Animations\_CompleteAnimationList.txt" />
+    <None Include="Assets\Notes.txt" />
     <None Include="Packages\com.unity.collab-proxy\Editor\Resources\Styles\CollabHistoryCommon.uss" />
     <None Include="Packages\com.unity.collab-proxy\Editor\Resources\Styles\CollabHistoryDark.uss" />
     <None Include="Packages\com.unity.collab-proxy\Editor\Resources\Styles\CollabHistoryLight.uss" />

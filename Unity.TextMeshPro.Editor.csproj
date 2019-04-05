@@ -703,9 +703,11 @@
     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Editor\TMPro_TexturePostProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Imports\MedievalTownExteriors\Readme.txt" />
     <None Include="Assets\Imports\Mega Fantasy Props Pack\README.txt" />
     <None Include="Assets\Imports\TestModels\Knight\shaders\doublesidedshader.shader" />
     <None Include="Assets\Imports\TestModels\Raw Mocap Data\Animations\_CompleteAnimationList.txt" />
+    <None Include="Assets\Notes.txt" />
     <None Include="Packages\com.unity.collab-proxy\Editor\Resources\Styles\CollabHistoryCommon.uss" />
     <None Include="Packages\com.unity.collab-proxy\Editor\Resources\Styles\CollabHistoryDark.uss" />
     <None Include="Packages\com.unity.collab-proxy\Editor\Resources\Styles\CollabHistoryLight.uss" />

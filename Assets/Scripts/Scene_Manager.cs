@@ -49,7 +49,7 @@ public class Scene_Manager : MonoBehaviour
 			{
 				Settings.NewInTown = false;
 				manager.PlayerCharacter.Life = manager.PlayerCharacter.BaseLife;
-				player.transform.position = new Vector3(37, 0, 12);
+				player.transform.position = new Vector3(13.25f, 0, 23.4f);
 			}
 			if (scene == "Dungeon1" && Settings.FreshMeat)
 			{

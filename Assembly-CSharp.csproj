@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\UI\InventoryPanel.cs" />
     <Compile Include="Assets\Scripts\UI\InventorySlot.cs" />
     <Compile Include="Assets\Scripts\Util\SizeCheck.cs" />
+    <None Include="Assets\Imports\MedievalTownExteriors\Readme.txt" />
     <None Include="Assets\Imports\TestModels\Knight\shaders\doublesidedshader.shader" />
     <None Include="Assets\Imports\Mega Fantasy Props Pack\README.txt" />
     <None Include="Assets\Notes.txt" />
