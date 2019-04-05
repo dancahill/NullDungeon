@@ -40,8 +40,13 @@ public class Player : MonoBehaviour
 		if (Stats.Life > 0)
 		{
 			// five minutes to heal fully. more base health means you heal faster
-			Stats.Life = Mathf.Clamp(Stats.Life + ((float)Stats.BaseLife / 300f * Time.deltaTime), 0, Stats.BaseLife);
-			Stats.Mana = Mathf.Clamp(Stats.Mana + ((float)Stats.BaseLife / 300f * Time.deltaTime), 0, Stats.BaseMana);
+			//Stats.Life = Mathf.Clamp(Stats.Life + ((float)Stats.BaseLife / 300f * Time.deltaTime), 0, Stats.BaseLife);
+			//Stats.Mana = Mathf.Clamp(Stats.Mana + ((float)Stats.BaseLife / 300f * Time.deltaTime), 0, Stats.BaseMana);
+
+			if (Animator.GetSpeed() > 0.1f && Stats.CanStep()) // this needs work on the timing
+			{
+				SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.Footstep1);
+			}
 		}
 	}
 

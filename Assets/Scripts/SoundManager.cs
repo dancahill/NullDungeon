@@ -8,6 +8,8 @@ public class SoundManager : MonoBehaviour
 		CowAlright,
 		Click,
 		ClickHeavy,
+		Footstep1,
+		DropRing,
 		PlayerHit1,
 		PlayerAttack1,
 		PlayerAttack2,
@@ -84,6 +86,8 @@ public class SoundManager : MonoBehaviour
 		{
 			case Sounds.Click: soundname = "File00000001"; break;
 			case Sounds.ClickHeavy: soundname = "File00000002"; break;
+			case Sounds.Footstep1: soundname = "File00000054"; break;
+			case Sounds.DropRing: soundname = "File00000087"; break;
 			case Sounds.SkeletonAttack1: soundname = "File00001344"; break;
 			case Sounds.SkeletonHit1: soundname = "File00001346"; break;
 			case Sounds.SkeletonDie1: soundname = "File00001348"; break;
@@ -140,5 +144,10 @@ public class SoundManager : MonoBehaviour
 		AudioClip clip = (AudioClip)Resources.Load("Sounds/" + soundname);
 		if (clip != null) m_SoundSource.PlayOneShot(clip);
 		else Debug.Log("missing sound effect");
+	}
+
+	public static SoundManager GetCurrent()
+	{
+		return GameManager.instance.m_SoundManager;
 	}
 }

@@ -40,6 +40,7 @@ public class Character
 	public int ToHitPercent;
 	public int MinDamage;
 	public int MaxDamage;
+	public float AttackSpeed;
 	[Header("Life")]
 	public float Life;
 	public float Mana;
@@ -51,7 +52,10 @@ public class Character
 	public List<Item> Stash = new List<Item>();
 	readonly int InventoryMaxSize = 16;
 	readonly int StashMaxSize = 32;
+	[NonSerialized] public float WalkCooldown;
 	[NonSerialized] public float AttackCooldown;
+	[NonSerialized] public float HitRecoveryCooldown;
+	[NonSerialized] public float BlockCooldown;
 
 	public Character(string _class)
 	{
@@ -75,42 +79,41 @@ public class Character
 		Class = _class;
 		Level = 1;
 		Experience = 0;
-		Recalculate();
-		//Debug.Log("creating " + _class + " character");
+		if (_class == CharacterClass.NPC)
+		{
+			Strength = 10;
+			Dexterity = 10;
+			Vitality = 10;
+			GameDataTables.EnemyStats stats = GameDataTables.EnemyStats.Find(name);
+			if (stats != null)
+			{
+				Name = name;
+				Level = stats.Level;
+				Life = BaseLife = stats.MaxHP;
+				ArmourClass = stats.ArmourClass;
+				ToHitPercent = stats.ToHitPercent;
+				MinDamage = stats.MinDamage;
+				MaxDamage = stats.MaxDamage;
+				GivesExperience = stats.BaseExp;
+				AttackSpeed = stats.AttackTime;
+			}
+			else
+			{
+				Name = "NPC";
+				Level = 1;
+				Life = BaseLife = 10;
+				GivesExperience = 1;
+			}
+			return;
+		}
 		switch (_class)
 		{
-			case CharacterClass.NPC:
-				Strength = 10;
-				Dexterity = 10;
-				Vitality = 10;
-				GameDataTables.EnemyStats stats = GameDataTables.EnemyStats.Find(name);
-				if (stats != null)
-				{
-					Name = name;
-					Level = stats.Level;
-					Life = BaseLife = stats.MaxHP;
-					ArmourClass = stats.ArmourClass;
-					ToHitPercent = stats.ToHitPercent;
-					MinDamage = stats.MinDamage;
-					MaxDamage = stats.MaxDamage;
-					GivesExperience = stats.BaseExp;
-				}
-				else
-				{
-					Name = "NPC";
-					Level = 1;
-					Life = BaseLife = 10;
-					GivesExperience = 1;
-				}
-				return;
 			case CharacterClass.Warrior:
 				Gold = 100;
 				Strength = 30;
 				Magic = 10;
 				Dexterity = 20;
 				Vitality = 25;
-				Life = BaseLife = 70;
-				BaseMana = 10;
 				break;
 			case CharacterClass.Rogue:
 				Gold = 100;
@@ -118,8 +121,6 @@ public class Character
 				Magic = 15;
 				Dexterity = 30;
 				Vitality = 20;
-				Life = BaseLife = 100;
-				BaseMana = 10;
 				break;
 			case CharacterClass.Sorceror:
 				Gold = 100;
@@ -127,16 +128,20 @@ public class Character
 				Magic = 35;
 				Dexterity = 15;
 				Vitality = 20;
-				Life = BaseLife = 100;
-				BaseMana = 10;
 				break;
 			default: break;
 		}
+		Recalculate();
+		Life = BaseLife;
+		Mana = BaseMana;
 	}
 
 	public void ResetTimers()
 	{
+		WalkCooldown = Time.time;
 		AttackCooldown = Time.time;
+		HitRecoveryCooldown = Time.time;
+		BlockCooldown = Time.time;
 	}
 
 	public void Recalculate()
@@ -148,30 +153,70 @@ public class Character
 		}
 		else
 		{
-			ArmourClass = 4; // Dexterity; // needs proper calculation based on dex?
-			ArmourClass += (Equipped.lefthand) ? Equipped.lefthand.Armour : 0;
-			ArmourClass += (Equipped.righthand) ? Equipped.righthand.Armour : 0;
-			ArmourClass += (Equipped.head) ? Equipped.head.Armour : 0;
-			ArmourClass += (Equipped.body) ? Equipped.body.Armour : 0;
+			int vititems = 0;
+			int lifeitems = 0;
+			int magitems = 0;
+			int manaitems = 0;
+			int acitems = 0;
+			int tohititems = 0;
+			int chardamage = 0;
+			int weaponmin = 0;
+			int weaponmax = 0;
 
-			ToHitPercent = 60; //Dexterity * 2; // needs proper calculation based on dex?
+			acitems += (Equipped.lefthand) ? Equipped.lefthand.Armour : 0;
+			acitems += (Equipped.righthand) ? Equipped.righthand.Armour : 0;
+			acitems += (Equipped.head) ? Equipped.head.Armour : 0;
+			acitems += (Equipped.body) ? Equipped.body.Armour : 0;
 
-			MinDamage = 0;
-			MinDamage += (Equipped.lefthand) ? Equipped.lefthand.MinDamage : 0;
-			MinDamage += (Equipped.righthand) ? Equipped.righthand.MinDamage : 0;
-			MinDamage += (Equipped.head) ? Equipped.head.MinDamage : 0;
-			MinDamage += (Equipped.body) ? Equipped.body.MinDamage : 0;
+			switch (Class)
+			{
+				case CharacterClass.Warrior:
+					BaseLife = 2 * Vitality + 2 * vititems + 2 * Level + lifeitems + 18;
+					BaseMana = 1 * Magic + 1 * magitems + 1 * Level + manaitems - 1;
+					chardamage = Strength * Level / 100; // melee - should be different for bow
+					AttackSpeed = 0.45f; // should also include weapon speed
+					break;
+				case CharacterClass.Rogue:
+					BaseLife = 1 * Vitality + (int)(1.5f * (float)vititems) + 2 * Level + lifeitems + 23;
+					BaseMana = 1 * Magic + (int)(1.5f * (float)magitems) + 2 * Level + manaitems + 5;
+					chardamage = (Strength + Dexterity) * Level / 200; // melee - should be different for bow
+					AttackSpeed = 0.5f; // should also include weapon speed
+					break;
+				case CharacterClass.Sorceror:
+					BaseLife = 1 * Vitality + 1 * vititems + 1 * Level + lifeitems + 9;
+					BaseMana = 2 * Magic + 2 * magitems + 2 * Level + manaitems - 2;
+					chardamage = Strength * Level / 100; // melee - should be different for bow
+					AttackSpeed = 0.6f; // should also include weapon speed
+					break;
+				default: break;
+			}
+			ArmourClass = Dexterity / 5 + acitems;
+			// to hit is actually more complicated, but this is what goes on the screen
+			ToHitPercent = 50 + Dexterity / 2 * tohititems;
 
-			MaxDamage = 0; //Strength;// needs proper calculation based on str and dex?
-			MaxDamage += (Equipped.lefthand) ? Equipped.lefthand.MaxDamage : 0;
-			MaxDamage += (Equipped.righthand) ? Equipped.righthand.MaxDamage : 0;
-			MaxDamage += (Equipped.head) ? Equipped.head.MaxDamage : 0;
-			MaxDamage += (Equipped.body) ? Equipped.body.MaxDamage : 0;
+			weaponmin += (Equipped.lefthand) ? Equipped.lefthand.MinDamage : 0;
+			weaponmin += (Equipped.righthand) ? Equipped.righthand.MinDamage : 0;
+			weaponmin += (Equipped.head) ? Equipped.head.MinDamage : 0;
+			weaponmin += (Equipped.body) ? Equipped.body.MinDamage : 0;
 
-			if (MinDamage < 1) MinDamage = 1;
-			if (MaxDamage < 1) MaxDamage = 1;
-			if (MinDamage > MaxDamage) MaxDamage = MinDamage;
+			weaponmax += (Equipped.lefthand) ? Equipped.lefthand.MaxDamage : 0;
+			weaponmax += (Equipped.righthand) ? Equipped.righthand.MaxDamage : 0;
+			weaponmax += (Equipped.head) ? Equipped.head.MaxDamage : 0;
+			weaponmax += (Equipped.body) ? Equipped.body.MaxDamage : 0;
+
+			if (weaponmin < 1) weaponmin = 1; // unarmed
+			if (weaponmax < weaponmin) weaponmax = weaponmin;
+
+			MinDamage = chardamage + weaponmin;
+			MaxDamage = chardamage + weaponmax;
 		}
+	}
+
+	public bool CanStep()
+	{
+		if (Time.time < WalkCooldown) return false;
+		WalkCooldown = Time.time + 0.4f;
+		return true;
 	}
 
 	public bool CanAttack()
@@ -198,6 +243,19 @@ public class Character
 		return GameDataTables.Levels[Level].Experience;
 	}
 
+	public bool TryBlocking(Character defender)
+	{
+		float chance = Dexterity + 2 * (Level - defender.Level);
+		float roll = UnityEngine.Random.Range(0, 100f);
+		Debug.Log("chance to block =" + chance + ",roll=" + roll);
+		if (roll <= chance)
+		{
+			Debug.Log("good for a block");
+			return true;
+		}
+		return false;
+	}
+
 	/// <summary>
 	/// full comparison and calculation of attacker and defender stats
 	/// </summary>
@@ -205,7 +263,7 @@ public class Character
 	/// <param name="cooldown">seconds to wait between attacks</param>
 	/// <param name="damage">actual damage done to defender</param>
 	/// <returns>true if hit</returns>
-	public bool CalculateDamage(Character defender, float cooldown, out int damage)
+	public bool CalculateDamage(Character defender, out int damage)
 	{
 		Recalculate();
 		bool hit;
@@ -216,7 +274,10 @@ public class Character
 			damage = 0;
 			return hit;
 		}
-		AttackCooldown = Time.time + cooldown;
+		AttackCooldown = Time.time + AttackSpeed;
+
+		// npcs can attack as fast as AttackSpeed, but it looks and feels wrong
+		if (Class == CharacterClass.NPC) AttackCooldown += UnityEngine.Random.Range(0f, 0.5f);
 		if (defender == null)
 		{
 			hit = false;
@@ -229,14 +290,31 @@ public class Character
 		//float chance = (float)ToHitPercent / (float)defender.ArmourClass;
 		float chance = (float)ToHitPercent;
 		float roll = UnityEngine.Random.Range(0, 100f);
-		Debug.Log("chance=" + chance + ",roll=" + roll);
+		Debug.Log("chance to hit =" + chance + ",roll=" + roll);
 		if (roll <= chance)
 		{
-			hit = true;
-			// and then calculate the damage
-			//damage = Damage - defender.ArmourClass;
-			damage = UnityEngine.Random.Range(MinDamage, MaxDamage);
-			Debug.Log("good for a hit. damage is " + damage);
+			if (defender.Class != CharacterClass.NPC && TryBlocking(defender))
+			{
+				damage = 0;
+				Debug.Log("good for a hit, but it's blocked");
+				hit = false;
+			}
+			else
+			{
+				damage = UnityEngine.Random.Range(MinDamage, MaxDamage);
+				if (Class == CharacterClass.Warrior)
+				{
+					chance = (float)Level;
+					roll = UnityEngine.Random.Range(0, 100f);
+					if (roll <= chance)
+					{
+						Debug.Log("critical hit - double damage");
+						damage *= 2;
+					}
+				}
+				Debug.Log("good for a hit. damage is " + damage);
+				hit = true;
+			}
 			if (damage < 0) damage = 0;
 		}
 		else

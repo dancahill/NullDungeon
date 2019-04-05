@@ -45,4 +45,11 @@ public class Equipment : Item
 		//}
 		return false;
 	}
+
+	public override bool Consume()
+	{
+		//return base.Consume();
+		Debug.Log(name + " cannot be consumed");
+		return false;
+	}
 }

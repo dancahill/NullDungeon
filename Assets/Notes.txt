@@ -1,0 +1,6 @@
+remember to add sounds for:
+ - blocking (can't find it)
+
+ add logic for blocking speed, hit recovery, and stun locks
+ fix timing of footsteps
+ check timing of enemy attacks

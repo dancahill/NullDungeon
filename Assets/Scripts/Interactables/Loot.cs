@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class Loot : Interactable
+﻿public class Loot : Interactable
 {
 	public Item item;
 
@@ -13,7 +11,6 @@ public class Loot : Interactable
 
 	void PickUp()
 	{
-		bool added = GameManager.instance.PlayerCharacter.InventoryAdd(item);
-		if (added) Destroy(gameObject);
+		if (GameManager.GetPlayer().InventoryAdd(item)) Destroy(gameObject);
 	}
 }

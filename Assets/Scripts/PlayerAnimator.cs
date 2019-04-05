@@ -69,6 +69,11 @@ public class PlayerAnimator : MonoBehaviour
 		}
 	}
 
+	public float GetSpeed()
+	{
+		return m_Agent.velocity.magnitude;
+	}
+
 	void MoveTo(Vector3 point)
 	{
 		//m_Agent.stoppingDistance = 1.1f;

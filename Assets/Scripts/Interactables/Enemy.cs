@@ -41,27 +41,20 @@ public class Enemy : Interactable
 		if (overheadCanvas && overheadCanvas.enabled)
 		{
 			healthBar.fillAmount = Stats.Life / Stats.BaseLife;
-			//AlignCanvas();
 		}
 		float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-		if (distanceToPlayer < ProvokeRadius)
-		{
-			Provoked = true;
-		}
-		else
-		{
-			Provoked = false;
-		}
+		Provoked = (distanceToPlayer < ProvokeRadius);
 		if (Provoked)
 		{
-			Animator.SetDestination(player.transform.position);
 			if (distanceToPlayer < 1.1)
 			{
-				Player p = player.GetComponent<Player>();
+				Animator.SetDirection();
 				if (Stats.CanAttack())
 				{
+					Animator.Stop();
 					Animator.DoAttack();
-					if (Stats.CalculateDamage(p.Stats, 2.0f, out int damage))
+					Player p = player.GetComponent<Player>();
+					if (Stats.CalculateDamage(p.Stats, out int damage))
 					{
 						if (damage > 0) p.TakeDamage(damage);
 					}
@@ -74,6 +67,10 @@ public class Enemy : Interactable
 				{
 					//Debug.Log("cooling down");
 				}
+			}
+			else
+			{
+				Animator.SetDestination(player.transform.position);
 			}
 		}
 		else
@@ -110,7 +107,7 @@ public class Enemy : Interactable
 		if (!IsAlive()) return false;
 		//Debug.Log("attacking enemy " + name);
 		//Debug.Log("close! attack?!?");
-		if (GameManager.instance.PlayerCharacter.CalculateDamage(Stats, 0.5f, out int damage))
+		if (GameManager.instance.PlayerCharacter.CalculateDamage(Stats, out int damage))
 		{
 			if (damage > 0) TakeDamage(damage);
 		}
@@ -147,7 +144,17 @@ public class Enemy : Interactable
 		{
 			Stats.Life = 0;
 			GetComponent<EnemyAnimator>().Death();
-			m_Manager.PlayerCharacter.AddExperience(Stats.GivesExperience);
+			Character p = m_Manager.PlayerCharacter;
+			if (p.Level < Stats.Level + 10)
+			{
+				float exp = (float)Stats.GivesExperience * (1.0f + 0.1f * (float)(Stats.Level - p.Level));
+				Debug.Log("adding " + exp + " experience");
+				p.AddExperience((int)exp);
+			}
+			else
+			{
+				Debug.Log("level too low - no experience");
+			}
 		}
 		else
 		{

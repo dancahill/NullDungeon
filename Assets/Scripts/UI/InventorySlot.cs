@@ -35,8 +35,8 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
 			{
 				Equipment e = (Equipment)item;
 				text.text += "\n" + e.equipmentType;
-				text.text += "\nArmour: " + e.Armour;
-				text.text += "\nDamage: " + e.MaxDamage;
+				if (e.Armour > 0) text.text += "\nArmour: " + e.Armour;
+				if (e.MaxDamage > 0) text.text += "\nDamage: " + e.MinDamage + "-" + e.MaxDamage;
 			}
 			panel.SetActive(true);
 		}
@@ -81,6 +81,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
 		if (name.StartsWith("InventorySlot"))
 		{
 			c.InventoryRemove(item);
+			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.DropRing);
 		}
 		else if (name == "LeftHandSlot")
 		{
@@ -98,6 +99,16 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
 	{
 		if (item == null) return;
 		if (item.Use())
+		{
+			GameManager.instance.PlayerCharacter.InventoryRemove(item);
+			GameManager.instance.PlayerCharacter.Recalculate();
+		}
+	}
+
+	public void ConsumeItem()
+	{
+		if (item == null) return;
+		if (item.Consume())
 		{
 			GameManager.instance.PlayerCharacter.InventoryRemove(item);
 			GameManager.instance.PlayerCharacter.Recalculate();

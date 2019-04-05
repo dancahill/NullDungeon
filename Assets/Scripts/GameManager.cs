@@ -47,4 +47,9 @@ public class GameManager : MonoBehaviour
 		m_SoundManager = gameObject.AddComponent<SoundManager>();
 		m_SoundManager.PlayMusic();
 	}
+
+	public static Character GetPlayer()
+	{
+		return GameManager.instance.PlayerCharacter;
+	}
 }

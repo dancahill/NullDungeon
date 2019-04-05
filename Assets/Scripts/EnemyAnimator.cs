@@ -7,12 +7,14 @@ public class EnemyAnimator : MonoBehaviour
 	GameManager m_Manager;
 	NavMeshAgent m_Agent;
 	Animator m_Animator;
+	[HideInInspector] GameObject player;
 
 	void Start()
 	{
 		m_Manager = GameManager.instance;
 		m_Animator = GetComponentInChildren<Animator>();
 		m_Agent = gameObject.AddComponent<NavMeshAgent>();
+		player = GameObject.Find("Player");
 
 		m_Agent.speed = 1.0f;
 		if (name == "Zombie") m_Agent.speed = 0.8f;
@@ -27,6 +29,13 @@ public class EnemyAnimator : MonoBehaviour
 		float speedPercent = m_Agent.velocity.magnitude / m_Agent.speed;
 
 		if (m_Animator) m_Animator.SetFloat("SpeedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
+	}
+
+	public void SetDirection()
+	{
+		Vector3 direction = (player.transform.position - transform.position).normalized;
+		Quaternion lookrotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+		transform.rotation = lookrotation;
 	}
 
 	public void SetDestination(Vector3 v)
@@ -85,6 +94,12 @@ public class EnemyAnimator : MonoBehaviour
 		GetComponent<CapsuleCollider>().enabled = false;
 	}
 
+	public void Stop()
+	{
+		//m_Agent.stoppingDistance = 0f;
+		//MoveTo(transform.position);
+		m_Agent.SetDestination(transform.position);
+	}
 
 	/// <summary>
 	/// play the attack animation and sound

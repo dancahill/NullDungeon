@@ -11,4 +11,10 @@ public class Item : ScriptableObject
 		Debug.Log("trying to use " + name);
 		return false;
 	}
+
+	public virtual bool Consume()
+	{
+		Debug.Log("trying to consume " + name);
+		return false;
+	}
 }

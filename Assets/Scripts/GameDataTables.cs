@@ -30,6 +30,7 @@ public class GameDataTables
 		public int ToHitPercent;
 		public int MinDamage;
 		public int MaxDamage;
+		public float AttackTime;
 		public int BaseExp;
 
 		public static EnemyStats Find(string name)
@@ -40,7 +41,7 @@ public class GameDataTables
 		}
 	}
 	public readonly static EnemyStats[] Enemies = new EnemyStats[] {
-		new EnemyStats { Name="Zombie",   Level=1, MinHP=2, MaxHP=3, ArmourClass=5, ToHitPercent=10, MinDamage=2, MaxDamage=5, BaseExp=54 },
-		new EnemyStats { Name="Skeleton", Level=1, MinHP=1, MaxHP=2, ArmourClass=0, ToHitPercent=20, MinDamage=1, MaxDamage=4, BaseExp=64 },
+		new EnemyStats { Name="Zombie",   Level=1, MinHP=2, MaxHP=3, ArmourClass=5, ToHitPercent=10, MinDamage=2, MaxDamage=5, AttackTime=0.60f, BaseExp=54 },
+		new EnemyStats { Name="Skeleton", Level=1, MinHP=1, MaxHP=2, ArmourClass=0, ToHitPercent=20, MinDamage=1, MaxDamage=4, AttackTime=0.65f, BaseExp=64 },
 	};
 }

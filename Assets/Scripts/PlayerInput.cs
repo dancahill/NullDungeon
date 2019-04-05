@@ -48,7 +48,7 @@ public class PlayerInput : MonoBehaviour
 						player.Animator.SetDirection();
 						player.Animator.DoAttack();
 						int damage;
-						player.Stats.CalculateDamage(null, 0.5f, out damage);
+						player.Stats.CalculateDamage(null, out damage);
 					}
 				}
 			}
