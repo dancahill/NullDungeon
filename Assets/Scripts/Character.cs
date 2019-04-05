@@ -212,10 +212,12 @@ public class Character
 		}
 	}
 
-	public bool CanStep()
+	public bool CanStep(float speed)
 	{
 		if (Time.time < WalkCooldown) return false;
-		WalkCooldown = Time.time + 0.4f;
+		//WalkCooldown = Time.time + Mathf.Clamp(1f / speed, 0, 0.4f);
+		// should be 0.4f, but since max speed is 2, 0.5f works better for now
+		WalkCooldown = Time.time + Mathf.Clamp(1f / speed, 0, 0.5f);
 		return true;
 	}
 

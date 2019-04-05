@@ -151,6 +151,6 @@ public class PlayerAnimator : MonoBehaviour
 	{
 		// this should probably time these things. maybe use an animator
 		m_Animator.Play("Attack");
-		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerAttack1, FindObjectOfType<Player>().Stats.Class);
+		SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.PlayerAttack1, GameManager.GetPlayer().Class);
 	}
 }

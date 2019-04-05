@@ -148,7 +148,7 @@ MonoBehaviour:
   overheadCanvas: {fileID: 2031066363094602560}
   text: {fileID: 0}
   radius: 1.1
-  item: {fileID: 11400000, guid: d9e02ab0c578231448451a0424580f58, type: 2}
+  item: {fileID: 11400000, guid: 4f66614d8a992c542a45e03aaefd52ff, type: 2}
 --- !u!65 &2031066364335825738
 BoxCollider:
   m_ObjectHideFlags: 0

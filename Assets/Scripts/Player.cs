@@ -8,27 +8,18 @@ public class Player : MonoBehaviour
 	[HideInInspector] public GameManager Manager;
 	[HideInInspector] public PlayerAnimator Animator;
 
+	GameObject warrior;
+	GameObject rogue;
+
 	private void Start()
 	{
 		Manager = GameManager.instance;
 		Stats = GameManager.instance.PlayerCharacter;
 		Animator = GetComponent<PlayerAnimator>();
 
-		void setactive(string cclass)
-		{
-			GameObject warrior = transform.Find("Warrior").gameObject;
-			GameObject rogue = transform.Find("Rogue").gameObject;
-			warrior.SetActive(cclass == "Warrior");
-			rogue.SetActive(cclass == "Rogue");
-		}
-		if (Stats.Class == Character.CharacterClass.Warrior)
-		{
-			setactive("Warrior");
-		}
-		else if (Stats.Class == Character.CharacterClass.Rogue)
-		{
-			setactive("Rogue");
-		}
+		warrior = transform.Find("Warrior").gameObject;
+		rogue = transform.Find("Rogue").gameObject;
+
 		if (SceneController.GetActiveSceneName() == "Town")
 		{
 			GetComponentInChildren<Light>().enabled = false;
@@ -37,14 +28,18 @@ public class Player : MonoBehaviour
 
 	private void Update()
 	{
+		warrior.SetActive(Stats.Class == Character.CharacterClass.Warrior);
+		rogue.SetActive(Stats.Class == Character.CharacterClass.Rogue);
 		if (Stats.Life > 0)
 		{
 			// five minutes to heal fully. more base health means you heal faster
 			//Stats.Life = Mathf.Clamp(Stats.Life + ((float)Stats.BaseLife / 300f * Time.deltaTime), 0, Stats.BaseLife);
 			//Stats.Mana = Mathf.Clamp(Stats.Mana + ((float)Stats.BaseLife / 300f * Time.deltaTime), 0, Stats.BaseMana);
 
-			if (Animator.GetSpeed() > 0.1f && Stats.CanStep()) // this needs work on the timing
+			float speed = Animator.GetSpeed();
+			if (speed > 0.1f && Stats.CanStep(speed)) // this needs work on the timing
 			{
+				//Debug.Log("step '" + speed + "'");
 				SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.Footstep1);
 			}
 		}
@@ -58,8 +53,6 @@ public class Player : MonoBehaviour
 		if (Stats.Life <= 0)
 		{
 			Stats.Life = 0;
-			//GetComponent<EnemyAnimator>().Death();
-			//m_Manager.player.GetComponent<Player>().Stats.AddExperience(Stats.GivesExperience);
 			FindObjectOfType<GameCanvas>().SetInfo("You died");
 			Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerDie1, FindObjectOfType<Player>().Stats.Class);
 			Manager.Settings.NewInTown = true;

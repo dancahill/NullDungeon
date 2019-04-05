@@ -11,6 +11,10 @@
 
 	void PickUp()
 	{
-		if (GameManager.GetPlayer().InventoryAdd(item)) Destroy(gameObject);
+		if (GameManager.GetPlayer().InventoryAdd(item))
+		{
+			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.Click);
+			Destroy(gameObject);
+		}
 	}
 }

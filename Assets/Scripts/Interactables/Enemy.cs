@@ -155,6 +155,7 @@ public class Enemy : Interactable
 			{
 				Debug.Log("level too low - no experience");
 			}
+			FindObjectOfType<LootManager>().DropRandom(transform.position, 1);
 		}
 		else
 		{

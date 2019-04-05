@@ -76,12 +76,16 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
 
 	public void OnRemoveButton()
 	{
-		Character c = GameManager.instance.PlayerCharacter;
+		Character c = GameManager.GetPlayer();
 		Debug.Log("OnRemoveButton() '" + name + "'");
 		if (name.StartsWith("InventorySlot"))
 		{
-			c.InventoryRemove(item);
-			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.DropRing);
+			LootManager lm = FindObjectOfType<LootManager>();
+			if (lm.DropItem(GameObject.Find("Player").transform.position, item))
+			{
+				c.InventoryRemove(item);
+				SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.DropRing);
+			}
 		}
 		else if (name == "LeftHandSlot")
 		{
@@ -100,6 +104,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
 		if (item == null) return;
 		if (item.Use())
 		{
+			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.Click);
 			GameManager.instance.PlayerCharacter.InventoryRemove(item);
 			GameManager.instance.PlayerCharacter.Recalculate();
 		}
@@ -110,8 +115,9 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
 		if (item == null) return;
 		if (item.Consume())
 		{
-			GameManager.instance.PlayerCharacter.InventoryRemove(item);
-			GameManager.instance.PlayerCharacter.Recalculate();
+			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.Click);
+			GameManager.GetPlayer().InventoryRemove(item);
+			GameManager.GetPlayer().Recalculate();
 		}
 	}
 }
