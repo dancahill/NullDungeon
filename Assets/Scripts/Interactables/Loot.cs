@@ -2,19 +2,6 @@
 {
 	public Item item;
 
-	protected override void Update()
-	{
-		base.Update();
-		if (GameManager.instance.Settings.ShowItemsOnGround)
-		{
-			EnableCanvas();
-		}
-		else
-		{
-			DisableCanvas();
-		}
-	}
-
 	public override bool Interact()
 	{
 		base.Interact();

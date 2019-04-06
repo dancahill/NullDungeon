@@ -6,6 +6,7 @@ public class Interactable : MonoBehaviour
 	public Canvas overheadCanvas;
 	public Text text;
 	[HideInInspector] public float radius = 1.1f;
+	bool mouseover;
 
 	protected virtual void Awake()
 	{
@@ -14,19 +15,30 @@ public class Interactable : MonoBehaviour
 
 	protected virtual void Update()
 	{
-		AlignCanvas();
+		if (mouseover || (GameManager.instance.Settings.ShowItemsOnGround && GetComponent<Loot>()))
+		{
+			EnableCanvas();
+		}
+		else
+		{
+			DisableCanvas();
+		}
 	}
 
 	private void OnMouseOver()
 	{
 		//Debug.Log("mouse over " + name);
+		mouseover = true;
 		EnableCanvas();
+		FindObjectOfType<GameCanvas>().SetInfo(name);
 	}
 
 	private void OnMouseExit()
 	{
 		//Debug.Log("mouse leaving " + name);
+		mouseover = false;
 		DisableCanvas();
+		FindObjectOfType<GameCanvas>().SetInfo("");
 	}
 
 	void OnMouseDown()
@@ -37,7 +49,6 @@ public class Interactable : MonoBehaviour
 
 	public void EnableCanvas()
 	{
-		FindObjectOfType<GameCanvas>().SetInfo(name);
 		if (overheadCanvas)
 		{
 			overheadCanvas.gameObject.SetActive(true);
@@ -47,7 +58,6 @@ public class Interactable : MonoBehaviour
 
 	public void DisableCanvas()
 	{
-		FindObjectOfType<GameCanvas>().SetInfo("");
 		if (overheadCanvas) overheadCanvas.gameObject.SetActive(false);
 	}
 
