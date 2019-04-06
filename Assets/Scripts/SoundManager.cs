@@ -18,6 +18,7 @@ public class SoundManager : MonoBehaviour
 		PlayerAttack1,
 		PlayerAttack2,
 		PlayerDie1,
+		CantUseThisYet,
 		CantDoThat,
 		SkeletonAttack1,
 		SkeletonHit1,
@@ -120,6 +121,7 @@ public class SoundManager : MonoBehaviour
 					case Sounds.PlayerAttack1: soundname = "File00000063"; break;
 					case Sounds.PlayerAttack2: soundname = "File00000064"; break;
 					case Sounds.PlayerDie1: soundname = "File00000065"; break;
+					case Sounds.CantUseThisYet: soundname = "File00000304"; break;
 					case Sounds.CantDoThat: soundname = "File00000334"; break;
 					case Sounds.CowAlright: soundname = "File00002306"; break;
 					default: Debug.Log("missing sound " + sound); break;
@@ -132,6 +134,7 @@ public class SoundManager : MonoBehaviour
 					case Sounds.PlayerAttack1: soundname = "File00000063"; break;// same as warrior
 					case Sounds.PlayerAttack2: soundname = "File00000064"; break;// same as warrior
 					case Sounds.PlayerDie1: soundname = "File00000295"; break;
+					case Sounds.CantUseThisYet: soundname = "File00000248"; break;
 					case Sounds.CantDoThat: soundname = "File00000272"; break;
 					case Sounds.CowAlright: soundname = "File00002300"; break;
 					default: Debug.Log("missing sound " + sound); break;

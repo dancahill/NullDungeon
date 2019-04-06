@@ -152,5 +152,17 @@ public class PlayerAnimator : MonoBehaviour
 		// this should probably time these things. maybe use an animator
 		m_Animator.Play("Attack");
 		SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.PlayerAttack1, GameManager.GetPlayer().Class);
+
+		Character c = GameManager.GetPlayer();
+		if (c.Equipped.righthand != null && c.Equipped.righthand.baseType && c.Equipped.righthand.baseType.GetType() == typeof(WeaponBase))
+		{
+			c.Equipped.righthand.durability -= 0.1f;
+			if (c.Equipped.righthand.durability <= 0)
+			{
+				c.Equipped.righthand.durability = 0;
+				c.InventoryAdd(c.Equipped.righthand);
+				c.Equipped.righthand = null;
+			}
+		}
 	}
 }

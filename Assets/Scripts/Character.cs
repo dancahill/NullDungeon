@@ -261,9 +261,19 @@ public class Character
 
 	public bool TryBlocking(Character defender)
 	{
-		float chance = Dexterity + 2 * (Level - defender.Level);
+		float chance = defender.Dexterity + 2 * (Level - defender.Level) + 30;// 30 for warriors, 20 for rogues, 10 for sorcerors
 		float roll = UnityEngine.Random.Range(0, 100f);
 		Debug.Log("chance to block =" + chance + ",roll=" + roll);
+		if (defender.Equipped.lefthand != null && defender.Equipped.lefthand.baseType && defender.Equipped.lefthand.baseType.GetType() == typeof(ShieldBase))
+		{
+			defender.Equipped.lefthand.durability -= 0.1f;
+			if (defender.Equipped.lefthand.durability <= 0)
+			{
+				defender.Equipped.lefthand.durability = 0;
+				defender.InventoryAdd(defender.Equipped.lefthand);
+				defender.Equipped.lefthand = null;
+			}
+		}
 		if (roll <= chance)
 		{
 			Debug.Log("good for a block");

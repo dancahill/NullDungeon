@@ -27,14 +27,36 @@ public class Item
 	public bool Equip()
 	{
 		Character c = GameManager.GetPlayer();
+
+		bool met = true;
+		if (baseType.RequiresStr > c.Strength) met = false;
+		if (baseType.RequiresDex > c.Dexterity) met = false;
+		if (baseType.RequiresMag > c.Magic) met = false;
+		if (baseType.RequiresVit > c.Vitality) met = false;
+		if (baseType.RequiresLevel > c.Level) met = false;
+		if (!met)
+		{
+			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.CantUseThisYet, c.Class);
+			return false;
+		}
 		if (baseType.GetType() == typeof(WeaponBase))
 		{
+			if (durability <= 0)
+			{
+				SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.CantUseThisYet, c.Class);
+				return false;
+			}
 			if (c.Equipped.righthand != null && c.Equipped.righthand.baseType) c.Inventory.Add(c.Equipped.righthand);
 			c.Equipped.righthand = this;
 			return true;
 		}
 		else if (baseType.GetType() == typeof(ShieldBase))
 		{
+			if (durability <= 0)
+			{
+				SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.CantUseThisYet, c.Class);
+				return false;
+			}
 			if (c.Equipped.lefthand != null && c.Equipped.lefthand.baseType) c.Inventory.Add(c.Equipped.lefthand);
 			c.Equipped.lefthand = this;
 			return true;
