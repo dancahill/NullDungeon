@@ -256,6 +256,7 @@ MonoBehaviour:
   text: {fileID: 1673178015617603338}
   radius: 1.1
   item:
+    baseTypeName: Buckler
     baseType: {fileID: 11400000, guid: 79a3df26a15089d4a87bed9a9fa15219, type: 2}
     durability: 0
 --- !u!1001 &1673178015483076518

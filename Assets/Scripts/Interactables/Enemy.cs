@@ -13,10 +13,12 @@ public class Enemy : Interactable
 	Scene_Manager m_SceneManager;
 	[HideInInspector] public EnemyAnimator Animator;
 	[HideInInspector] GameObject player;
+	bool Activated = false;
 	bool Provoked = false;
 
 	Vector3 start;
 	Vector3 end;
+	Vector3 destination;
 
 	protected override void Awake()
 	{
@@ -32,6 +34,7 @@ public class Enemy : Interactable
 		player = GameObject.Find("Player");
 		start = transform.Find("Waypoints/Start").position;
 		end = transform.Find("Waypoints/End").position;
+		destination = end;
 	}
 
 	protected override void Update()
@@ -43,6 +46,8 @@ public class Enemy : Interactable
 			healthBar.fillAmount = Stats.Life / Stats.BaseLife;
 		}
 		float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+		//if (!Activated && distanceToPlayer < ProvokeRadius * 2) Activated = true;
+		Activated = (distanceToPlayer < ProvokeRadius * 2);
 		Provoked = (distanceToPlayer < ProvokeRadius);
 		if (Provoked)
 		{
@@ -73,19 +78,25 @@ public class Enemy : Interactable
 				Animator.SetDestination(player.transform.position);
 			}
 		}
-		else
+		else if (Activated)
 		{
-			if (Animator.GetDistance() < 0.5f)
+			//if (Animator.GetDistance() < 0.5f)
+			//{
+			//	if (Animator.GetDestination() == start)
+			//	{
+			//		Animator.SetDestination(end);
+			//	}
+			//	else
+			//	{
+			//		Animator.SetDestination(start);
+			//	}
+			//}
+			float distanceToWP = Vector3.Distance(transform.position, destination);
+			if (distanceToWP < 0.5f)
 			{
-				if (Animator.GetDestination() == start)
-				{
-					Animator.SetDestination(end);
-				}
-				else
-				{
-					Animator.SetDestination(start);
-				}
+				destination = (destination == start) ? end : start;
 			}
+			if (Animator.GetDestination() != destination) Animator.SetDestination(destination);
 		}
 	}
 
@@ -121,7 +132,7 @@ public class Enemy : Interactable
 	public bool IsAlive()
 	{
 		NavMeshAgent m_Agent = GetComponent<NavMeshAgent>();
-		if (Stats.Life <= 0 && m_Agent.enabled)
+		if (Stats.Life <= 0 && m_Agent && m_Agent.enabled)
 		{
 			Debug.Log("enemy " + name + " should already be dead");
 			MakeDead();
@@ -164,5 +175,21 @@ public class Enemy : Interactable
 			else
 				m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ZombieHit1);
 		}
+	}
+
+	private void OnDrawGizmosSelected()
+	{
+		if (!IsAlive()) return;
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireSphere(transform.position, ProvokeRadius);
+		Gizmos.color = Color.yellow;
+		Gizmos.DrawWireSphere(transform.position, ProvokeRadius * 2);
+		//if (IsAlive())
+		//{
+		//	Gizmos.color = Color.green;
+		//	Gizmos.DrawWireSphere(start, .1f);
+		//	Gizmos.color = Color.red;
+		//	Gizmos.DrawWireSphere(end, .1f);
+		//}
 	}
 }

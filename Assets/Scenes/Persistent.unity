@@ -1083,6 +1083,7 @@ GameObject:
   - component: {fileID: 230898712}
   - component: {fileID: 230898714}
   - component: {fileID: 230898715}
+  - component: {fileID: 230898716}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1235,6 +1236,31 @@ MonoBehaviour:
     type: 3}
   m_ZombiePrefab: {fileID: 8699178778292264780, guid: c35dea9a9351419488d6f2899791a44c,
     type: 3}
+--- !u!114 &230898716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230898711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8545999ab0d404648828083c4f55af4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 2031066364335825735, guid: 2bf0fbdbed529f746a1d3a5c69d151a3, type: 3}
+  - {fileID: 1673178015990408698, guid: 6bf7ef0853111f94abe1a6a2f6037e99, type: 3}
+  - {fileID: 2031066364335825735, guid: 620d556908110a848a9c8662e3938ecb, type: 3}
+  items:
+  - baseType: {fileID: 11400000, guid: e5cc13a037c78924f9c21e6d2a22428d, type: 2}
+    durability: 0
+  - baseType: {fileID: 11400000, guid: 79a3df26a15089d4a87bed9a9fa15219, type: 2}
+    durability: 0
+  - baseType: {fileID: 11400000, guid: 4f66614d8a992c542a45e03aaefd52ff, type: 2}
+    durability: 0
+  - baseType: {fileID: 11400000, guid: d9e02ab0c578231448451a0424580f58, type: 2}
+    durability: 0
 --- !u!1001 &252859415
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11959,62 +11985,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119499752}
   m_CullTransparentMesh: 0
---- !u!1 &2121236726
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2121236727}
-  - component: {fileID: 2121236728}
-  m_Layer: 0
-  m_Name: LootCatalog
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2121236727
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2121236726}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2121236728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2121236726}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8545999ab0d404648828083c4f55af4e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 2031066364335825735, guid: 2bf0fbdbed529f746a1d3a5c69d151a3, type: 3}
-  - {fileID: 1673178015990408698, guid: 6bf7ef0853111f94abe1a6a2f6037e99, type: 3}
-  - {fileID: 2031066364335825735, guid: 620d556908110a848a9c8662e3938ecb, type: 3}
-  items:
-  - baseType: {fileID: 11400000, guid: e5cc13a037c78924f9c21e6d2a22428d, type: 2}
-    durability: 0
-  - baseType: {fileID: 11400000, guid: 79a3df26a15089d4a87bed9a9fa15219, type: 2}
-    durability: 0
-  - baseType: {fileID: 11400000, guid: 4f66614d8a992c542a45e03aaefd52ff, type: 2}
-    durability: 0
-  - baseType: {fileID: 11400000, guid: d9e02ab0c578231448451a0424580f58, type: 2}
-    durability: 0
 --- !u!1001 &2122938974
 PrefabInstance:
   m_ObjectHideFlags: 0

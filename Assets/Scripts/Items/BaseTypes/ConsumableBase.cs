@@ -9,5 +9,6 @@ public class ConsumableBase : ItemBase
 		Potion,
 		Scroll,
 	}
+	[Header("Consumable Stats")]
 	public ConsumableType consumableType;
 }

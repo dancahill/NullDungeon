@@ -16,8 +16,8 @@ public class LootManager : MonoBehaviour
 		GameObject loot = GameObject.Find("Loot");
 		GameObject g = Instantiate(prefab, new Vector3(droplocation.x + .5f, 0, droplocation.z + .5f), Quaternion.identity, loot.transform);
 		Loot l = g.GetComponent<Loot>();
-		g.name = item.baseType.Name.ToUpper();
-		l.text.text = item.baseType.Name.ToUpper();
+		g.name = item.baseTypeName.ToUpper();
+		l.text.text = item.baseTypeName.ToUpper();
 		l.item = item;
 		SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.DropRing);
 		return true;
@@ -36,16 +36,19 @@ public class LootManager : MonoBehaviour
 		else if (roll < 10)
 		{
 			Item item = catalog.FindItem("Buckler");
+			item.durability = Random.Range(((ShieldBase)item.baseType).Durability / 2, ((ShieldBase)item.baseType).Durability);
 			DropItem(droplocation, item);
 		}
 		else if (roll < 15)
 		{
 			Item item = catalog.FindItem("Short Sword");
+			item.durability = Random.Range(((WeaponBase)item.baseType).Durability / 2, ((WeaponBase)item.baseType).Durability);
 			DropItem(droplocation, item);
 		}
 		else if (roll < 20)
 		{
 			Item item = catalog.FindItem("Bastard Sword");
+			item.durability = Random.Range(((WeaponBase)item.baseType).Durability / 2, ((WeaponBase)item.baseType).Durability);
 			DropItem(droplocation, item);
 		}
 	}

@@ -39,7 +39,6 @@ public class GameCanvas : MonoBehaviour
 		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ClickHeavy);
 		GameSave.SaveCharacter();
 		m_Manager.sceneController.FadeAndLoadScene("MainMenu");
-
 	}
 
 	public bool IsCharacterPanelOpen()
@@ -69,6 +68,11 @@ public class GameCanvas : MonoBehaviour
 	{
 		InventoryPanel.SetActive(state);
 		AdjustCameraSkew();
+		if (state)
+		{
+			InventorySlot[] slots = GetComponentsInChildren<InventorySlot>();
+			foreach (InventorySlot slot in slots) slot.panel.SetActive(false);
+		}
 	}
 
 	public void ToggleInventoryPanel()

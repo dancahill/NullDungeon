@@ -8,6 +8,7 @@ public class GameSettings
 	[NonSerialized] public float CameraSkew = 0;
 	[NonSerialized] public bool FreshMeat = true;
 	[NonSerialized] public bool NewInTown = true;
+	[NonSerialized] public bool ShowItemsOnGround = false;
 	public float CameraZoom = 0;
 	public bool PlayMusic = true;
 	public bool PlaySound = true;
@@ -35,7 +36,7 @@ public class GameManager : MonoBehaviour
 		}
 		Settings = new GameSettings();
 		GameSave.LoadSettings();
-		PlayerCharacter = new Character(Character.CharacterClass.Warrior);
+		PlayerCharacter = new Character(Character.CharacterClass.NPC);
 		sceneController = FindObjectOfType<SceneController>();
 		if (!sceneController) throw new UnityException("Scene Controller missing. Make sure it exists in the Persistent scene.");
 		if (sceneController.CurrentScene == "") sceneController.CurrentScene = "MainMenu";

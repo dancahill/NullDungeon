@@ -162,6 +162,7 @@ MonoBehaviour:
   text: {fileID: 2031066364429014761}
   radius: 1.1
   item:
+    baseTypeName: Potion Of Healing
     baseType: {fileID: 11400000, guid: 4f66614d8a992c542a45e03aaefd52ff, type: 2}
     durability: 0
 --- !u!1 &2031066364429014758

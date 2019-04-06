@@ -138,6 +138,16 @@ public class Character
 		Recalculate();
 		Life = BaseLife;
 		Mana = BaseMana;
+
+		// gonna need a cleaner method for this later
+		LootCatalog catalog = GameObject.FindObjectOfType<LootCatalog>();
+		if (catalog)
+		{
+			Equipped.righthand = catalog.FindItem("Short Sword");
+			Equipped.righthand.durability = ((WeaponBase)Equipped.righthand.baseType).Durability;
+			Equipped.lefthand = catalog.FindItem("Buckler");
+			Equipped.lefthand.durability = ((ShieldBase)Equipped.lefthand.baseType).Durability;
+		}
 	}
 
 	public void ResetTimers()

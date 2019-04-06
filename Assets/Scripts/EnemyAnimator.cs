@@ -9,17 +9,11 @@ public class EnemyAnimator : MonoBehaviour
 	Animator m_Animator;
 	[HideInInspector] GameObject player;
 
-	void Start()
+	private void Awake()
 	{
 		m_Manager = GameManager.instance;
 		m_Animator = GetComponentInChildren<Animator>();
-		m_Agent = gameObject.AddComponent<NavMeshAgent>();
 		player = GameObject.Find("Player");
-
-		m_Agent.speed = 1.0f;
-		if (name == "Zombie") m_Agent.speed = 0.8f;
-		m_Agent.angularSpeed = 500;
-		//m_Agent.stoppingDistance = 1.1f;
 	}
 
 	private void Update()
@@ -27,8 +21,18 @@ public class EnemyAnimator : MonoBehaviour
 		if (m_Agent == null || !m_Agent.enabled) return;
 		const float locomotionAnimationSmoothTime = .1f;
 		float speedPercent = m_Agent.velocity.magnitude / m_Agent.speed;
-
 		if (m_Animator) m_Animator.SetFloat("SpeedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
+	}
+
+	void CreateAgent()
+	{
+		if (m_Agent) return;
+		m_Agent = gameObject.AddComponent<NavMeshAgent>();
+		//m_Agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;// not sure if we need this
+		m_Agent.speed = 1.0f;
+		if (name == "Zombie") m_Agent.speed = 0.8f;
+		m_Agent.angularSpeed = 500;
+		//m_Agent.stoppingDistance = 1.1f;
 	}
 
 	public void SetDirection()
@@ -40,6 +44,7 @@ public class EnemyAnimator : MonoBehaviour
 
 	public void SetDestination(Vector3 v)
 	{
+		CreateAgent();
 		if (m_Agent == null || !m_Agent.enabled) return;
 		m_Agent.SetDestination(v);
 	}
@@ -113,4 +118,11 @@ public class EnemyAnimator : MonoBehaviour
 		else if (name == "Zombie")
 			m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ZombieAttack1);
 	}
+
+	//private void OnDrawGizmosSelected()
+	//{
+	//	if (m_Agent == null || !m_Agent.enabled) return;
+	//	Gizmos.color = Color.blue;
+	//	Gizmos.DrawWireSphere(m_Agent.destination, .1f);
+	//}
 }

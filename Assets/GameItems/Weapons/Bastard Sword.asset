@@ -14,5 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Bastard Sword
   Icon: {fileID: 21300000, guid: 89a840252dff6444dbfdb066d7ef39ba, type: 3}
+  RequiresLevel: 10
+  RequiresStr: 50
+  RequiresDex: 0
+  RequiresMag: 0
+  RequiresVit: 0
+  Durability: 60
   MinDamage: 6
   MaxDamage: 15

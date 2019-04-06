@@ -82,6 +82,7 @@ public class PlayerInput : MonoBehaviour
 				GameSave.SaveSettings();
 			}
 		}
+		m_Manager.Settings.ShowItemsOnGround = Input.GetKey(KeyCode.LeftAlt);
 		if (Input.GetKeyDown(KeyCode.C))
 		{
 			GameCanvas c = FindObjectOfType<GameCanvas>();

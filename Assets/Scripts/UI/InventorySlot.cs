@@ -34,18 +34,22 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
 			if (item.baseType.GetType() == typeof(WeaponBase))
 			{
 				WeaponBase e = (WeaponBase)item.baseType;
-				text.text += "\n" + e.GetType().ToString();
-				//if (e.Armour > 0) text.text += "\nArmour: " + e.Armour;
-				if (e.MaxDamage > 0) text.text += "\nDamage: " + e.MinDamage + "-" + e.MaxDamage;
+				string damage = "\nDamage: " + e.MinDamage + "-" + e.MaxDamage;
+				damage += "  Dur: " + item.durability + "/" + e.Durability;
+				text.text += damage;
 			}
 			else if (item.baseType.GetType() == typeof(ShieldBase))
 			{
 				ShieldBase e = (ShieldBase)item.baseType;
-				text.text += "\n" + e.GetType().ToString();
-				//text.text += "\n" + e.equipmentType;
-				if (e.Armour > 0) text.text += "\nArmour: " + e.Armour;
-				//if (e.MaxDamage > 0) text.text += "\nDamage: " + e.MinDamage + "-" + e.MaxDamage;
+				string armour = "\nArmour: " + e.Armour;
+				armour += "  Dur: " + item.durability + "/" + e.Durability;
+				text.text += armour;
 			}
+			string required = "";
+			if (item.baseType.RequiresStr > 0) required += (required.Length > 0 ? " " : "") + item.baseType.RequiresStr + " Str";
+			if (item.baseType.RequiresDex > 0) required += (required.Length > 0 ? " " : "") + item.baseType.RequiresDex + " Dex";
+			if (required.Length > 0) text.text += "\nRequired: " + required;
+			text.text = text.text.ToUpper();
 			panel.SetActive(true);
 		}
 		else

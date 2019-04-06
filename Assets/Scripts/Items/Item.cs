@@ -4,12 +4,16 @@ using UnityEngine;
 [Serializable]
 public class Item
 {
+	// the instanceID of baseType that ends up in the serialized version is unreliable,
+	// so use baseTypeName to relocate the proper baseType on reload
 	public ItemBase baseType;
+	public string baseTypeName;
 	public float durability;
 
 	public Item(ItemBase type)
 	{
 		baseType = type;
+		baseTypeName = baseType.Name;
 		if (baseType.GetType() == typeof(WeaponBase))
 		{
 			durability = 42;

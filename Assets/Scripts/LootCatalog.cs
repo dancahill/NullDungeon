@@ -18,6 +18,7 @@ public class LootCatalog : MonoBehaviour
 	{
 		Item item = items.Find(i => i.baseType.name == itemname);
 		if (item == null) Debug.Log("can't find item '" + itemname + "'");
+		else item.baseTypeName = item.baseType.Name;
 		return item;
 	}
 }

@@ -35,18 +35,13 @@ public class Interactable : MonoBehaviour
 		player.GetComponent<PlayerAnimator>().SetTarget(transform.gameObject);
 	}
 
-	private void OnDrawGizmosSelected()
-	{
-		Gizmos.color = Color.red;
-		Gizmos.DrawWireSphere(transform.position, Enemy.ProvokeRadius);
-	}
-
 	public void EnableCanvas()
 	{
 		FindObjectOfType<GameCanvas>().SetInfo(name);
 		if (overheadCanvas)
 		{
 			overheadCanvas.gameObject.SetActive(true);
+			AlignCanvas();
 		}
 	}
 
