@@ -1,20 +1,18 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LootManager : MonoBehaviour
 {
-	public List<GameObject> prefabs;
-	public List<Item> items;
+	LootCatalog catalog;
+
+	private void Awake()
+	{
+		catalog = FindObjectOfType<LootCatalog>();
+	}
 
 	public bool DropItem(Vector3 droplocation, Item item)
 	{
-		if (item == null) return false;
-		GameObject prefab = prefabs.Find(p => p.GetComponent<Loot>().item.baseType.GetType() == item.baseType.GetType());
-		if (prefab == null)
-		{
-			Debug.Log("can't find a prefab for " + ((item.baseType) ? item.baseType.Name : "Unknown"));
-			return false;
-		}
+		GameObject prefab = catalog.FindPrefab(item);
+		if (prefab == null) return false;
 		GameObject loot = GameObject.Find("Loot");
 		GameObject g = Instantiate(prefab, new Vector3(droplocation.x + .5f, 0, droplocation.z + .5f), Quaternion.identity, loot.transform);
 		Loot l = g.GetComponent<Loot>();
@@ -27,30 +25,28 @@ public class LootManager : MonoBehaviour
 
 	public void DropRandom(Vector3 droplocation, int itemlevel)
 	{
-		Item finditem(string s)
-		{
-			Item x = items.Find(i => i.baseType.name == s);
-			if (x == null) Debug.Log("can't find item '" + s + "'");
-			return x;
-		}
 		// need much better randomization of drops than this
 		// should probably also set random stats like durability before dropping
 		float roll = Random.Range(0, 100);
 		if (roll < 5)
 		{
-			DropItem(droplocation, finditem("Potion Of Healing"));
+			Item item = catalog.FindItem("Potion Of Healing");
+			DropItem(droplocation, item);
 		}
 		else if (roll < 10)
 		{
-			DropItem(droplocation, finditem("Buckler"));
+			Item item = catalog.FindItem("Buckler");
+			DropItem(droplocation, item);
 		}
 		else if (roll < 15)
 		{
-			DropItem(droplocation, finditem("Short Sword"));
+			Item item = catalog.FindItem("Short Sword");
+			DropItem(droplocation, item);
 		}
 		else if (roll < 20)
 		{
-			DropItem(droplocation, finditem("Bastard Sword"));
+			Item item = catalog.FindItem("Bastard Sword");
+			DropItem(droplocation, item);
 		}
 	}
 }
