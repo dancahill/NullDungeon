@@ -20,6 +20,7 @@ public class GameSave
 			SaveCharacter();
 		}
 		p.ResetTimers();
+		//if (p.Equipped.head != null && p.Equipped.head.basetype == null) p.Equipped.head = null;
 	}
 
 	public static void SaveCharacter(Character stats)

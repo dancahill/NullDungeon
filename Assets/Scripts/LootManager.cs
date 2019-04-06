@@ -1,62 +1,56 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class LootManager : MonoBehaviour
 {
-	GameObject loot;
-	[Header("Prefabs")]
-	public GameObject healthPotion;
-	public GameObject shield;
-	public GameObject sword;
-
-	void Awake()
-	{
-		loot = GameObject.Find("Loot");
-	}
+	public List<GameObject> prefabs;
+	public List<Item> items;
 
 	public bool DropItem(Vector3 droplocation, Item item)
 	{
-		GameObject prefab;
-
-		//Debug.Log("a=" + item.GetInstanceID() + ",b=" + healthPotion.GetComponent<Loot>().item.GetInstanceID());
-		if (item == healthPotion.GetComponent<Loot>().item)
+		if (item == null) return false;
+		GameObject prefab = prefabs.Find(p => p.GetComponent<Loot>().item.baseType.GetType() == item.baseType.GetType());
+		if (prefab == null)
 		{
-			prefab = healthPotion;
-		}
-		else if (item == shield.GetComponent<Loot>().item)
-		{
-			prefab = shield;
-		}
-		else if (item == sword.GetComponent<Loot>().item)
-		{
-			prefab = sword;
-		}
-		else
-		{
-			Debug.Log("can't find a prefab for " + item.Name);
+			Debug.Log("can't find a prefab for " + ((item.baseType) ? item.baseType.Name : "Unknown"));
 			return false;
 		}
+		GameObject loot = GameObject.Find("Loot");
 		GameObject g = Instantiate(prefab, new Vector3(droplocation.x + .5f, 0, droplocation.z + .5f), Quaternion.identity, loot.transform);
-		g.name = item.Name;
+		Loot l = g.GetComponent<Loot>();
+		g.name = item.baseType.Name.ToUpper();
+		l.text.text = item.baseType.Name.ToUpper();
+		l.item = item;
+		SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.DropRing);
 		return true;
 	}
 
 	public void DropRandom(Vector3 droplocation, int itemlevel)
 	{
+		Item finditem(string s)
+		{
+			Item x = items.Find(i => i.baseType.name == s);
+			if (x == null) Debug.Log("can't find item '" + s + "'");
+			return x;
+		}
+		// need much better randomization of drops than this
+		// should probably also set random stats like durability before dropping
 		float roll = Random.Range(0, 100);
 		if (roll < 5)
 		{
-			DropItem(droplocation, shield.GetComponent<Loot>().item);
-			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.DropRing);
+			DropItem(droplocation, finditem("Potion Of Healing"));
 		}
 		else if (roll < 10)
 		{
-			DropItem(droplocation, sword.GetComponent<Loot>().item);
-			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.DropRing);
+			DropItem(droplocation, finditem("Buckler"));
+		}
+		else if (roll < 15)
+		{
+			DropItem(droplocation, finditem("Short Sword"));
 		}
 		else if (roll < 20)
 		{
-			DropItem(droplocation, healthPotion.GetComponent<Loot>().item);
-			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.DropRing);
+			DropItem(droplocation, finditem("Bastard Sword"));
 		}
 	}
 }

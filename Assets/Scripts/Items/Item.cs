@@ -1,20 +1,56 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
-public class Item : ScriptableObject
+[Serializable]
+public class Item
 {
-	public string Name = "New Item";
-	public Sprite Icon = null;
+	public ItemBase baseType;
+	public float durability;
 
-	public virtual bool Use()
+	public Item(ItemBase type)
 	{
-		Debug.Log("trying to use " + name);
+		baseType = type;
+		if (baseType.GetType() == typeof(WeaponBase))
+		{
+			durability = 42;
+		}
+		else if (baseType.GetType() == typeof(ShieldBase))
+		{
+			durability = 41;
+		}
+	}
+
+	public bool Equip()
+	{
+		Character c = GameManager.GetPlayer();
+		if (baseType.GetType() == typeof(WeaponBase))
+		{
+			if (c.Equipped.righthand != null && c.Equipped.righthand.baseType) c.Inventory.Add(c.Equipped.righthand);
+			c.Equipped.righthand = this;
+			return true;
+		}
+		else if (baseType.GetType() == typeof(ShieldBase))
+		{
+			if (c.Equipped.lefthand != null && c.Equipped.lefthand.baseType) c.Inventory.Add(c.Equipped.lefthand);
+			c.Equipped.lefthand = this;
+			return true;
+		}
 		return false;
 	}
 
-	public virtual bool Consume()
+	public bool Consume()
 	{
-		Debug.Log("trying to consume " + name);
+		Character player = GameManager.GetPlayer();
+		if (baseType.Name == "Potion Of Healing")
+		{
+			float bonus = 2f;// bonus depends on character class; 2 for warrior, 1.5 for rogue, 1 for sorceror, but who cares?
+			player.Life += (int)UnityEngine.Random.Range(bonus * (float)player.BaseLife / 8f, bonus * 3f * (float)player.BaseLife / 8f);
+			return true;
+		}
+		else
+		{
+			Debug.Log(baseType.Name + " should be consumed but i don't know how");
+		}
 		return false;
 	}
 }

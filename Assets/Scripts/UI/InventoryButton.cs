@@ -14,7 +14,7 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
 	{
 		if (eventData.button == PointerEventData.InputButton.Left)
 		{
-			slot.UseItem();
+			slot.EquipItem();
 		}
 		else if (eventData.button == PointerEventData.InputButton.Right)
 		{

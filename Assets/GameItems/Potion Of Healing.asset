@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Potion Of Healing
   m_EditorClassIdentifier: 
   Name: Potion Of Healing
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 1cb50c4a9b7067648aec30826d4f8de4, type: 3}
   consumableType: 1

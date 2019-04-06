@@ -8,10 +8,13 @@ public class Character
 	[Serializable]
 	public struct EquippedItems
 	{
-		public Equipment lefthand;
-		public Equipment righthand;
-		public Equipment head;
-		public Equipment body;
+		public Item head;
+		public Item neck;
+		public Item body;
+		public Item righthand;
+		public Item lefthand;
+		public Item rightfinger;
+		public Item leftfinger;
 	}
 	public enum CharacterClass
 	{
@@ -50,7 +53,8 @@ public class Character
 	public EquippedItems Equipped;
 	public List<Item> Inventory = new List<Item>();
 	public List<Item> Stash = new List<Item>();
-	readonly int InventoryMaxSize = 16;
+	readonly int InventoryMaxSize = 40;
+	readonly int BeltMaxSize = 8;
 	readonly int StashMaxSize = 32;
 	[NonSerialized] public float WalkCooldown;
 	[NonSerialized] public float AttackCooldown;
@@ -163,10 +167,10 @@ public class Character
 			int weaponmin = 0;
 			int weaponmax = 0;
 
-			acitems += (Equipped.lefthand) ? Equipped.lefthand.Armour : 0;
-			acitems += (Equipped.righthand) ? Equipped.righthand.Armour : 0;
-			acitems += (Equipped.head) ? Equipped.head.Armour : 0;
-			acitems += (Equipped.body) ? Equipped.body.Armour : 0;
+			acitems += (Equipped.lefthand != null && Equipped.lefthand.baseType) ? ((ShieldBase)Equipped.lefthand.baseType).Armour : 0;
+			//acitems += (Equipped.righthand) ? Equipped.righthand.Armour : 0;
+			//acitems += (Equipped.head) ? Equipped.head.Armour : 0;
+			//acitems += (Equipped.body) ? Equipped.body.Armour : 0;
 
 			switch (Class)
 			{
@@ -194,15 +198,15 @@ public class Character
 			// to hit is actually more complicated, but this is what goes on the screen
 			ToHitPercent = 50 + Dexterity / 2 * tohititems;
 
-			weaponmin += (Equipped.lefthand) ? Equipped.lefthand.MinDamage : 0;
-			weaponmin += (Equipped.righthand) ? Equipped.righthand.MinDamage : 0;
-			weaponmin += (Equipped.head) ? Equipped.head.MinDamage : 0;
-			weaponmin += (Equipped.body) ? Equipped.body.MinDamage : 0;
+			//weaponmin += (Equipped.lefthand) ? Equipped.lefthand.MinDamage : 0;
+			weaponmin += (Equipped.righthand != null && Equipped.righthand.baseType) ? ((WeaponBase)Equipped.righthand.baseType).MinDamage : 0;
+			//weaponmin += (Equipped.head) ? Equipped.head.MinDamage : 0;
+			//weaponmin += (Equipped.body) ? Equipped.body.MinDamage : 0;
 
-			weaponmax += (Equipped.lefthand) ? Equipped.lefthand.MaxDamage : 0;
-			weaponmax += (Equipped.righthand) ? Equipped.righthand.MaxDamage : 0;
-			weaponmax += (Equipped.head) ? Equipped.head.MaxDamage : 0;
-			weaponmax += (Equipped.body) ? Equipped.body.MaxDamage : 0;
+			//weaponmax += (Equipped.lefthand) ? Equipped.lefthand.MaxDamage : 0;
+			weaponmax += (Equipped.righthand != null && Equipped.righthand.baseType) ? ((WeaponBase)Equipped.righthand.baseType).MaxDamage : 0;
+			//weaponmax += (Equipped.head) ? Equipped.head.MaxDamage : 0;
+			//weaponmax += (Equipped.body) ? Equipped.body.MaxDamage : 0;
 
 			if (weaponmin < 1) weaponmin = 1; // unarmed
 			if (weaponmax < weaponmin) weaponmax = weaponmin;
@@ -292,7 +296,7 @@ public class Character
 		//float chance = (float)ToHitPercent / (float)defender.ArmourClass;
 		float chance = (float)ToHitPercent;
 		float roll = UnityEngine.Random.Range(0, 100f);
-		Debug.Log("chance to hit =" + chance + ",roll=" + roll);
+		//Debug.Log("chance to hit =" + chance + ",roll=" + roll);
 		if (roll <= chance)
 		{
 			if (defender.Class != CharacterClass.NPC && TryBlocking(defender))
@@ -330,17 +334,16 @@ public class Character
 	public bool InventoryAdd(Item item)
 	{
 		//Debug.Log("typeof='" + item.GetType() + "'");
-		if (item.GetType() == typeof(Equipment))
+		if (item != null && item.baseType != null)
 		{
-			Equipment e = (Equipment)item;
-			if (e.equipmentType == Equipment.EquipmentType.MeleeWeapon && Equipped.righthand == null)
+			if (item.baseType.GetType() == typeof(WeaponBase) && Equipped.righthand == null)
 			{
-				Equipped.righthand = e;
+				Equipped.righthand = item;
 				return true;
 			}
-			if (e.equipmentType == Equipment.EquipmentType.Shield && Equipped.lefthand == null)
+			else if (item.baseType.GetType() == typeof(ShieldBase) && Equipped.lefthand == null)
 			{
-				Equipped.lefthand = e;
+				Equipped.lefthand = item;
 				return true;
 			}
 		}

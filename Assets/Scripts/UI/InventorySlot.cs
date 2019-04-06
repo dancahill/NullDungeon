@@ -30,13 +30,21 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
 	{
 		if (item != null)
 		{
-			text.text = item.Name;
-			if (item.GetType() == typeof(Equipment))
+			text.text = (item.baseType) ? item.baseType.Name : "Unknown";
+			if (item.baseType.GetType() == typeof(WeaponBase))
 			{
-				Equipment e = (Equipment)item;
-				text.text += "\n" + e.equipmentType;
-				if (e.Armour > 0) text.text += "\nArmour: " + e.Armour;
+				WeaponBase e = (WeaponBase)item.baseType;
+				text.text += "\n" + e.GetType().ToString();
+				//if (e.Armour > 0) text.text += "\nArmour: " + e.Armour;
 				if (e.MaxDamage > 0) text.text += "\nDamage: " + e.MinDamage + "-" + e.MaxDamage;
+			}
+			else if (item.baseType.GetType() == typeof(ShieldBase))
+			{
+				ShieldBase e = (ShieldBase)item.baseType;
+				text.text += "\n" + e.GetType().ToString();
+				//text.text += "\n" + e.equipmentType;
+				if (e.Armour > 0) text.text += "\nArmour: " + e.Armour;
+				//if (e.MaxDamage > 0) text.text += "\nDamage: " + e.MinDamage + "-" + e.MaxDamage;
 			}
 			panel.SetActive(true);
 		}
@@ -53,10 +61,10 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
 
 	public void SetItem(Item item)
 	{
-		if (item != null)
+		if (item != null && item.baseType != null)
 		{
 			this.item = item;
-			icon.sprite = item.Icon;
+			icon.sprite = item.baseType.Icon;
 			icon.enabled = true;
 			removeButton.interactable = true;
 		}
@@ -87,6 +95,16 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
 				SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.DropRing);
 			}
 		}
+		else if (name == "HeadSlot")
+		{
+			c.InventoryAdd(item);
+			c.Equipped.head = null;
+		}
+		else if (name == "BodySlot")
+		{
+			c.InventoryAdd(item);
+			c.Equipped.body = null;
+		}
 		else if (name == "LeftHandSlot")
 		{
 			c.InventoryAdd(item);
@@ -99,21 +117,19 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
 		}
 	}
 
-	public void UseItem()
+	public void EquipItem()
 	{
-		if (item == null) return;
-		if (item.Use())
+		if (item != null && item.Equip())
 		{
 			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.Click);
-			GameManager.instance.PlayerCharacter.InventoryRemove(item);
-			GameManager.instance.PlayerCharacter.Recalculate();
+			GameManager.GetPlayer().InventoryRemove(item);
+			GameManager.GetPlayer().Recalculate();
 		}
 	}
 
 	public void ConsumeItem()
 	{
-		if (item == null) return;
-		if (item.Consume())
+		if (item != null && item.Consume())
 		{
 			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.Click);
 			GameManager.GetPlayer().InventoryRemove(item);

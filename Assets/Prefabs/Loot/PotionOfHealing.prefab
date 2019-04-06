@@ -108,8 +108,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2031066364335825736}
-  - component: {fileID: 2031066364335825737}
   - component: {fileID: 2031066364335825738}
+  - component: {fileID: 2031066364335825737}
   m_Layer: 0
   m_Name: PotionOfHealing
   m_TagString: Untagged
@@ -133,22 +133,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2031066364335825737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031066364335825735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c330f0103f5ef684ab333da21699c91c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  overheadCanvas: {fileID: 2031066363094602560}
-  text: {fileID: 0}
-  radius: 1.1
-  item: {fileID: 11400000, guid: 4f66614d8a992c542a45e03aaefd52ff, type: 2}
 --- !u!65 &2031066364335825738
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -162,6 +146,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.2, z: 0.2}
   m_Center: {x: 0, y: 0.1, z: 0}
+--- !u!114 &2031066364335825737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031066364335825735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c330f0103f5ef684ab333da21699c91c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overheadCanvas: {fileID: 2031066363094602560}
+  text: {fileID: 2031066364429014761}
+  radius: 1.1
+  item:
+    baseType: {fileID: 11400000, guid: 4f66614d8a992c542a45e03aaefd52ff, type: 2}
+    durability: 0
 --- !u!1 &2031066364429014758
 GameObject:
   m_ObjectHideFlags: 0

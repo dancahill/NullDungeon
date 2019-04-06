@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5956286ea24da443b87891358c43e5e, type: 3}
-  m_Name: Buckler
+  m_Script: {fileID: 11500000, guid: e2b7711f1c1cf5f41b9f0122e6564690, type: 3}
+  m_Name: Bastard Sword
   m_EditorClassIdentifier: 
-  Name: Buckler
-  Icon: {fileID: 21300000, guid: 09798ae5db33c6e4dad73b6f5b3cb7a7, type: 3}
-  equipmentType: 4
-  Armour: 4
-  MinDamage: 0
-  MaxDamage: 0
+  Name: Bastard Sword
+  Icon: {fileID: 21300000, guid: 89a840252dff6444dbfdb066d7ef39ba, type: 3}
+  MinDamage: 6
+  MaxDamage: 15
