@@ -49,6 +49,7 @@ public class Item
 		{
 			float bonus = 2f;// bonus depends on character class; 2 for warrior, 1.5 for rogue, 1 for sorceror, but who cares?
 			player.Life += (int)UnityEngine.Random.Range(bonus * (float)player.BaseLife / 8f, bonus * 3f * (float)player.BaseLife / 8f);
+			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.InvPotion);
 			return true;
 		}
 		else

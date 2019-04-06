@@ -19,7 +19,14 @@ public class LootManager : MonoBehaviour
 		g.name = item.baseTypeName.ToUpper();
 		l.text.text = item.baseTypeName.ToUpper();
 		l.item = item;
-		SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.DropRing);
+		if (item.baseType.GetType() == typeof(ShieldBase))
+			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.FlipShield);
+		else if (item.baseType.GetType() == typeof(WeaponBase))
+			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.FlipSword);
+		else if (item.baseType.GetType() == typeof(ConsumableBase))
+			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.FlipPotion);
+		else
+			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.FlipRing);
 		return true;
 	}
 

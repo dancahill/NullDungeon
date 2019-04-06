@@ -9,7 +9,11 @@ public class SoundManager : MonoBehaviour
 		Click,
 		ClickHeavy,
 		Footstep1,
-		DropRing,
+		FlipPotion,
+		FlipRing,
+		FlipShield,
+		FlipSword,
+		InvPotion,
 		PlayerHit1,
 		PlayerAttack1,
 		PlayerAttack2,
@@ -87,7 +91,11 @@ public class SoundManager : MonoBehaviour
 			case Sounds.Click: soundname = "File00000001"; break;
 			case Sounds.ClickHeavy: soundname = "File00000002"; break;
 			case Sounds.Footstep1: soundname = "File00000054"; break;
-			case Sounds.DropRing: soundname = "File00000087"; break;
+			case Sounds.FlipPotion: soundname = "File00000086"; break;
+			case Sounds.FlipRing: soundname = "File00000087"; break;
+			case Sounds.FlipShield: soundname = "File00000090"; break;
+			case Sounds.FlipSword: soundname = "File00000093"; break;
+			case Sounds.InvPotion: soundname = "File00000107"; break;
 			case Sounds.SkeletonAttack1: soundname = "File00001344"; break;
 			case Sounds.SkeletonHit1: soundname = "File00001346"; break;
 			case Sounds.SkeletonDie1: soundname = "File00001348"; break;

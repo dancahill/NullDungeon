@@ -96,7 +96,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
 			if (lm.DropItem(GameObject.Find("Player").transform.position, item))
 			{
 				c.InventoryRemove(item);
-				SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.DropRing);
+				//SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.FlipRing);
 			}
 		}
 		else if (name == "HeadSlot")
