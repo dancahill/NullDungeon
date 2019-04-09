@@ -35,14 +35,14 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
 			{
 				WeaponBase e = (WeaponBase)item.baseType;
 				string damage = "\nDamage: " + e.MinDamage + "-" + e.MaxDamage;
-				damage += "  Dur: " + item.durability + "/" + e.Durability;
+				damage += "  Dur: " + Mathf.CeilToInt(item.durability) + "/" + e.Durability;
 				text.text += damage;
 			}
 			else if (item.baseType.GetType() == typeof(ShieldBase))
 			{
 				ShieldBase e = (ShieldBase)item.baseType;
 				string armour = "\nArmour: " + e.Armour;
-				armour += "  Dur: " + item.durability + "/" + e.Durability;
+				armour += "  Dur: " + Mathf.CeilToInt(item.durability) + "/" + e.Durability;
 				text.text += armour;
 			}
 			string required = "";

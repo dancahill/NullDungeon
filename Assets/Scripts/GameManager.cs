@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [Serializable]
 public class GameSettings
@@ -29,9 +28,9 @@ public class GameManager : MonoBehaviour
 	void Awake()
 	{
 		instance = this;
-		if (SceneManager.GetActiveScene().name != "Persistent")
+		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Persistent")
 		{
-			SceneManager.LoadScene("Persistent");
+			UnityEngine.SceneManagement.SceneManager.LoadScene("Persistent");
 			return;
 		}
 		Settings = new GameSettings();

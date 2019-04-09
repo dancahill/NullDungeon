@@ -35,7 +35,7 @@ public class SceneController : MonoBehaviour
 
 	public static string GetActiveSceneName()
 	{
-		return SceneManager.GetActiveScene().name;
+		return UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 	}
 
 	public void FadeAndLoadScene(string scenename)
@@ -55,7 +55,7 @@ public class SceneController : MonoBehaviour
 
 		if (BeforeSceneUnload != null) BeforeSceneUnload();
 		// Unload the current active scene.
-		yield return SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+		yield return UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
 		// Start loading the given scene and wait for it to finish.
 		yield return StartCoroutine(LoadSceneAndSetActive(sceneName));
 		// If this event has any subscribers, call it.
@@ -69,11 +69,11 @@ public class SceneController : MonoBehaviour
 	private IEnumerator LoadSceneAndSetActive(string sceneName)
 	{
 		// Allow the given scene to load over several frames and add it to the already loaded scenes (just the Persistent scene at this point).
-		yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+		yield return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 		// Find the scene that was most recently loaded (the one at the last index of the loaded scenes).
-		Scene newlyLoadedScene = SceneManager.GetSceneAt(SceneManager.sceneCount - 1);
+		Scene newlyLoadedScene = UnityEngine.SceneManagement.SceneManager.GetSceneAt(UnityEngine.SceneManagement.SceneManager.sceneCount - 1);
 		// Set the newly loaded scene as the active scene (this marks it as the one to be unloaded next).
-		SceneManager.SetActiveScene(newlyLoadedScene);
+		UnityEngine.SceneManagement.SceneManager.SetActiveScene(newlyLoadedScene);
 		PreviousScene = CurrentScene;
 		CurrentScene = sceneName;
 	}

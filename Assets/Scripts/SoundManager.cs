@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -57,7 +56,7 @@ public class SoundManager : MonoBehaviour
 	{
 		if (!GameManager.instance.Settings.PlayMusic) return;
 		//https://downloads.khinsider.com/game-soundtracks/album/diablo-the-music-of-1996-2011-diablo-15-year-anniversary
-		string currentscene = SceneManager.GetActiveScene().name;
+		string currentscene = GameManager.instance.sceneController.CurrentScene;
 		string songname = "Music/Diablo/";
 		switch (currentscene)
 		{

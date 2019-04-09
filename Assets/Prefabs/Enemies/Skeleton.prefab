@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4627451, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.4627451, g: 0, b: 0, a: 0.5019608}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -404,7 +404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.3764706}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.2509804}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -494,21 +494,49 @@ MonoBehaviour:
     Magic: 0
     Dexterity: 0
     Vitality: 0
+    Unallocated: 0
     Level: 0
     Experience: 0
+    Gold: 0
     BaseLife: 0
     BaseMana: 0
     ArmourClass: 0
     ToHitPercent: 0
-    Damage: 0
+    MinDamage: 0
+    MaxDamage: 0
+    AttackSpeed: 0
     Life: 0
     Mana: 0
     GivesExperience: 0
     Equipped:
-      lefthand: {fileID: 0}
-      righthand: {fileID: 0}
-      head: {fileID: 0}
-      body: {fileID: 0}
+      head:
+        baseType: {fileID: 0}
+        baseTypeName: 
+        durability: 0
+      neck:
+        baseType: {fileID: 0}
+        baseTypeName: 
+        durability: 0
+      body:
+        baseType: {fileID: 0}
+        baseTypeName: 
+        durability: 0
+      righthand:
+        baseType: {fileID: 0}
+        baseTypeName: 
+        durability: 0
+      lefthand:
+        baseType: {fileID: 0}
+        baseTypeName: 
+        durability: 0
+      rightfinger:
+        baseType: {fileID: 0}
+        baseTypeName: 
+        durability: 0
+      leftfinger:
+        baseType: {fileID: 0}
+        baseTypeName: 
+        durability: 0
     Inventory: []
     Stash: []
   Animator: {fileID: 0}
@@ -591,14 +619,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 9500000, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 600f8779bdba15d42b13d5316d6e1890, type: 2}
-    - target: {fileID: 9500000, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 400096, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0.55660367
@@ -614,6 +634,14 @@ PrefabInstance:
     - target: {fileID: 400096, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.3989546
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 600f8779bdba15d42b13d5316d6e1890, type: 2}
+    - target: {fileID: 9500000, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}

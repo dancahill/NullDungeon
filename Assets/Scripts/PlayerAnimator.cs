@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 
 public class PlayerAnimator : MonoBehaviour
 {
@@ -23,7 +22,7 @@ public class PlayerAnimator : MonoBehaviour
 		// not tested - might be useful to enable stoppingDistance
 		//m_Agent.stoppingDistance = 1.1f;
 		//m_Agent.updateRotation = true;
-		if (SceneManager.GetActiveScene().name == "Town")
+		if (GameManager.instance.sceneController.CurrentScene == "Town")
 		{
 			m_Agent.speed = 2.0f;
 		}
@@ -83,7 +82,7 @@ public class PlayerAnimator : MonoBehaviour
 	public void SetTarget(GameObject target)
 	{
 		SelectedTarget = target;
-		float distanceToTarget = Vector3.Distance(SelectedTarget.transform.position, Scene_Manager.instance.player.transform.position);
+		float distanceToTarget = Vector3.Distance(SelectedTarget.transform.position, SceneManager.instance.player.transform.position);
 		//Debug.Log("clicked on '" + target.name + "' distance = " + distanceToTarget.ToString("0.0"));
 		if (distanceToTarget > 1.2)
 		{
@@ -130,7 +129,7 @@ public class PlayerAnimator : MonoBehaviour
 			//if (hit.transform.gameObject.layer == movementMask)
 			//if ((movementMask & 1 << hit.transform.gameObject.layer) == 1 << hit.transform.gameObject.layer)
 			// this is ugly - find a better solution
-			if (hitname.StartsWith("Floor") || hitname.StartsWith("Stairs") || hitname == "Plane" || hitname == "Terrain")// || hitname == "Start" || hitname == "End")
+			if (hitname.StartsWith("Floor") || hitname.StartsWith("Stairs") || hitname == "Plane" || hitname.EndsWith("Terrain"))// || hitname == "Start" || hitname == "End")
 			{
 				SelectedTarget = null;
 				MoveTo(hit.point);

@@ -2,9 +2,9 @@
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
-public class Scene_Manager : MonoBehaviour
+public class SceneManager : MonoBehaviour
 {
-	public static Scene_Manager instance;
+	public static SceneManager instance;
 	GameManager manager;
 	GameSettings Settings;
 	public GameObject player;
@@ -13,9 +13,9 @@ public class Scene_Manager : MonoBehaviour
 	void Awake()
 	{
 		instance = this;
-		if (SceneManager.GetActiveScene().name != "Persistent")
+		if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "Persistent")
 		{
-			SceneManager.LoadScene("Persistent");
+			UnityEngine.SceneManagement.SceneManager.LoadScene("Persistent");
 			return;
 		}
 		SetCamera();
@@ -27,7 +27,7 @@ public class Scene_Manager : MonoBehaviour
 	private void Start()
 	{
 		FindObjectOfType<CanvasController>().SetActiveCanvas();
-		string scene = SceneManager.GetActiveScene().name;
+		string scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 		if (scene == "GameOver")
 		{
 			GameManager.instance.m_SoundManager.PlayMusic();
@@ -45,7 +45,7 @@ public class Scene_Manager : MonoBehaviour
 			c.OpenCharacterPanel(false);
 			c.OpenInventoryPanel(false);
 			GameSave.LoadCharacter();
-			if (SceneManager.GetActiveScene().name == "Town" && Settings.NewInTown)
+			if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Town" && Settings.NewInTown)
 			{
 				Settings.NewInTown = false;
 				manager.PlayerCharacter.Life = manager.PlayerCharacter.BaseLife;
@@ -112,7 +112,7 @@ public class Scene_Manager : MonoBehaviour
 
 	void RepositionCamera()
 	{
-		string scene = SceneManager.GetActiveScene().name;
+		string scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 		if (scene != "MainMenu" && scene != "GameOver")
 		{
 			manager.ActiveCamera.transform.position = player.transform.position + new Vector3(4 - Settings.CameraZoom, 5 - Settings.CameraZoom, 4 - Settings.CameraZoom);

@@ -10,7 +10,7 @@ public class Enemy : Interactable
 	[Header("Other")]
 	public Character Stats;
 	GameManager m_Manager;
-	Scene_Manager m_SceneManager;
+	SceneManager m_SceneManager;
 	[HideInInspector] public EnemyAnimator Animator;
 	[HideInInspector] GameObject player;
 	bool Activated = false;
@@ -24,7 +24,7 @@ public class Enemy : Interactable
 	{
 		Stats = new Character(Character.CharacterClass.NPC, name);
 		m_Manager = GameManager.instance;
-		m_SceneManager = FindObjectOfType<Scene_Manager>();//should probably just use a static instance
+		m_SceneManager = FindObjectOfType<SceneManager>();//should probably just use a static instance
 		Animator = GetComponent<EnemyAnimator>();
 		if (overheadCanvas) overheadCanvas.gameObject.SetActive(false);
 	}
