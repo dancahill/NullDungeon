@@ -33,7 +33,13 @@ public class PlayerAnimator : MonoBehaviour
 		const float locomotionAnimationSmoothTime = .1f;
 		float speedPercent = m_Agent.velocity.magnitude / maxspeed;
 		m_Animator = GetComponentInChildren<Animator>();//lets us change avatars from editor, but otherwise, bad place for this
-		if (m_Animator) m_Animator.SetFloat("SpeedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
+								//if (m_Animator) m_Animator.SetFloat("SpeedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
+		if (m_Animator)
+		{
+			//m_Animator.SetFloat("SpeedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
+			m_Animator.SetBool("IsWalking", speedPercent > .1 && speedPercent <= .9);
+			m_Animator.SetBool("IsRunning", speedPercent > .9);
+		}
 		if (SelectedTarget != null)
 		{
 			Interactable ia = SelectedTarget.gameObject.GetComponent<Interactable>();

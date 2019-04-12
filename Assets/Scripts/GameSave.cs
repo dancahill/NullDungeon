@@ -22,8 +22,10 @@ public class GameSave
 		p.ResetTimers();
 		//if (p.Equipped.head != null && p.Equipped.head.basetype == null) p.Equipped.head = null;
 		LootCatalog catalog = GameObject.FindObjectOfType<LootCatalog>();
-		p.Equipped.righthand.baseType = catalog.FindItem(p.Equipped.righthand.baseTypeName).baseType;
-		p.Equipped.lefthand.baseType = catalog.FindItem(p.Equipped.lefthand.baseTypeName).baseType;
+		p.Equipped.righthand = new Item(catalog.FindItem("Short Sword").baseType);
+		//p.Equipped.righthand.baseType = ;
+		//p.Equipped.lefthand.baseType = catalog.FindItem(p.Equipped.lefthand.baseTypeName).baseType;
+		p.Equipped.lefthand= new Item(catalog.FindItem("Buckler").baseType);
 		foreach (Item i in p.Inventory)
 		{
 			i.baseType = catalog.FindItem(i.baseTypeName).baseType;
