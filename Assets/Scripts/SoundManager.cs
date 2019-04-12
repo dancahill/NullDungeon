@@ -57,13 +57,13 @@ public class SoundManager : MonoBehaviour
 		if (!GameManager.instance.Settings.PlayMusic) return;
 		//https://downloads.khinsider.com/game-soundtracks/album/diablo-the-music-of-1996-2011-diablo-15-year-anniversary
 		string currentscene = GameManager.instance.sceneController.CurrentScene;
-		string songname = "Music/Diablo/";
+		string songname = "Music/FantasyMusicPack1/";
 		switch (currentscene)
 		{
 			case "GameOver": songname = ""; break;
-			case "MainMenu": songname += "01 - Diablo Intro"; break;
-			case "Town": songname += "02 - Tristram"; break;
-			default: songname += "03 - Dungeon"; break;
+			case "MainMenu": songname += "Enncampment"; break;
+			case "Town": songname += "Dark Nights"; break;
+			default: songname += "Crypts"; break;
 		}
 		if (songname == "")
 		{
