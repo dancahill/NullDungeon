@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 	[HideInInspector] public GameManager Manager;
 	[HideInInspector] public PlayerAnimator Animator;
 
+	[HideInInspector] public PlayerModel model;
+
 	GameObject warrior;
 	GameObject rogue;
 
@@ -16,6 +18,7 @@ public class Player : MonoBehaviour
 		Manager = GameManager.instance;
 		Stats = GameManager.instance.PlayerCharacter;
 		Animator = GetComponent<PlayerAnimator>();
+		model = GetComponentInChildren<PlayerModel>();
 
 		warrior = transform.Find("Warrior").gameObject;
 		rogue = transform.Find("Rogue").gameObject;
@@ -42,6 +45,8 @@ public class Player : MonoBehaviour
 				//Debug.Log("step '" + speed + "'");
 				//SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.Footstep1);
 			}
+			model.EquipSword(Stats.Equipped.righthand != null);
+			model.EquipShield(Stats.Equipped.lefthand != null);
 		}
 	}
 
