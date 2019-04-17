@@ -1,124 +1,356 @@
 fileFormatVersion: 2
 guid: 6db04bc21c5245d428bf2464b5cc5376
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: Bowstring
-    100004: Head
-    100006: Hips
-    100008: L Calf
-    100010: L Clavicle
-    100012: L Finger0
-    100014: L Finger01
-    100016: L Finger02
-    100018: L Finger1
-    100020: L Finger11
-    100022: L Finger12
-    100024: L Finger2
-    100026: L Finger21
-    100028: L Finger22
-    100030: L Finger3
-    100032: L Finger31
-    100034: L Finger32
-    100036: L Finger4
-    100038: L Finger41
-    100040: L Finger42
-    100042: L Foot
-    100044: L Forearm
-    100046: L Hand
-    100048: L Thigh
-    100050: L Toe0
-    100052: L UpperArm
-    100054: L Weapon
-    100056: Neck
-    100058: Origin
-    100060: R Calf
-    100062: R Clavicle
-    100064: R Finger0
-    100066: R Finger01
-    100068: R Finger02
-    100070: R Finger1
-    100072: R Finger11
-    100074: R Finger12
-    100076: R Finger2
-    100078: R Finger21
-    100080: R Finger22
-    100082: R Finger3
-    100084: R Finger31
-    100086: R Finger32
-    100088: R Finger4
-    100090: R Finger41
-    100092: R Finger42
-    100094: R Foot
-    100096: R Forearm
-    100098: R Hand
-    100100: R Thigh
-    100102: R Toe0
-    100104: R UpperArm
-    100106: R Weapon
-    100108: ROOT
-    100110: Spine
-    100112: Spine1
-    400000: //RootNode
-    400002: Bowstring
-    400004: Head
-    400006: Hips
-    400008: L Calf
-    400010: L Clavicle
-    400012: L Finger0
-    400014: L Finger01
-    400016: L Finger02
-    400018: L Finger1
-    400020: L Finger11
-    400022: L Finger12
-    400024: L Finger2
-    400026: L Finger21
-    400028: L Finger22
-    400030: L Finger3
-    400032: L Finger31
-    400034: L Finger32
-    400036: L Finger4
-    400038: L Finger41
-    400040: L Finger42
-    400042: L Foot
-    400044: L Forearm
-    400046: L Hand
-    400048: L Thigh
-    400050: L Toe0
-    400052: L UpperArm
-    400054: L Weapon
-    400056: Neck
-    400058: Origin
-    400060: R Calf
-    400062: R Clavicle
-    400064: R Finger0
-    400066: R Finger01
-    400068: R Finger02
-    400070: R Finger1
-    400072: R Finger11
-    400074: R Finger12
-    400076: R Finger2
-    400078: R Finger21
-    400080: R Finger22
-    400082: R Finger3
-    400084: R Finger31
-    400086: R Finger32
-    400088: R Finger4
-    400090: R Finger41
-    400092: R Finger42
-    400094: R Foot
-    400096: R Forearm
-    400098: R Hand
-    400100: R Thigh
-    400102: R Toe0
-    400104: R UpperArm
-    400106: R Weapon
-    400108: ROOT
-    400110: Spine
-    400112: Spine1
-    7400000: Take 001
-    9500000: //RootNode
+  serializedVersion: 25
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: Bowstring
+  - first:
+      1: 100004
+    second: Head
+  - first:
+      1: 100006
+    second: Hips
+  - first:
+      1: 100008
+    second: L Calf
+  - first:
+      1: 100010
+    second: L Clavicle
+  - first:
+      1: 100012
+    second: L Finger0
+  - first:
+      1: 100014
+    second: L Finger01
+  - first:
+      1: 100016
+    second: L Finger02
+  - first:
+      1: 100018
+    second: L Finger1
+  - first:
+      1: 100020
+    second: L Finger11
+  - first:
+      1: 100022
+    second: L Finger12
+  - first:
+      1: 100024
+    second: L Finger2
+  - first:
+      1: 100026
+    second: L Finger21
+  - first:
+      1: 100028
+    second: L Finger22
+  - first:
+      1: 100030
+    second: L Finger3
+  - first:
+      1: 100032
+    second: L Finger31
+  - first:
+      1: 100034
+    second: L Finger32
+  - first:
+      1: 100036
+    second: L Finger4
+  - first:
+      1: 100038
+    second: L Finger41
+  - first:
+      1: 100040
+    second: L Finger42
+  - first:
+      1: 100042
+    second: L Foot
+  - first:
+      1: 100044
+    second: L Forearm
+  - first:
+      1: 100046
+    second: L Hand
+  - first:
+      1: 100048
+    second: L Thigh
+  - first:
+      1: 100050
+    second: L Toe0
+  - first:
+      1: 100052
+    second: L UpperArm
+  - first:
+      1: 100054
+    second: L Weapon
+  - first:
+      1: 100056
+    second: Neck
+  - first:
+      1: 100058
+    second: Origin
+  - first:
+      1: 100060
+    second: R Calf
+  - first:
+      1: 100062
+    second: R Clavicle
+  - first:
+      1: 100064
+    second: R Finger0
+  - first:
+      1: 100066
+    second: R Finger01
+  - first:
+      1: 100068
+    second: R Finger02
+  - first:
+      1: 100070
+    second: R Finger1
+  - first:
+      1: 100072
+    second: R Finger11
+  - first:
+      1: 100074
+    second: R Finger12
+  - first:
+      1: 100076
+    second: R Finger2
+  - first:
+      1: 100078
+    second: R Finger21
+  - first:
+      1: 100080
+    second: R Finger22
+  - first:
+      1: 100082
+    second: R Finger3
+  - first:
+      1: 100084
+    second: R Finger31
+  - first:
+      1: 100086
+    second: R Finger32
+  - first:
+      1: 100088
+    second: R Finger4
+  - first:
+      1: 100090
+    second: R Finger41
+  - first:
+      1: 100092
+    second: R Finger42
+  - first:
+      1: 100094
+    second: R Foot
+  - first:
+      1: 100096
+    second: R Forearm
+  - first:
+      1: 100098
+    second: R Hand
+  - first:
+      1: 100100
+    second: R Thigh
+  - first:
+      1: 100102
+    second: R Toe0
+  - first:
+      1: 100104
+    second: R UpperArm
+  - first:
+      1: 100106
+    second: R Weapon
+  - first:
+      1: 100108
+    second: ROOT
+  - first:
+      1: 100110
+    second: Spine
+  - first:
+      1: 100112
+    second: Spine1
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: Bowstring
+  - first:
+      4: 400004
+    second: Head
+  - first:
+      4: 400006
+    second: Hips
+  - first:
+      4: 400008
+    second: L Calf
+  - first:
+      4: 400010
+    second: L Clavicle
+  - first:
+      4: 400012
+    second: L Finger0
+  - first:
+      4: 400014
+    second: L Finger01
+  - first:
+      4: 400016
+    second: L Finger02
+  - first:
+      4: 400018
+    second: L Finger1
+  - first:
+      4: 400020
+    second: L Finger11
+  - first:
+      4: 400022
+    second: L Finger12
+  - first:
+      4: 400024
+    second: L Finger2
+  - first:
+      4: 400026
+    second: L Finger21
+  - first:
+      4: 400028
+    second: L Finger22
+  - first:
+      4: 400030
+    second: L Finger3
+  - first:
+      4: 400032
+    second: L Finger31
+  - first:
+      4: 400034
+    second: L Finger32
+  - first:
+      4: 400036
+    second: L Finger4
+  - first:
+      4: 400038
+    second: L Finger41
+  - first:
+      4: 400040
+    second: L Finger42
+  - first:
+      4: 400042
+    second: L Foot
+  - first:
+      4: 400044
+    second: L Forearm
+  - first:
+      4: 400046
+    second: L Hand
+  - first:
+      4: 400048
+    second: L Thigh
+  - first:
+      4: 400050
+    second: L Toe0
+  - first:
+      4: 400052
+    second: L UpperArm
+  - first:
+      4: 400054
+    second: L Weapon
+  - first:
+      4: 400056
+    second: Neck
+  - first:
+      4: 400058
+    second: Origin
+  - first:
+      4: 400060
+    second: R Calf
+  - first:
+      4: 400062
+    second: R Clavicle
+  - first:
+      4: 400064
+    second: R Finger0
+  - first:
+      4: 400066
+    second: R Finger01
+  - first:
+      4: 400068
+    second: R Finger02
+  - first:
+      4: 400070
+    second: R Finger1
+  - first:
+      4: 400072
+    second: R Finger11
+  - first:
+      4: 400074
+    second: R Finger12
+  - first:
+      4: 400076
+    second: R Finger2
+  - first:
+      4: 400078
+    second: R Finger21
+  - first:
+      4: 400080
+    second: R Finger22
+  - first:
+      4: 400082
+    second: R Finger3
+  - first:
+      4: 400084
+    second: R Finger31
+  - first:
+      4: 400086
+    second: R Finger32
+  - first:
+      4: 400088
+    second: R Finger4
+  - first:
+      4: 400090
+    second: R Finger41
+  - first:
+      4: 400092
+    second: R Finger42
+  - first:
+      4: 400094
+    second: R Foot
+  - first:
+      4: 400096
+    second: R Forearm
+  - first:
+      4: 400098
+    second: R Hand
+  - first:
+      4: 400100
+    second: R Thigh
+  - first:
+      4: 400102
+    second: R Toe0
+  - first:
+      4: 400104
+    second: R UpperArm
+  - first:
+      4: 400106
+    second: R Weapon
+  - first:
+      4: 400108
+    second: ROOT
+  - first:
+      4: 400110
+    second: Spine
+  - first:
+      4: 400112
+    second: Spine1
+  - first:
+      74: 7400000
+    second: Take 001
+  - first:
+      95: 9500000
+    second: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -150,6 +382,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Take 001
       takeName: Take 001
+      internalID: 7400000
       firstFrame: 0
       lastFrame: 1
       wrapMode: 0
@@ -321,18 +554,19 @@ ModelImporter:
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -341,10 +575,20 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips:
+  - 60e5ff459ad67d747ad145438155765a
+  - d75c3769895ed004298c2e2a3bcf765e
+  - 6159abd4343a5d244a08720e789c58be
+  - 7e5f848ee4eb2af45b2d37d0904dbb8c
+  - abe8499d91946e04e970c3b053d7a953
+  - 49d4fcc68e69a554fa1f08bba7e43ce8
+  - 064995c1a93a49943a958c776e9e913e
+  - cc317a50a81864345a7652fb8b949015
+  - da7f680d0f0ae3c459f2ddda2c1db010
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human:
     - boneName: Hips
       humanName: Hips
@@ -1042,6 +1286,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0

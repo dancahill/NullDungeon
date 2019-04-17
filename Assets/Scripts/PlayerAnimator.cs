@@ -30,7 +30,7 @@ public class PlayerAnimator : MonoBehaviour
 
 	void Update()
 	{
-		const float locomotionAnimationSmoothTime = .1f;
+		//const float locomotionAnimationSmoothTime = .1f;
 		float speedPercent = m_Agent.velocity.magnitude / maxspeed;
 		m_Animator = GetComponentInChildren<Animator>();//lets us change avatars from editor, but otherwise, bad place for this
 								//if (m_Animator) m_Animator.SetFloat("SpeedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);

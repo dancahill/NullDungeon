@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class LootManager : MonoBehaviour
 {
@@ -14,11 +16,16 @@ public class LootManager : MonoBehaviour
 		GameObject prefab = catalog.FindPrefab(item);
 		if (prefab == null) return false;
 		GameObject loot = GameObject.Find("Loot");
-		GameObject g = Instantiate(prefab, new Vector3(droplocation.x + .5f, 0, droplocation.z + .5f), Quaternion.identity, loot.transform);
+		GameObject g = Instantiate(prefab, new Vector3(droplocation.x + .5f, 1f, droplocation.z + .5f), Quaternion.identity, loot.transform);
 		Loot l = g.GetComponent<Loot>();
-		g.name = item.baseTypeName.ToUpper();
+		//g.name = item.baseTypeName.ToUpper();
+		g.name = item.baseTypeName;
 		l.text.text = item.baseTypeName.ToUpper();
 		l.item = item;
+
+		g.AddComponent<Rigidbody>();
+		StartCoroutine(FinishDrop(g));
+
 		if (item.baseType.GetType() == typeof(ShieldBase))
 			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.FlipShield);
 		else if (item.baseType.GetType() == typeof(WeaponBase))
@@ -28,6 +35,12 @@ public class LootManager : MonoBehaviour
 		else
 			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.FlipRing);
 		return true;
+	}
+
+	IEnumerator FinishDrop(GameObject item)
+	{
+		yield return new WaitForSeconds(2f);
+		Destroy(item.GetComponent<Rigidbody>());
 	}
 
 	public void DropRandom(Vector3 droplocation, int itemlevel)
