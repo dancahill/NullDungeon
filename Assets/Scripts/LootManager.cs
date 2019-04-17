@@ -16,15 +16,18 @@ public class LootManager : MonoBehaviour
 		GameObject prefab = catalog.FindPrefab(item);
 		if (prefab == null) return false;
 		GameObject loot = GameObject.Find("Loot");
-		GameObject g = Instantiate(prefab, new Vector3(droplocation.x + .5f, 1f, droplocation.z + .5f), Quaternion.identity, loot.transform);
+		GameObject g = Instantiate(prefab, new Vector3(droplocation.x + Random.Range(.4f, .6f), .5f, droplocation.z + +Random.Range(.4f, .6f)), Quaternion.identity, loot.transform);
 		Loot l = g.GetComponent<Loot>();
 		//g.name = item.baseTypeName.ToUpper();
 		g.name = item.baseTypeName;
 		l.text.text = item.baseTypeName.ToUpper();
 		l.item = item;
 
-		g.AddComponent<Rigidbody>();
-		StartCoroutine(FinishDrop(g));
+		Rigidbody rb = g.AddComponent<Rigidbody>();
+		//rb.mass = 1;
+		rb.AddForce(Vector3.up * 2, ForceMode.Impulse);
+		Destroy(rb, 2);
+		//StartCoroutine(FinishDrop(g));
 
 		if (item.baseType.GetType() == typeof(ShieldBase))
 			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.FlipShield);
@@ -37,11 +40,12 @@ public class LootManager : MonoBehaviour
 		return true;
 	}
 
-	IEnumerator FinishDrop(GameObject item)
-	{
-		yield return new WaitForSeconds(2f);
-		Destroy(item.GetComponent<Rigidbody>());
-	}
+	//IEnumerator FinishDrop(GameObject item)
+	//{
+	//	yield return new WaitForSeconds(2f);
+	//	Rigidbody rb = item.GetComponent<Rigidbody>();
+	//	if (rb) Destroy(rb);
+	//}
 
 	public void DropRandom(Vector3 droplocation, int itemlevel)
 	{

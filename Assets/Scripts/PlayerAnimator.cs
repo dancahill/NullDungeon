@@ -45,7 +45,8 @@ public class PlayerAnimator : MonoBehaviour
 			Interactable ia = SelectedTarget.gameObject.GetComponent<Interactable>();
 			if (ia)
 			{
-				float distanceToTarget = Vector3.Distance(transform.position, SelectedTarget.transform.position);
+				// subtracting y helps with flipping items we fail to pick up
+				float distanceToTarget = Vector3.Distance(transform.position, SelectedTarget.transform.position - new Vector3(0, SelectedTarget.transform.position.y, 0));
 				if (distanceToTarget < ia.radius)
 				{
 					Stop();
@@ -107,7 +108,7 @@ public class PlayerAnimator : MonoBehaviour
 	public void SetDirection()
 	{
 		Ray ray = m_Manager.ActiveCamera.ScreenPointToRay(Input.mousePosition);
-		LayerMask movementMask = LayerMask.GetMask("Ground");
+		LayerMask movementMask = LayerMask.GetMask("Ground") & ~LayerMask.GetMask("Player");
 		if (Physics.Raycast(ray, out RaycastHit hit, movementMask))
 		{
 			// looks ugly turning this suddenly, but good enough for now
@@ -121,7 +122,8 @@ public class PlayerAnimator : MonoBehaviour
 	public void SetDestination()
 	{
 		Ray ray = m_Manager.ActiveCamera.ScreenPointToRay(Input.mousePosition);
-		LayerMask movementMask = LayerMask.GetMask("Ground");
+		//LayerMask movementMask = LayerMask.GetMask("Ground");
+		LayerMask movementMask = LayerMask.GetMask("Ground") & ~LayerMask.GetMask("Player");
 		RaycastHit hit;
 		if (Physics.Raycast(ray, out hit, movementMask))
 		{

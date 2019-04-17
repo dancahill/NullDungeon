@@ -54,7 +54,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
-    serializedVersion: 10
+    serializedVersion: 12
     m_Resolution: 2
     m_BakeResolution: 40
     m_AtlasSize: 1024
@@ -62,6 +62,7 @@ LightmapSettings:
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
     m_CompAOExponentDirect: 0
+    m_ExtractAmbientOcclusion: 0
     m_Padding: 2
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
@@ -76,10 +77,16 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
+    m_PVREnvironmentSampleCount: 500
+    m_PVREnvironmentReferencePointCount: 2048
+    m_PVRFilteringMode: 2
+    m_PVRDenoiserTypeDirect: 0
+    m_PVRDenoiserTypeIndirect: 0
+    m_PVRDenoiserTypeAO: 0
     m_PVRFilterTypeDirect: 0
     m_PVRFilterTypeIndirect: 0
     m_PVRFilterTypeAO: 0
-    m_PVRFilteringMode: 1
+    m_PVREnvironmentMIS: 0
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
@@ -88,6 +95,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
+    m_ExportTrainingData: 0
   m_LightingDataAsset: {fileID: 112000000, guid: 7e780495277340d468d7c9d625dba741,
     type: 2}
   m_UseShadowmask: 1
@@ -750,12 +758,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 237408774}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &267061625 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7022552582481395820, guid: f43895b26183c93449d3fc1f03d468d1,
-    type: 3}
-  m_PrefabInstance: {fileID: 7022552582235441429}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &278119227
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1057,7 +1059,7 @@ Transform:
   m_Children:
   - {fileID: 983357633}
   - {fileID: 1745984959}
-  - {fileID: 267061625}
+  - {fileID: 7022552582235441430}
   - {fileID: 910743447}
   - {fileID: 1853719524}
   m_Father: {fileID: 1269917968}
@@ -1692,16 +1694,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 335764076}
     m_Modifications:
-    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
-        type: 3}
-      propertyPath: m_Name
-      value: Floor_A 8x8 (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7022552582481395820, guid: f43895b26183c93449d3fc1f03d468d1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1757,12 +1749,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
+        type: 3}
+      propertyPath: m_Name
+      value: Floor_A 8x8 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f43895b26183c93449d3fc1f03d468d1, type: 3}
 --- !u!4 &910743447 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7022552582481395820, guid: f43895b26183c93449d3fc1f03d468d1,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 910743446}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &983357632
@@ -1772,16 +1773,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 335764076}
     m_Modifications:
-    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
-        type: 3}
-      propertyPath: m_Name
-      value: Floor_A 8x8 (0)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7022552582481395820, guid: f43895b26183c93449d3fc1f03d468d1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1837,12 +1828,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
+        type: 3}
+      propertyPath: m_Name
+      value: Floor_A 8x8 (0)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f43895b26183c93449d3fc1f03d468d1, type: 3}
 --- !u!4 &983357633 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7022552582481395820, guid: f43895b26183c93449d3fc1f03d468d1,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 983357632}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1055783727
@@ -2234,19 +2234,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 427d2c93eab2a1a48a56d050b1226378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 2031066364335825735, guid: 2bf0fbdbed529f746a1d3a5c69d151a3, type: 3}
-  - {fileID: 1673178015990408698, guid: 6bf7ef0853111f94abe1a6a2f6037e99, type: 3}
-  - {fileID: 2031066364335825735, guid: 620d556908110a848a9c8662e3938ecb, type: 3}
-  items:
-  - baseType: {fileID: 11400000, guid: e5cc13a037c78924f9c21e6d2a22428d, type: 2}
-    durability: 0
-  - baseType: {fileID: 11400000, guid: 79a3df26a15089d4a87bed9a9fa15219, type: 2}
-    durability: 0
-  - baseType: {fileID: 11400000, guid: 4f66614d8a992c542a45e03aaefd52ff, type: 2}
-    durability: 0
-  - baseType: {fileID: 11400000, guid: d9e02ab0c578231448451a0424580f58, type: 2}
-    durability: 0
 --- !u!1001 &1346124469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2452,9 +2439,10 @@ Camera:
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -2470,7 +2458,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 823
+    m_Bits: 2871
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -3008,16 +2996,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 335764076}
     m_Modifications:
-    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
-        type: 3}
-      propertyPath: m_Name
-      value: Floor_A 8x8 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7022552582481395820, guid: f43895b26183c93449d3fc1f03d468d1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3073,12 +3051,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
+        type: 3}
+      propertyPath: m_Name
+      value: Floor_A 8x8 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f43895b26183c93449d3fc1f03d468d1, type: 3}
 --- !u!4 &1745984959 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7022552582481395820, guid: f43895b26183c93449d3fc1f03d468d1,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 1745984958}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1762522714
@@ -3628,16 +3615,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 335764076}
     m_Modifications:
-    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
-        type: 3}
-      propertyPath: m_Name
-      value: Floor_A 8x8 (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7022552582481395820, guid: f43895b26183c93449d3fc1f03d468d1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3693,5 +3670,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
+        type: 3}
+      propertyPath: m_Name
+      value: Floor_A 8x8 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7022552582481395821, guid: f43895b26183c93449d3fc1f03d468d1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f43895b26183c93449d3fc1f03d468d1, type: 3}
+--- !u!4 &7022552582235441430 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 7022552582235441429}
+  m_PrefabAsset: {fileID: 0}
