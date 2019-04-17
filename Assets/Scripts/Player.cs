@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 			if (speed > 0.1f && Stats.CanStep(speed)) // this needs work on the timing
 			{
 				//Debug.Log("step '" + speed + "'");
-				SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.Footstep1);
+				//SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.Footstep1);
 			}
 		}
 	}
