@@ -25,7 +25,6 @@ public class MainMenu : MonoBehaviour
 	public void MenuExit()
 	{
 		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ClickHeavy);
-		Application.Quit();
 		m_Manager.sceneController.FadeAndLoadScene("GameOver");
 	}
 }

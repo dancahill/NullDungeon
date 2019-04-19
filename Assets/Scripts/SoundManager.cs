@@ -56,11 +56,14 @@ public class SoundManager : MonoBehaviour
 	{
 		if (!GameManager.instance.Settings.PlayMusic) return;
 		//https://downloads.khinsider.com/game-soundtracks/album/diablo-the-music-of-1996-2011-diablo-15-year-anniversary
-		string currentscene = GameManager.instance.sceneController.CurrentScene;
-		string songname = "Music/FantasyMusicPack1/";
+		//string currentscene = GameManager.instance.sceneController.CurrentScene;
+		string currentscene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+		string songname = "";
 		switch (currentscene)
 		{
 			case "GameOver": songname = ""; break;
+			case "Persistent":
+			case "Intro":
 			case "MainMenu": songname += "Enncampment"; break;
 			case "Town": songname += "Dark Nights"; break;
 			default: songname += "Crypts"; break;
@@ -70,7 +73,13 @@ public class SoundManager : MonoBehaviour
 			m_MusicSource.Stop();
 			return;
 		}
-		m_MusicSource.clip = (AudioClip)Resources.Load(songname);
+		Debug.Log("[" + currentscene + "][" + songname + "]");
+		if (m_MusicSource.isPlaying && m_MusicSource.clip && m_MusicSource.clip.name == songname)
+		{
+			Debug.Log("song already playing - bail");
+			return;
+		}
+		m_MusicSource.clip = (AudioClip)Resources.Load("Music/FantasyMusicPack1/" + songname);
 		if (m_MusicSource.clip == null) Debug.Log("couldn't find music " + songname);
 		m_MusicSource.loop = true;
 		m_MusicSource.Play();

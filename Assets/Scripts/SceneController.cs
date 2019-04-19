@@ -16,7 +16,7 @@ public class SceneController : MonoBehaviour
 	public event Action AfterSceneLoad;
 	public event Action BeforeSceneUnload;
 
-	public string StartingSceneName = "MainMenu";
+	public string StartingSceneName = "Intro";
 	public string CurrentScene = "";
 	public string PreviousScene = "";
 	private bool isFading;

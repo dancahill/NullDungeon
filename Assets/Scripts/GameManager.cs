@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 		PlayerCharacter = new Character(Character.CharacterClass.NPC);
 		sceneController = FindObjectOfType<SceneController>();
 		if (!sceneController) throw new UnityException("Scene Controller missing. Make sure it exists in the Persistent scene.");
-		if (sceneController.CurrentScene == "") sceneController.CurrentScene = "MainMenu";
+		if (sceneController.CurrentScene == "") sceneController.CurrentScene = "Intro";
 	}
 
 	void Start()

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LootManager : MonoBehaviour
 {
@@ -28,7 +26,12 @@ public class LootManager : MonoBehaviour
 		rb.AddForce(Vector3.up * 2, ForceMode.Impulse);
 		Destroy(rb, 2);
 		//StartCoroutine(FinishDrop(g));
+		FlipSound(item);
+		return true;
+	}
 
+	public void FlipSound(Item item)
+	{
 		if (item.baseType.GetType() == typeof(ShieldBase))
 			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.FlipShield);
 		else if (item.baseType.GetType() == typeof(WeaponBase))
@@ -37,7 +40,6 @@ public class LootManager : MonoBehaviour
 			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.FlipPotion);
 		else
 			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.FlipRing);
-		return true;
 	}
 
 	//IEnumerator FinishDrop(GameObject item)

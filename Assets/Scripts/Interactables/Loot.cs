@@ -23,8 +23,9 @@ public class Loot : Interactable
 			GameManager.instance.m_SoundManager.PlaySound(SoundManager.Sounds.CantDoThat, FindObjectOfType<Player>().Stats.Class);
 			Rigidbody rb = GetComponent<Rigidbody>();
 			if (!rb) rb = gameObject.AddComponent<Rigidbody>();
-			rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
+			rb.AddForce(Vector3.up * 4, ForceMode.Impulse);
 			Destroy(rb, 2);
+			FindObjectOfType<LootManager>().FlipSound(item);
 		}
 	}
 }

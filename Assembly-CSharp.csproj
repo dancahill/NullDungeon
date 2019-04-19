@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\Interactables\Stash.cs" />
     <Compile Include="Assets\Scripts\Interactables\TownNPC.cs" />
     <Compile Include="Assets\Scripts\Interactables\WayPoint.cs" />
+    <Compile Include="Assets\Scripts\Intro.cs" />
     <Compile Include="Assets\Scripts\Items\BaseTypes\ConsumableBase.cs" />
     <Compile Include="Assets\Scripts\Items\BaseTypes\ItemBase.cs" />
     <Compile Include="Assets\Scripts\Items\BaseTypes\ShieldBase.cs" />

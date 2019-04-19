@@ -31,6 +31,7 @@ public class SceneManager : MonoBehaviour
 		if (scene == "GameOver")
 		{
 			GameManager.instance.m_SoundManager.PlayMusic();
+			Application.Quit();
 			return;
 		}
 		// fix later
@@ -39,7 +40,7 @@ public class SceneManager : MonoBehaviour
 		player = GameObject.Find("Player");
 
 		manager.m_SoundManager.PlayMusic();
-		if (scene != "MainMenu")
+		if (scene != "Intro" && scene != "MainMenu")
 		{
 			GameCanvas c = FindObjectOfType<GameCanvas>();
 			c.OpenCharacterPanel(false);
@@ -113,7 +114,7 @@ public class SceneManager : MonoBehaviour
 	void RepositionCamera()
 	{
 		string scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-		if (scene != "MainMenu" && scene != "GameOver")
+		if (scene != "Intro" && scene != "MainMenu" && scene != "GameOver")
 		{
 			manager.ActiveCamera.transform.position = player.transform.position + new Vector3(4 - Settings.CameraZoom, 5 - Settings.CameraZoom, 4 - Settings.CameraZoom);
 			manager.ActiveCamera.transform.LookAt(player.transform.position + new Vector3(0, 0.1f, 0));

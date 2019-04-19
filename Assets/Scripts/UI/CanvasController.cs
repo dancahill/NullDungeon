@@ -7,7 +7,12 @@ public class CanvasController : MonoBehaviour
 
 	public void SetActiveCanvas()
 	{
-		if (SceneController.GetActiveSceneName() == "MainMenu")
+		if (SceneController.GetActiveSceneName() == "Intro")
+		{
+			MainMenuCanvas.SetActive(false);
+			GameCanvas.SetActive(false);
+		}
+		else if (SceneController.GetActiveSceneName() == "MainMenu")
 		{
 			MainMenuCanvas.SetActive(true);
 			GameCanvas.SetActive(false);
