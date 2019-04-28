@@ -39,12 +39,12 @@ public class Player : MonoBehaviour
 			//Stats.Life = Mathf.Clamp(Stats.Life + ((float)Stats.BaseLife / 300f * Time.deltaTime), 0, Stats.BaseLife);
 			//Stats.Mana = Mathf.Clamp(Stats.Mana + ((float)Stats.BaseLife / 300f * Time.deltaTime), 0, Stats.BaseMana);
 
-			float speed = Animator.GetSpeed();
-			if (speed > 0.1f && Stats.CanStep(speed)) // this needs work on the timing
-			{
+			//float speed = Animator.GetSpeed();
+			//if (speed > 0.1f && Stats.CanStep(speed)) // this needs work on the timing
+			//{
 				//Debug.Log("step '" + speed + "'");
 				//SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.Footstep1);
-			}
+			//}
 			model.EquipSword(Stats.Equipped.righthand != null);
 			model.EquipShield(Stats.Equipped.lefthand != null);
 		}
@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
 	{
 		if (damage <= 0 || Stats.Life <= 0) return;
 		Stats.Life -= damage;
-		Debug.Log(name + " takes " + damage + " damage");
+		//Debug.Log("Combat: " + name + " takes " + damage + " damage");
 		if (Stats.Life <= 0)
 		{
 			Stats.Life = 0;

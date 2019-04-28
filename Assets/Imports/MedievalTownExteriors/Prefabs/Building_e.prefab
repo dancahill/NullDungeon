@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3315252}
   - component: {fileID: 2386116}
   - component: {fileID: 6492400}
+  - component: {fileID: 1981456936619989850}
   m_Layer: 0
   m_Name: Building_e
   m_TagString: Untagged
@@ -89,6 +90,22 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: d4b73ecf89aca924390b5d6752fb2ca6, type: 3}
+--- !u!208 &1981456936619989850
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182110}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 12.5130005, y: 8.440001, z: 4.749}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.049000002, y: 8.04, z: 4.339}
+  m_TimeToStationary: 0.5

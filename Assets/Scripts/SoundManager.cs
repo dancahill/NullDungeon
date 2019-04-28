@@ -76,7 +76,7 @@ public class SoundManager : MonoBehaviour
 		Debug.Log("[" + currentscene + "][" + songname + "]");
 		if (m_MusicSource.isPlaying && m_MusicSource.clip && m_MusicSource.clip.name == songname)
 		{
-			Debug.Log("song already playing - bail");
+			//Debug.Log("song already playing - bail");
 			return;
 		}
 		m_MusicSource.clip = (AudioClip)Resources.Load("Music/FantasyMusicPack1/" + songname);

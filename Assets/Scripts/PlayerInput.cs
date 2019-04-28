@@ -56,7 +56,8 @@ public class PlayerInput : MonoBehaviour
 			{
 				if (Input.GetMouseButton(0))
 				{
-					player.Animator.SetDestination();
+					if (player.Stats.CanAttack()) player.Animator.SetDestination();
+					//else Debug.Log("cooling down");
 				}
 			}
 			float scroll = Input.GetAxis("Mouse ScrollWheel");

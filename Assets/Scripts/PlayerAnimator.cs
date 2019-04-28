@@ -15,8 +15,10 @@ public class PlayerAnimator : MonoBehaviour
 		m_Manager = GameManager.instance;
 		player = gameObject.GetComponentInParent<Player>();
 		m_Agent = gameObject.AddComponent<NavMeshAgent>();
+		m_Agent.autoBraking = false;
 		m_Agent.speed = maxspeed;
-		m_Agent.angularSpeed = 500;
+		m_Agent.angularSpeed = 720;
+		//m_Agent.acceleration = 10;
 		//m_Agent.stoppingDistance = 1.1f;
 		//m_Agent.updateRotation = true;
 		// not tested - might be useful to enable stoppingDistance
@@ -30,6 +32,17 @@ public class PlayerAnimator : MonoBehaviour
 
 	void Update()
 	{
+		if (m_Agent.hasPath)
+		{
+			if (m_Agent.remainingDistance < 0.1f)
+			{
+				m_Agent.ResetPath();
+			}
+			else if (m_Agent.remainingDistance > 0)
+			{
+				//Debug.Log("m_Agent.remainingDistance: " + m_Agent.remainingDistance);
+			}
+		}
 		//const float locomotionAnimationSmoothTime = .1f;
 		float speedPercent = m_Agent.velocity.magnitude / maxspeed;
 		m_Animator = GetComponentInChildren<Animator>();//lets us change avatars from editor, but otherwise, bad place for this
@@ -157,6 +170,8 @@ public class PlayerAnimator : MonoBehaviour
 	public void DoAttack()
 	{
 		// this should probably time these things. maybe use an animator
+		m_Agent.isStopped = true;
+		m_Agent.isStopped = false;
 		m_Animator.Play("Attack");
 		SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.PlayerAttack1, GameManager.GetPlayer().Class);
 

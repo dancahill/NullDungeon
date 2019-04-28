@@ -65,12 +65,12 @@ public class Enemy : Interactable
 					}
 					else
 					{
-						//Debug.Log("missed");
+						//Debug.Log("Combat: missed");
 					}
 				}
 				else
 				{
-					//Debug.Log("cooling down");
+					//Debug.Log("Combat: cooling down");
 				}
 			}
 			else
@@ -116,15 +116,15 @@ public class Enemy : Interactable
 	{
 		base.Interact();
 		if (!IsAlive()) return false;
-		//Debug.Log("attacking enemy " + name);
-		//Debug.Log("close! attack?!?");
+		//Debug.Log("Combat: attacking enemy " + name);
+		//Debug.Log("Combat: close! attack?!?");
 		if (GameManager.instance.PlayerCharacter.CalculateDamage(Stats, out int damage))
 		{
 			if (damage > 0) TakeDamage(damage);
 		}
 		else
 		{
-			//Debug.Log("missed");
+			//Debug.Log("Combat: missed");
 		}
 		return true;
 	}
@@ -134,7 +134,7 @@ public class Enemy : Interactable
 		NavMeshAgent m_Agent = GetComponent<NavMeshAgent>();
 		if (Stats.Life <= 0 && m_Agent && m_Agent.enabled)
 		{
-			Debug.Log("enemy " + name + " should already be dead");
+			Debug.Log("Combat: enemy " + name + " should already be dead");
 			MakeDead();
 		}
 		return (Stats.Life > 0);
@@ -150,7 +150,7 @@ public class Enemy : Interactable
 	{
 		if (damage <= 0 || Stats.Life <= 0) return;
 		Stats.Life -= damage;
-		Debug.Log(name + " takes " + damage + " damage");
+		//Debug.Log("Combat: " + name + " takes " + damage + " damage");
 		if (Stats.Life <= 0)
 		{
 			Stats.Life = 0;
@@ -159,12 +159,12 @@ public class Enemy : Interactable
 			if (p.Level < Stats.Level + 10)
 			{
 				float exp = (float)Stats.GivesExperience * (1.0f + 0.1f * (float)(Stats.Level - p.Level));
-				Debug.Log("adding " + exp + " experience");
+				//Debug.Log("Combat: adding " + exp + " experience");
 				p.AddExperience((int)exp);
 			}
 			else
 			{
-				Debug.Log("level too low - no experience");
+				Debug.Log("Combat: level too low - no experience");
 			}
 			FindObjectOfType<LootManager>().DropRandom(transform.position, 1);
 		}

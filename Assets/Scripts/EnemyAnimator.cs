@@ -19,6 +19,17 @@ public class EnemyAnimator : MonoBehaviour
 	private void Update()
 	{
 		if (m_Agent == null || !m_Agent.enabled) return;
+		if (m_Agent.hasPath)
+		{
+			if (m_Agent.remainingDistance < 0.1f)
+			{
+				m_Agent.ResetPath();
+			}
+			else if (m_Agent.remainingDistance > 0)
+			{
+				//Debug.Log("m_Agent.remainingDistance: " + m_Agent.remainingDistance);
+			}
+		}
 		const float locomotionAnimationSmoothTime = .1f;
 		float speedPercent = m_Agent.velocity.magnitude / m_Agent.speed;
 		if (m_Animator) m_Animator.SetFloat("SpeedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
@@ -29,6 +40,7 @@ public class EnemyAnimator : MonoBehaviour
 		if (m_Agent) return;
 		m_Agent = gameObject.AddComponent<NavMeshAgent>();
 		//m_Agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;// not sure if we need this
+		m_Agent.autoBraking = false;
 		m_Agent.speed = 1.0f;
 		if (name == "Zombie") m_Agent.speed = 0.8f;
 		m_Agent.angularSpeed = 500;
@@ -71,7 +83,7 @@ public class EnemyAnimator : MonoBehaviour
 			m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.SkeletonDie1);
 		else if (name == "Zombie")
 			m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ZombieDie1);
-		Debug.Log(name + " died");
+		//Debug.Log("Combat: " + name + " died");
 		SetDead(false);
 		m_Animator.Play("Death");
 		yield return new WaitForSeconds(2);

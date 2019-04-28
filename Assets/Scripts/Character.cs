@@ -263,7 +263,7 @@ public class Character
 	{
 		float chance = defender.Dexterity + 2 * (Level - defender.Level) + 30;// 30 for warriors, 20 for rogues, 10 for sorcerors
 		float roll = UnityEngine.Random.Range(0, 100f);
-		Debug.Log("chance to block =" + chance + ",roll=" + roll);
+		//Debug.Log("Combat: chance to block =" + chance + ",roll=" + roll);
 		if (defender.Equipped.lefthand != null && defender.Equipped.lefthand.baseType && defender.Equipped.lefthand.baseType.GetType() == typeof(ShieldBase))
 		{
 			defender.Equipped.lefthand.durability -= 0.1f;
@@ -276,7 +276,7 @@ public class Character
 		}
 		if (roll <= chance)
 		{
-			Debug.Log("good for a block");
+			//Debug.Log("Combat: good for a block");
 			return true;
 		}
 		return false;
@@ -316,13 +316,13 @@ public class Character
 		//float chance = (float)ToHitPercent / (float)defender.ArmourClass;
 		float chance = (float)ToHitPercent;
 		float roll = UnityEngine.Random.Range(0, 100f);
-		//Debug.Log("chance to hit =" + chance + ",roll=" + roll);
+		//Debug.Log("Combat: chance to hit =" + chance + ",roll=" + roll);
 		if (roll <= chance)
 		{
 			if (defender.Class != CharacterClass.NPC && TryBlocking(defender))
 			{
 				damage = 0;
-				Debug.Log("good for a hit, but it's blocked");
+				//Debug.Log("Combat: good for a hit, but it's blocked");
 				hit = false;
 			}
 			else
@@ -334,11 +334,11 @@ public class Character
 					roll = UnityEngine.Random.Range(0, 100f);
 					if (roll <= chance)
 					{
-						Debug.Log("critical hit - double damage");
+						//Debug.Log("Combat: critical hit - double damage");
 						damage *= 2;
 					}
 				}
-				Debug.Log("good for a hit. damage is " + damage);
+				//Debug.Log("Combat: good for a hit. damage is " + damage);
 				hit = true;
 			}
 			if (damage < 0) damage = 0;
