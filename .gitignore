@@ -264,6 +264,7 @@ __pycache__/
 # Unity folders #
 # =============== #
 .gradle/
+Assets/StreamingAssets/
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/

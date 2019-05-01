@@ -55,7 +55,9 @@ public class SceneController : MonoBehaviour
 
 		if (BeforeSceneUnload != null) BeforeSceneUnload();
 		// Unload the current active scene.
-		yield return UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+		//yield return UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+		//Debug.Log("CurrentScene = '" + CurrentScene + "'");
+		yield return UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(CurrentScene);
 		// Start loading the given scene and wait for it to finish.
 		yield return StartCoroutine(LoadSceneAndSetActive(sceneName));
 		// If this event has any subscribers, call it.
@@ -74,6 +76,13 @@ public class SceneController : MonoBehaviour
 		Scene newlyLoadedScene = UnityEngine.SceneManagement.SceneManager.GetSceneAt(UnityEngine.SceneManagement.SceneManager.sceneCount - 1);
 		// Set the newly loaded scene as the active scene (this marks it as the one to be unloaded next).
 		UnityEngine.SceneManagement.SceneManager.SetActiveScene(newlyLoadedScene);
+
+		//for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCount; i++)
+		//{
+		//	Scene scene = UnityEngine.SceneManagement.SceneManager.GetSceneAt(i);
+		//	Debug.Log(string.Format("sceneName = '{0}' scene '{1}' {2} {3}", sceneName, scene.name, scene.buildIndex, i));
+		//}
+
 		PreviousScene = CurrentScene;
 		CurrentScene = sceneName;
 	}

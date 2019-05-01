@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavMeshComponents", "NavMes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavMeshComponentsEditor", "NavMeshComponentsEditor.csproj", "{4FE00450-5992-6C4F-385D-5BC71AA24BDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.AssetBundleBrowser.Editor", "Unity.AssetBundleBrowser.Editor.csproj", "{208D0CD2-67E1-2E07-3279-CB6F6A891096}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.AssetBundleBrowser.Editor.Tests", "Unity.AssetBundleBrowser.Editor.Tests.csproj", "{9805C9B7-1A7E-396E-F1E5-B52A7FA99EC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{AFDE4105-2CBA-9C1F-16CB-8B3A356BE241}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +31,18 @@ Global
 		{4FE00450-5992-6C4F-385D-5BC71AA24BDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FE00450-5992-6C4F-385D-5BC71AA24BDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FE00450-5992-6C4F-385D-5BC71AA24BDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{208D0CD2-67E1-2E07-3279-CB6F6A891096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{208D0CD2-67E1-2E07-3279-CB6F6A891096}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{208D0CD2-67E1-2E07-3279-CB6F6A891096}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{208D0CD2-67E1-2E07-3279-CB6F6A891096}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9805C9B7-1A7E-396E-F1E5-B52A7FA99EC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9805C9B7-1A7E-396E-F1E5-B52A7FA99EC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9805C9B7-1A7E-396E-F1E5-B52A7FA99EC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9805C9B7-1A7E-396E-F1E5-B52A7FA99EC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFDE4105-2CBA-9C1F-16CB-8B3A356BE241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFDE4105-2CBA-9C1F-16CB-8B3A356BE241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFDE4105-2CBA-9C1F-16CB-8B3A356BE241}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFDE4105-2CBA-9C1F-16CB-8B3A356BE241}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

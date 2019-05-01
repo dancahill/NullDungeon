@@ -15,15 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 355f59694e36af24bbc92a852ec07e2d
   - enabled: 1
-    path: Assets/Scenes/Town.unity
-    guid: 42aa27e578e1c794b9e522642505f27e
-  - enabled: 1
-    path: Assets/Scenes/Dungeon1.unity
-    guid: 296a72b5ba978744abdff93c672f06bc
-  - enabled: 1
-    path: Assets/Scenes/Dungeon2.unity
-    guid: 1516ddcae64a9cb4bb620eae2011ec31
-  - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: 578a6f6494630204ca0fa29c58e4083c
   m_configObjects: {}

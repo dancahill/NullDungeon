@@ -102,6 +102,7 @@ public class SceneManager : MonoBehaviour
 		{
 			NavMeshSurface nms = env.AddComponent<NavMeshSurface>();
 			nms.layerMask = 1 << LayerMask.NameToLayer("Ground");
+			nms.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
 			nms.BuildNavMesh();
 		}
 	}
@@ -113,11 +114,19 @@ public class SceneManager : MonoBehaviour
 
 	void RepositionCamera()
 	{
-		string scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-		if (scene != "Intro" && scene != "MainMenu" && scene != "GameOver")
+		GameObject player = GameObject.Find("Player");
+		//string scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+		//if (scene != "Intro" && scene != "MainMenu" && scene != "GameOver")
+		if (player)
 		{
-			manager.ActiveCamera.transform.position = player.transform.position + new Vector3(4 - Settings.CameraZoom, 5 - Settings.CameraZoom, 4 - Settings.CameraZoom);
-			manager.ActiveCamera.transform.LookAt(player.transform.position + new Vector3(0, 0.1f, 0));
+			//manager.ActiveCamera.transform.position = player.transform.position + new Vector3(4 - Settings.CameraZoom, 5 - Settings.CameraZoom, 4 - Settings.CameraZoom);
+			//manager.ActiveCamera.transform.LookAt(player.transform.position + new Vector3(0, 0.1f, 0));
+			//if (Settings.CameraSkew != 0) manager.ActiveCamera.transform.Translate(Vector3.right * Settings.CameraSkew * 3, Space.Self);
+
+			manager.ActiveCamera.transform.position = player.transform.TransformPoint(0, 1, 0);
+			manager.ActiveCamera.transform.rotation = Quaternion.Euler(30f, -135f, 0f);
+			manager.ActiveCamera.orthographicSize = 3f - Settings.CameraZoom;
+
 			if (Settings.CameraSkew != 0) manager.ActiveCamera.transform.Translate(Vector3.right * Settings.CameraSkew * 3, Space.Self);
 		}
 	}

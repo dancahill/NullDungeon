@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerAnimator))]
 [RequireComponent(typeof(PlayerInput))]
@@ -27,6 +28,9 @@ public class Player : MonoBehaviour
 		{
 			GetComponentInChildren<Light>().enabled = false;
 		}
+
+		if (Stats.Class == Character.CharacterClass.NPC) Stats.Class = Character.CharacterClass.Warrior;
+		SetupMiniMap();
 	}
 
 	private void Update()
@@ -42,8 +46,8 @@ public class Player : MonoBehaviour
 			//float speed = Animator.GetSpeed();
 			//if (speed > 0.1f && Stats.CanStep(speed)) // this needs work on the timing
 			//{
-				//Debug.Log("step '" + speed + "'");
-				//SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.Footstep1);
+			//Debug.Log("step '" + speed + "'");
+			//SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.Footstep1);
 			//}
 			model.EquipSword(Stats.Equipped.righthand != null);
 			model.EquipShield(Stats.Equipped.lefthand != null);
@@ -69,5 +73,24 @@ public class Player : MonoBehaviour
 		{
 			Manager.m_SoundManager.PlaySound(SoundManager.Sounds.PlayerHit1, FindObjectOfType<Player>().Stats.Class);
 		}
+	}
+
+	public void SetupMiniMap()
+	{
+		GameObject mapimage = GameObject.Find("Canvas/Game/Minimap Image");
+		GameObject mapcamera = GameObject.Find("Player/Minimap Camera");
+		if (!mapimage || !mapcamera)
+		{
+			Debug.LogWarning("minimap object not found");
+			return;
+		}
+		RawImage mimage = mapimage.GetComponent<RawImage>();
+		Camera mcamera = mapcamera.GetComponent<Camera>();
+		if (!mimage || !mcamera)
+		{
+			Debug.LogWarning("minimap raw image or camera not found");
+			return;
+		}
+		mcamera.targetTexture = (RenderTexture)mimage.texture;
 	}
 }

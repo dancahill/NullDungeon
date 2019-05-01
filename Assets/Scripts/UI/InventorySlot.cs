@@ -89,7 +89,7 @@ public class InventorySlot : MonoBehaviour, IPointerClickHandler, IDragHandler, 
 	public void OnRemoveButton()
 	{
 		Character c = GameManager.GetPlayer();
-		Debug.Log("OnRemoveButton() '" + name + "'");
+		//Debug.Log("OnRemoveButton() '" + name + "'");
 		if (name.StartsWith("InventorySlot"))
 		{
 			LootManager lm = FindObjectOfType<LootManager>();

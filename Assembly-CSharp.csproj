@@ -62,11 +62,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ColliderInteraction.cs" />
     <Compile Include="Assets\Imports\RPGPackFree\Scripts\BowString.cs" />
     <Compile Include="Assets\Imports\RPGPackFree\Scripts\OpenChest.cs" />
-    <Compile Include="Assets\Imports\TestModels\Knight\scripts\rotator.cs" />
+    <Compile Include="Assets\Scripts\AssetLoader.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
+    <Compile Include="Assets\Scripts\ColliderInteraction.cs" />
     <Compile Include="Assets\Scripts\DungeonState.cs" />
     <Compile Include="Assets\Scripts\EnemyAnimator.cs" />
     <Compile Include="Assets\Scripts\EnemyPrefabs.cs" />
@@ -108,6 +108,7 @@
     <None Include="Assets\Imports\Mega Fantasy Props Pack\README.txt" />
     <None Include="Assets\Notes.txt" />
     <None Include="Assets\Imports\TestModels\Raw Mocap Data\Animations\_CompleteAnimationList.txt" />
+    <None Include="Assets\Imports\RainEntertainment\FantasyMonster4\Centaur War Lord\readMe.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/temp/Unity/NullDungeon/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
@@ -672,6 +673,10 @@
     <ProjectReference Include="NavMeshComponents.csproj">
       <Project>{E97DD738-C769-39BE-0637-F49E3B90CAF2}</Project>
       <Name>NavMeshComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.AssetBundleBrowser.Editor.csproj">
+      <Project>{208D0CD2-67E1-2E07-3279-CB6F6A891096}</Project>
+      <Name>Unity.AssetBundleBrowser.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

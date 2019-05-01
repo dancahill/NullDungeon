@@ -43,5 +43,7 @@ public class GameDataTables
 	public readonly static EnemyStats[] Enemies = new EnemyStats[] {
 		new EnemyStats { Name="Zombie",   Level=1, MinHP=2, MaxHP=3, ArmourClass=5, ToHitPercent=10, MinDamage=2, MaxDamage=5, AttackTime=0.60f, BaseExp=54 },
 		new EnemyStats { Name="Skeleton", Level=1, MinHP=1, MaxHP=2, ArmourClass=0, ToHitPercent=20, MinDamage=1, MaxDamage=4, AttackTime=0.65f, BaseExp=64 },
+
+		new EnemyStats { Name="Centaur War Lord", Level=10, MinHP=100, MaxHP=100, ArmourClass=10, ToHitPercent=50, MinDamage=10, MaxDamage=14, AttackTime=0.65f, BaseExp=1000 },
 	};
 }
