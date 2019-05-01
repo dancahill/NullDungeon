@@ -141,7 +141,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2031066364335825735}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.2, y: 0.2, z: 0.2}
@@ -162,8 +162,8 @@ MonoBehaviour:
   text: {fileID: 2031066364429014761}
   radius: 1.1
   item:
-    baseTypeName: Potion Of Healing
     baseType: {fileID: 11400000, guid: 4f66614d8a992c542a45e03aaefd52ff, type: 2}
+    baseTypeName: Potion Of Healing
     durability: 0
 --- !u!1 &2031066364429014758
 GameObject:
@@ -266,10 +266,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2031066364335825736}
     m_Modifications:
-    - target: {fileID: 1000013901813818, guid: 45cfe9643a7d13d4a912eade7a5d3acd, type: 3}
-      propertyPath: m_Name
-      value: LifePot
-      objectReference: {fileID: 0}
     - target: {fileID: 4000010775639360, guid: 45cfe9643a7d13d4a912eade7a5d3acd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -313,6 +309,10 @@ PrefabInstance:
     - target: {fileID: 4000010775639360, guid: 45cfe9643a7d13d4a912eade7a5d3acd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013901813818, guid: 45cfe9643a7d13d4a912eade7a5d3acd, type: 3}
+      propertyPath: m_Name
+      value: LifePot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45cfe9643a7d13d4a912eade7a5d3acd, type: 3}

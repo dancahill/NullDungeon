@@ -5,7 +5,7 @@ public class Interactable : MonoBehaviour
 {
 	public Canvas overheadCanvas;
 	public Text text;
-	[HideInInspector] public float radius = 1.1f;
+	[HideInInspector] public float radius = 1.2f;
 	bool mouseover;
 
 	protected virtual void Awake()

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class LootManager : MonoBehaviour
 {
@@ -24,8 +25,8 @@ public class LootManager : MonoBehaviour
 		Rigidbody rb = g.AddComponent<Rigidbody>();
 		//rb.mass = 1;
 		rb.AddForce(Vector3.up * 2, ForceMode.Impulse);
-		Destroy(rb, 2);
-		//StartCoroutine(FinishDrop(g));
+		//Destroy(rb, 2);
+		StartCoroutine(FinishDrop(g));
 		FlipSound(item);
 		return true;
 	}
@@ -42,12 +43,17 @@ public class LootManager : MonoBehaviour
 			SoundManager.GetCurrent().PlaySound(SoundManager.Sounds.FlipRing);
 	}
 
-	//IEnumerator FinishDrop(GameObject item)
-	//{
-	//	yield return new WaitForSeconds(2f);
-	//	Rigidbody rb = item.GetComponent<Rigidbody>();
-	//	if (rb) Destroy(rb);
-	//}
+	IEnumerator FinishDrop(GameObject item)
+	{
+		//yield return new WaitForSeconds(1f);
+		while (item.transform.position.y >= 0)
+		{
+			yield return null;
+		}
+		item.transform.Translate(Vector3.up * -item.transform.position.y);
+		Rigidbody rb = item.GetComponent<Rigidbody>();
+		if (rb) Destroy(rb);
+	}
 
 	public void DropRandom(Vector3 droplocation, int itemlevel)
 	{

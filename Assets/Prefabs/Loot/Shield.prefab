@@ -235,7 +235,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1673178015990408698}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.2, z: 0.8}
@@ -256,8 +256,8 @@ MonoBehaviour:
   text: {fileID: 1673178015617603338}
   radius: 1.1
   item:
-    baseTypeName: Buckler
     baseType: {fileID: 11400000, guid: 79a3df26a15089d4a87bed9a9fa15219, type: 2}
+    baseTypeName: Buckler
     durability: 0
 --- !u!1001 &1673178015483076518
 PrefabInstance:
@@ -266,10 +266,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1673178015990408696}
     m_Modifications:
-    - target: {fileID: 1000013856828682, guid: 78f17d5953549814cb7d6f65920a0d87, type: 3}
-      propertyPath: m_Name
-      value: Shield_tex
-      objectReference: {fileID: 0}
     - target: {fileID: 4000012105387528, guid: 78f17d5953549814cb7d6f65920a0d87, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -313,6 +309,10 @@ PrefabInstance:
     - target: {fileID: 4000012105387528, guid: 78f17d5953549814cb7d6f65920a0d87, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013856828682, guid: 78f17d5953549814cb7d6f65920a0d87, type: 3}
+      propertyPath: m_Name
+      value: Shield_tex
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78f17d5953549814cb7d6f65920a0d87, type: 3}

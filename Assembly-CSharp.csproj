@@ -90,14 +90,14 @@
     <Compile Include="Assets\Scripts\Items\BaseTypes\ShieldBase.cs" />
     <Compile Include="Assets\Scripts\Items\BaseTypes\WeaponBase.cs" />
     <Compile Include="Assets\Scripts\Items\Item.cs" />
-    <Compile Include="Assets\Scripts\LootManager.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAnimator.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerAnimatorEvents.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerModel.cs" />
     <Compile Include="Assets\Scripts\PlayerInput.cs" />
-    <Compile Include="Assets\Scripts\SceneManager.cs" />
+    <Compile Include="Assets\Scripts\SceneManagement\LootManager.cs" />
+    <Compile Include="Assets\Scripts\SceneManagement\SceneManager.cs" />
     <Compile Include="Assets\Scripts\UI\CanvasController.cs" />
     <Compile Include="Assets\Scripts\UI\CharacterPanel.cs" />
     <Compile Include="Assets\Scripts\UI\GameCanvas.cs" />
