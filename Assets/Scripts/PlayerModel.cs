@@ -3,18 +3,21 @@
 public class PlayerModel : MonoBehaviour
 {
 	public GameObject weaponPosition;
+	public GameObject weaponRestPosition;
 	public GameObject weaponPrefab;
 	public GameObject weaponEquipped;
 
-	public GameObject ShieldPosition;
-	public GameObject ShieldPrefab;
-	public GameObject ShieldEquipped;
+	public GameObject shieldPosition;
+	public GameObject shieldRestPosition;
+	public GameObject shieldPrefab;
+	public GameObject shieldEquipped;
 
 	public void EquipSword(bool equip)
 	{
+		bool intown = SceneController.GetActiveSceneName() == "Town";
 		if (equip)
 		{
-			if (!weaponEquipped) weaponEquipped = Instantiate(weaponPrefab, weaponPosition.transform);
+			if (!weaponEquipped) weaponEquipped = Instantiate(weaponPrefab, (intown ? weaponRestPosition : weaponPosition).transform);
 		}
 		else
 		{
@@ -24,13 +27,14 @@ public class PlayerModel : MonoBehaviour
 
 	public void EquipShield(bool equip)
 	{
+		bool intown = SceneController.GetActiveSceneName() == "Town";
 		if (equip)
 		{
-			if (!ShieldEquipped) ShieldEquipped = Instantiate(ShieldPrefab, ShieldPosition.transform);
+			if (!shieldEquipped) shieldEquipped = Instantiate(shieldPrefab, (intown ? shieldRestPosition : shieldPosition).transform);
 		}
 		else
 		{
-			if (ShieldEquipped) Destroy(ShieldEquipped);
+			if (shieldEquipped) Destroy(shieldEquipped);
 		}
 	}
 }

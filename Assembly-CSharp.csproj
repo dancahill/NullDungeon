@@ -69,6 +69,8 @@
     <Compile Include="Assets\Scripts\ColliderInteraction.cs" />
     <Compile Include="Assets\Scripts\DungeonState.cs" />
     <Compile Include="Assets\Scripts\EnemyAnimator.cs" />
+    <Compile Include="Assets\Scripts\EnemyAnimatorEvents.cs" />
+    <Compile Include="Assets\Scripts\EnemyModel.cs" />
     <Compile Include="Assets\Scripts\EnemyPrefabs.cs" />
     <Compile Include="Assets\Scripts\GameDataTables.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />

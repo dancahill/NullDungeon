@@ -107,6 +107,9 @@ public class EnemyAnimator : MonoBehaviour
 		if (name == "Skeleton")
 		{
 			transform.position -= new Vector3(0, 0.85f, 0);
+
+			EnemyModel em = GetComponentInChildren<EnemyModel>();
+			if (em) em.EquipSword(false);
 		}
 		GetComponent<CapsuleCollider>().enabled = false;
 	}

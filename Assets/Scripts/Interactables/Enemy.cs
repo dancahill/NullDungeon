@@ -35,6 +35,9 @@ public class Enemy : Interactable
 		start = transform.Find("Waypoints/Start").position;
 		end = transform.Find("Waypoints/End").position;
 		destination = end;
+
+		EnemyModel em = GetComponentInChildren<EnemyModel>();
+		if (em) em.EquipSword(true);
 	}
 
 	protected override void Update()
