@@ -25,11 +25,17 @@ public class GameSave
 		p.Equipped.righthand = new Item(catalog.FindItem("Short Sword").baseType);
 		//p.Equipped.righthand.baseType = ;
 		//p.Equipped.lefthand.baseType = catalog.FindItem(p.Equipped.lefthand.baseTypeName).baseType;
-		p.Equipped.lefthand= new Item(catalog.FindItem("Buckler").baseType);
+		p.Equipped.lefthand = new Item(catalog.FindItem("Buckler").baseType);
 		foreach (Item i in p.Inventory)
 		{
 			i.baseType = catalog.FindItem(i.baseTypeName).baseType;
 		}
+	}
+
+	public static bool CharacterExists()
+	{
+		string filepath = Application.persistentDataPath + "/character1.json";
+		return File.Exists(filepath);
 	}
 
 	public static void SaveCharacter(Character stats)

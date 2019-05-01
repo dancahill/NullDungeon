@@ -11,6 +11,7 @@ public class MainMenu : MonoBehaviour
 
 	public void MenuContinueGame()
 	{
+		if (!GameSave.CharacterExists()) GameSave.SaveCharacter(new Character(Character.CharacterClass.Warrior));
 		m_Manager.m_SoundManager.PlaySound(SoundManager.Sounds.ClickHeavy);
 		m_Manager.Settings.NewInTown = true;
 		m_Manager.sceneController.FadeAndLoadScene("Town");
