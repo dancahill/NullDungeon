@@ -54,15 +54,8 @@ public class DungeonState
 		foreach (DungeonObject d in dl.DungeonObjects)
 		{
 			GameObject prefab;
-			if (d.Name == "Skeleton")
-			{
-				prefab = ep.m_SkeletonPrefab;
-			}
-			else if (d.Name == "Zombie")
-			{
-				prefab = ep.m_ZombiePrefab;
-			}
-			else
+			prefab = ep.prefabs.Find(x => x.name == d.Name);
+			if (!prefab)
 			{
 				Debug.Log("prefab for " + d.Name + " not found");
 				continue;
